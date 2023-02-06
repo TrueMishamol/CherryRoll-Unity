@@ -68,3 +68,5 @@ crashlytics-build.properties
 *_clone_*
 Ignore/
 3D/
+Build/Windows/
+Build/Mac/
