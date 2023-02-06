@@ -1,7 +1,15 @@
-A multiplayer game called Cherry Roll made for collage. Contains several mini-games for play with friends
+# Cherry Roll
 
-Made on Unity 3D
+A multiplayer game made for collage. Contains several mini-games to play with friends
 
-My site: https://mishamol.ru
+Made with Unity 3D
 
-You can also see some updates on game here: https://vk.com/mishamol_news
+## Download
+[Windows](https://github.com/TrueMishamol/CherryRoll/raw/main/Build/Windows.rar)
+
+## Contacts
+My site: [mishamol.ru](https://mishamol.ru)
+
+You can also see some updates on game and other stuff here: [vk.com/mishamol_news](https://vk.com/mishamol_news)
+
+My teacher: [vk.com/shmeli_studio](https://vk.com/shmeli_studio)
