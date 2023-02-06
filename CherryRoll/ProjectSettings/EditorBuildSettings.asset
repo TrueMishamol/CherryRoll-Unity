@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/CherryRoll/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/CherryRoll/Scenes/LobbyScene.unity
+    guid: 948e258038e79204c9ffff7761b0d063
+  - enabled: 0
+    path: Assets/CherryRoll/Scenes/PlayScene.unity
+    guid: 8129473a0862f3945bba1971e5ed67ba
+  m_configObjects: {}
