@@ -70,3 +70,7 @@ Ignore/
 3D/
 Build/Windows/
 Build/Mac/
+*.kra~
+*.png~
+*.jpg~
+*.jpeg~
