@@ -4,9 +4,6 @@ A multiplayer game made for collage. Contains several mini-games to play with fr
 
 Made with Unity 3D
 
-## Download
-[Windows](https://github.com/TrueMishamol/CherryRoll/raw/main/Build/Windows.rar)
-
 ## Contacts
 My site: [mishamol.ru](https://mishamol.ru)
 
