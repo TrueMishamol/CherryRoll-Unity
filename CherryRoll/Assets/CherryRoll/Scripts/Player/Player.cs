@@ -7,12 +7,15 @@ using UnityEngine;
 public class Player : NetworkBehaviour
 {
     [SerializeField] float spawnPositionRange = 5f;
-    [SerializeField] private LayerMask interactLayerMask;
+
     [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
     private MeshRenderer meshRenderer;
 
+    // Interaction
+    [SerializeField] private LayerMask interactLayerMask;
     private Vector3 lastInteractDir;
+    private Wardrobe selectedWarderobe;
 
     // Game input
     private GameObject gameInputHolder;
@@ -24,9 +27,13 @@ public class Player : NetworkBehaviour
     private GameObject cameraFollow;
     private string cameraName = "CameraFollow";
 
+    private void Awake()
+    {
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+    }
+
     private void Start()
     {
-
         if (IsOwner)
         {
             // Game Input
@@ -59,19 +66,12 @@ public class Player : NetworkBehaviour
         float interactDistance = .55f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask))
         {
-            Debug.Log("Interact");
-
             // Wardrobe
             if (raycastHit.transform.TryGetComponent(out Wardrobe wardrobe))
             {
                 playerColor.Value = wardrobe.RandomizePlayerColor();
             }
         }
-    }
-
-    private void Awake()
-    {
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
     public override void OnNetworkSpawn()
@@ -98,5 +98,32 @@ public class Player : NetworkBehaviour
 
         // Rotates player to face Camera
         transform.rotation = new Quaternion(0, 180, 0, 0);
+    }
+
+    private void Update()
+    {
+        HandleInteractions();
+    }
+
+    private void HandleInteractions()
+    {
+        Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
+
+        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+
+        if (moveDir != Vector3.zero)
+        {
+            lastInteractDir = moveDir;
+        }
+
+        float interactDistance = .55f;
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask))
+        {
+            // Wardrobe
+            if (raycastHit.transform.TryGetComponent(out Wardrobe wardrobe))
+            {
+                playerColor.Value = wardrobe.RandomizePlayerColor();
+            }
+        }
     }
 }

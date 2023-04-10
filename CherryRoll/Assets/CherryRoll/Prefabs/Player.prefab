@@ -108,13 +108,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPositionRange: 5
-  gameInputHolder: {fileID: 0}
-  gameInput: {fileID: 0}
+  playerColor:
+    m_InternalValue: {r: 1, g: 1, b: 1, a: 1}
   interactLayerMask:
     serializedVersion: 2
     m_Bits: 64
-  playerColor:
-    m_InternalValue: {r: 1, g: 1, b: 1, a: 1}
   playerCameraFollow: {fileID: 0}
 --- !u!114 &3088444404143688097
 MonoBehaviour:
@@ -128,7 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 998bd4fd08f18b548a3d6866962c8734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInput: {fileID: 0}
   characterController: {fileID: 228779371543705271}
   walkSpeed: 3
   playerRotationSpeed: 300
