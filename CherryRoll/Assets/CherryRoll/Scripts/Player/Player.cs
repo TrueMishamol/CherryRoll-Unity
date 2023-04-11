@@ -4,8 +4,7 @@ using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Player : NetworkBehaviour
-{
+public class Player : NetworkBehaviour {
     [SerializeField] float spawnPositionRange = 5f;
 
     [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -17,6 +16,8 @@ public class Player : NetworkBehaviour
     private Vector3 lastInteractDir;
     private Wardrobe selectedWarderobe;
 
+    private BaseInteractableObject selectedInteractableObject;
+
     // Game input
     private GameObject gameInputHolder;
     private GameInput gameInput;
@@ -27,15 +28,12 @@ public class Player : NetworkBehaviour
     private GameObject cameraFollow;
     private string cameraName = "CameraFollow";
 
-    private void Awake()
-    {
+    private void Awake() {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
     }
 
-    private void Start()
-    {
-        if (IsOwner)
-        {
+    private void Start() {
+        if (IsOwner) {
             // Game Input
             gameInputHolder = GameObject.Find(gameInputHolderName);
             gameInputHolder.TryGetComponent<GameInput>(out gameInput);
@@ -43,8 +41,7 @@ public class Player : NetworkBehaviour
 
         gameInput.OnInteractAction += GameInput_OnInteractAction;
 
-        if (IsClient && IsOwner)
-        {
+        if (IsClient && IsOwner) {
             // Cinemachine
             cameraFollow = GameObject.Find(cameraName);
             cameraFollow.TryGetComponent<PlayerCameraFollow>(out playerCameraFollow);
@@ -52,33 +49,37 @@ public class Player : NetworkBehaviour
         }
     }
 
-    private void GameInput_OnInteractAction(object sender, System.EventArgs e)
-    {
-        Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
+    private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
+        //! faf
+        //Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
 
-        Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
+        //Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        if (moveDir != Vector3.zero)
-        {
-            lastInteractDir = moveDir;
-        }
+        //if (moveDir != Vector3.zero) {
+        //    lastInteractDir = moveDir;
+        //}
 
-        float interactDistance = .55f;
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask))
-        {
-            // Wardrobe
-            if (raycastHit.transform.TryGetComponent(out Wardrobe wardrobe))
-            {
-                playerColor.Value = wardrobe.RandomizePlayerColor();
-            }
+        //float interactDistance = .55f;
+        //if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask)) {
+        //    // Wardrobe
+        //    if (raycastHit.transform.TryGetComponent(out Wardrobe wardrobe)) {
+        //        playerColor.Value = wardrobe.RandomizePlayerColor();
+        //    }
+        //}
+        //! faf
+
+        if (selectedInteractableObject != null) {
+            selectedInteractableObject.Interact(this);
         }
     }
 
-    public override void OnNetworkSpawn()
-    {
+    public void ChangePlayerColor(Color playerColor) {
+        this.playerColor.Value = playerColor;
+    }
+
+    public override void OnNetworkSpawn() {
         // Update Player Color
-        playerColor.OnValueChanged += (Color previousValue, Color newValue) =>
-        {
+        playerColor.OnValueChanged += (Color previousValue, Color newValue) => {
             meshRenderer.material.color = newValue;
             Debug.Log("Player " + OwnerClientId + " change color from " + previousValue + " to " + newValue);
         };
@@ -91,8 +92,7 @@ public class Player : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void RandomSpawnServerRpc()
-    {
+    private void RandomSpawnServerRpc() {
         // ? Idea: Spawn Players near Host or Object
         transform.position = new Vector3(Random.Range(spawnPositionRange, -spawnPositionRange), 0, Random.Range(spawnPositionRange, -spawnPositionRange));
 
@@ -100,30 +100,33 @@ public class Player : NetworkBehaviour
         transform.rotation = new Quaternion(0, 180, 0, 0);
     }
 
-    private void Update()
-    {
+    private void Update() {
         HandleInteractions();
     }
 
-    private void HandleInteractions()
-    {
+    private void HandleInteractions() {
         Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
 
         Vector3 moveDir = new Vector3(inputVector.x, 0f, inputVector.y);
 
-        if (moveDir != Vector3.zero)
-        {
+        if (moveDir != Vector3.zero) {
             lastInteractDir = moveDir;
         }
 
         float interactDistance = .55f;
-        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask))
-        {
-            // Wardrobe
-            if (raycastHit.transform.TryGetComponent(out Wardrobe wardrobe))
-            {
-                playerColor.Value = wardrobe.RandomizePlayerColor();
+        if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask)) {
+            if (raycastHit.transform.TryGetComponent(out BaseInteractableObject baseInteractableObject)) {
+                // Has BaseInteractableObject
+                if (baseInteractableObject != selectedInteractableObject) {
+                    selectedInteractableObject = baseInteractableObject;
+                }
+            } else {
+                // Has no BaseInteractableObject
+                selectedInteractableObject = null;
             }
+        } else {
+            // Raycast do not hit interactLayerMask
+            selectedInteractableObject = null;
         }
     }
 }

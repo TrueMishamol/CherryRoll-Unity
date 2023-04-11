@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InteractableObject : MonoBehaviour
-{
+public class BaseInteractableObject : MonoBehaviour {
     //[SerializeField] private 
     // Прикрепить MonoBehavior скрипт объекта, который должен зпускать 
     // Interact функцию внутри этого C# скрипта
@@ -12,5 +11,9 @@ public class InteractableObject : MonoBehaviour
 
     //[SerializeField] private string scriptType = "Wardrobe";
     //[SerializeField] private scriptType;
+
+    public virtual void Interact(Player player) {
+        Debug.LogError("BaseInteractableObject.Interact();");
+    }
 
 }
