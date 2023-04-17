@@ -8,8 +8,4 @@ public class Wardrobe : BaseInteractableObject
         Color playerColor = new Color(Random.value, Random.value, Random.value);
         player.ChangePlayerColor(playerColor);
     }
-
-    //public Color RandomizePlayerColor()
-    //{
-    //}
 }

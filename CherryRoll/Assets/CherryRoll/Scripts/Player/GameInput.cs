@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
+    public static GameInput Instance { get; private set; }
+
     private PlayerInputActions playerInputActions;
 
     // Smooth Moove Vector
@@ -17,6 +19,8 @@ public class GameInput : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         // Initialize all the variables for Input System
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
