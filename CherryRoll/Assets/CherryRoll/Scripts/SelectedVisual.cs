@@ -7,20 +7,31 @@ public class SelectedVisual : MonoBehaviour {
     [SerializeField] private BaseInteractableObject interactableObject;
     [SerializeField] private GameObject[] visualGameObjectArray;
 
-    //private void Start() {
-    //    Player.Instance.OnSelectedInteractableObjectChanged += Player_OnSelectedInteractableObjectChanged;
-    //}
+    private void Start() {
+        if (Player.LocalInstance != null) {
+            Player.LocalInstance.OnSelectedInteractableObjectChanged += Player_OnSelectedInteractableObjectChanged;
+        } else {
+            Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+        }
+    }
 
-    //private void Player_OnSelectedInteractableObjectChanged(object sender, Player.OnSelectedInteractableObjectChangedEventArgs e) {
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
+        if (Player.LocalInstance != null) {
+            Player.LocalInstance.OnSelectedInteractableObjectChanged -= Player_OnSelectedInteractableObjectChanged;
+            Player.LocalInstance.OnSelectedInteractableObjectChanged += Player_OnSelectedInteractableObjectChanged;
+        }
+    }
 
-    //    Debug.Log("Selected object" + e);
+    private void Player_OnSelectedInteractableObjectChanged(object sender, Player.OnSelectedInteractableObjectChangedEventArgs e) {
 
-    //    if (e.selectedInteractableObject == interactableObject) {
-    //        Show();
-    //    } else {
-    //        Hide();
-    //    }
-    //}
+        Debug.Log("Selected object" + e);
+
+        if (e.selectedInteractableObject == interactableObject) {
+            Show();
+        } else {
+            Hide();
+        }
+    }
 
     private void Show() {
         foreach (GameObject visualGameObject in visualGameObjectArray) {

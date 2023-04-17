@@ -7,8 +7,13 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour {
 
-    //! Don't shure if there is a way to use Instance in NetworkBehaviour
-    public static Player Instance { get; private set; }
+    public static event EventHandler OnAnyPlayerSpawned;
+
+    public static void ResetStaticData() {
+        OnAnyPlayerSpawned = null;
+    }
+
+    public static Player LocalInstance { get; private set; }
 
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
     public class OnSelectedInteractableObjectChangedEventArgs : EventArgs {
@@ -59,6 +64,14 @@ public class Player : NetworkBehaviour {
     }
 
     public override void OnNetworkSpawn() {
+        if (IsOwner) {
+            LocalInstance = this;
+
+            RandomSpawnServerRpc();
+        }
+
+        OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
+
         // Update Player Color
         playerColor.OnValueChanged += (Color previousValue, Color newValue) => {
             meshRenderer.material.color = newValue;
@@ -67,9 +80,6 @@ public class Player : NetworkBehaviour {
 
         // See others' Players Colors on Server Join
         meshRenderer.material.color = playerColor.Value;
-
-        if (!IsOwner) return;
-        RandomSpawnServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
