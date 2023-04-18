@@ -77,3 +77,5 @@ Ignore/
 *-autosave.kra
 
 desktop.ini
+
+*.lnk
