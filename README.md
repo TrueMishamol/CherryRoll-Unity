@@ -1,5 +1,7 @@
 # Cherry Roll
 
+### [Download](https://github.com/TrueMishamol/CherryRoll/releases)
+
 A multiplayer game made for collage. Contains several mini-games to play with friends
 
 Made with Unity 3D
