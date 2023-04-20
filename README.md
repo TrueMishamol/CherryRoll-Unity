@@ -6,6 +6,12 @@ A multiplayer game made for collage. Contains several mini-games to play with fr
 
 Made with Unity 3D
 
+# Overview
+
+Обзор 0.1.4 на русском:
+
+https://user-images.githubusercontent.com/101403719/233323128-a6600c9e-caf1-4116-80a7-471804e41bf5.mp4
+
 # Concept
 
 ![Concep art](https://github.com/TrueMishamol/CherryRoll/blob/master/Concept%20Arts/9.png)
