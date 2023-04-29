@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Wardrobe : BaseInteractableObject
+public class WardrobeInteractableObject : BaseInteractableObject
 {
     public override void Interact(Player player) {
         Color playerColor = new Color(Random.value, Random.value, Random.value);

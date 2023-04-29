@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SelectedVisual : MonoBehaviour {
@@ -24,7 +22,7 @@ public class SelectedVisual : MonoBehaviour {
 
     private void Player_OnSelectedInteractableObjectChanged(object sender, Player.OnSelectedInteractableObjectChangedEventArgs e) {
 
-        Debug.Log("Selected object" + e);
+        //Debug.Log("Selected object" + e);
 
         if (e.selectedInteractableObject == interactableObject) {
             Show();
