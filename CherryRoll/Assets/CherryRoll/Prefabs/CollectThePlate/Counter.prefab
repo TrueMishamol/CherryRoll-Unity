@@ -92,6 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c59882eab57f7441ac867b56fadd555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flourPrefab: {fileID: 329092276730254172, guid: 5f5fd3667e136444aa2971de41182043, type: 3}
+  itemHolder: {fileID: 4456577846632418544}
 --- !u!1001 &2039984347731113862
 PrefabInstance:
   m_ObjectHideFlags: 0
