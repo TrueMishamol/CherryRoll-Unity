@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b429d1dcecb37d4e8509ff86becb5d6, type: 3}
   m_Name: Soda
   m_EditorClassIdentifier: 
-  prefab: {fileID: 0}
+  prefab: {fileID: 6505818225496570216, guid: 14fea857622e24648a57dd5b72024fa2, type: 3}
   sprite: {fileID: 0}
-  itemName: 
+  itemName: Baking Soda
