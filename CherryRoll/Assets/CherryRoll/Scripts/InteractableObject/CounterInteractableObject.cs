@@ -9,8 +9,10 @@ public class CounterInteractableObject : BaseInteractableObject {
     [SerializeField] private Transform itemHolder;
 
     public override void Interact(Player player) {
-        Transform flourTransform = Instantiate(itemSO.prefab, itemHolder);
-        flourTransform.localPosition = Vector3.zero;
+        Transform itemTransform = Instantiate(itemSO.prefab, itemHolder);
+        itemTransform.localPosition = Vector3.zero;
+
+        Debug.Log(itemTransform.GetComponent<Item>().GetItemSO().itemName);
     }
 
     //public bool HasItem() {
