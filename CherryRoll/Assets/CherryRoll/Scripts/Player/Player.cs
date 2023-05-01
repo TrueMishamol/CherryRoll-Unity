@@ -1,41 +1,42 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
-public class Player : NetworkBehaviour {
+public class Player : NetworkBehaviour, IItemParent {
 
+    public static Player LocalInstance { get; private set; }
     public static event EventHandler OnAnyPlayerSpawned;
 
     public static void ResetStaticData() {
+        //LocalInstance = null;
         OnAnyPlayerSpawned = null;
     }
 
-    public static Player LocalInstance { get; private set; }
+    [SerializeField] float spawnPositionRange = 5f;
 
+    // Player Color
+    [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private MeshRenderer meshRenderer;
+
+    // Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
     public class OnSelectedInteractableObjectChangedEventArgs : EventArgs {
         public BaseInteractableObject selectedInteractableObject;
     }
 
-    [SerializeField] float spawnPositionRange = 5f;
-
-    [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
-    private MeshRenderer meshRenderer;
-
-    // Interaction
     [SerializeField] private LayerMask interactLayerMask;
     private Vector3 lastInteractDir;
-
     private BaseInteractableObject selectedInteractableObject;
 
+    [SerializeField] private Transform itemHolder;
+    private Item item;
+
     // Cinemachine
-    [SerializeField] private PlayerCameraFollow playerCameraFollow;
+    private PlayerCameraFollow playerCameraFollow;
     private GameObject cameraFollow;
     private string cameraName = "CameraFollow";
+
+
 
     private void Awake() {
         meshRenderer = GetComponentInChildren<MeshRenderer>();
@@ -129,6 +130,26 @@ public class Player : NetworkBehaviour {
         OnSelectedInteractableObjectChanged?.Invoke(this, new OnSelectedInteractableObjectChangedEventArgs {
             selectedInteractableObject = selectedInteractableObject
         });
+    }
+
+    public Transform GetItemFollowTransform() {
+        return itemHolder;
+    }
+
+    public void SetItem(Item item) {
+        this.item = item;
+    }
+
+    public Item GetItem() {
+        return item;
+    }
+
+    public void ClearItem() {
+        item = null;
+    }
+
+    public bool HasItem() {
+        return item != null;
     }
 }
 
