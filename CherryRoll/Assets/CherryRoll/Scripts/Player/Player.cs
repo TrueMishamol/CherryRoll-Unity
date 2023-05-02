@@ -21,12 +21,12 @@ public class Player : NetworkBehaviour, IItemParent {
     // Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
     public class OnSelectedInteractableObjectChangedEventArgs : EventArgs {
-        public BaseInteractableObject selectedInteractableObject;
+        public IInteractableObject selectedInteractableObject;
     }
 
     [SerializeField] private LayerMask interactLayerMask;
     private Vector3 lastInteractDir;
-    private BaseInteractableObject selectedInteractableObject;
+    private IInteractableObject selectedInteractableObject;
 
     [SerializeField] private Transform itemHolder;
     private Item item;
@@ -109,7 +109,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
         float interactDistance = .55f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask)) {
-            if (raycastHit.transform.TryGetComponent(out BaseInteractableObject baseInteractableObject)) {
+            if (raycastHit.transform.TryGetComponent(out IInteractableObject baseInteractableObject)) {
                 // Has BaseInteractableObject
                 if (baseInteractableObject != selectedInteractableObject) {
                     SetSelectedInteractableObject(baseInteractableObject);
@@ -124,7 +124,7 @@ public class Player : NetworkBehaviour, IItemParent {
         }
     }
 
-    private void SetSelectedInteractableObject(BaseInteractableObject selectedInteractableObject) {
+    private void SetSelectedInteractableObject(IInteractableObject selectedInteractableObject) {
         this.selectedInteractableObject = selectedInteractableObject;
 
         OnSelectedInteractableObjectChanged?.Invoke(this, new OnSelectedInteractableObjectChangedEventArgs {

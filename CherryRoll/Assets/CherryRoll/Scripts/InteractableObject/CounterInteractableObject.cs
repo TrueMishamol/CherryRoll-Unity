@@ -1,7 +1,7 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class CounterInteractableObject : BaseInteractableObject, IItemParent {
+public class CounterInteractableObject : NetworkBehaviour, IInteractableObject, IItemParent {
 
     [SerializeField] private ItemSO itemSO;
     //[SerializeField] private Transform flourPrefab;
@@ -9,7 +9,7 @@ public class CounterInteractableObject : BaseInteractableObject, IItemParent {
 
     private Item item;
 
-    public override void Interact(Player player) {
+    public void Interact(Player player) {
         if (!HasItem()) {
             Item.SpawnItem(itemSO, player);
             //!Item.SpawnItem(itemSO, this);

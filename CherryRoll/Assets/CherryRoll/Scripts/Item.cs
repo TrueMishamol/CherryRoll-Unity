@@ -6,12 +6,30 @@ public class Item : NetworkBehaviour {
     [SerializeField] private ItemSO itemSO;
 
     private IItemParent itemParent;
-      
+    private FollowTransform followTransform;
+
+    private void Awake() {
+        followTransform = GetComponent<FollowTransform>();
+    }
+
     public ItemSO GetItemSO() {
         return itemSO;
     }
 
     public void SetItemParent(IItemParent itemParent) {
+        SetItemParentServerRpc(itemParent.GetNetworkObject());
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SetItemParentServerRpc(NetworkObjectReference itemParentNetworkObjectReference) {
+        SetItemParentClientRpc(itemParentNetworkObjectReference);
+    }
+
+    [ClientRpc]
+    private void SetItemParentClientRpc(NetworkObjectReference itemParentNetworkObjectReference) {
+        itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
+        IItemParent itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
+
         if (this.itemParent != null) {
             this.itemParent.ClearItem();
         }
@@ -24,12 +42,7 @@ public class Item : NetworkBehaviour {
 
         itemParent.SetItem(this);
 
-        //transform.parent = itemParent.GetItemFollowTransform();
-        //transform.localPosition = Vector3.zero;
-
-
-        //Transform itemHolder = itemParent.GetItemFollowTransform();
-        //this. itemHolder
+        followTransform.SetTargetTransform(itemParent.GetItemFollowTransform());
     }
 
     public IItemParent GetItemParent() {

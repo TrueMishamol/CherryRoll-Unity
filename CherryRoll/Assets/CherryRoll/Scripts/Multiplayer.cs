@@ -28,6 +28,7 @@ public class Multiplayer : NetworkBehaviour {
 
         itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
         IItemParent itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
+
         item.SetItemParent(itemParent);
     }
 

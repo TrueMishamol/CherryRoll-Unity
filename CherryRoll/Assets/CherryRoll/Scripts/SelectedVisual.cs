@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SelectedVisual : MonoBehaviour {
 
-    [SerializeField] private BaseInteractableObject interactableObject;
+    [SerializeField] private IInteractableObject interactableObject;
     [SerializeField] private GameObject[] visualGameObjectArray;
 
     private void Start() {

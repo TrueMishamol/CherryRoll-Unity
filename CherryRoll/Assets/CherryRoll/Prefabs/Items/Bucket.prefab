@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1252875478942423302}
   - component: {fileID: 150859354119951005}
   - component: {fileID: 2924093891834459954}
+  - component: {fileID: -1769700396871529027}
   m_Layer: 0
   m_Name: Bucket
   m_TagString: Untagged
@@ -63,6 +64,18 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
+--- !u!114 &-1769700396871529027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917184053333463561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59d9fbf04ead3f24796d4e22323f09f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4024465882953248195
 PrefabInstance:
   m_ObjectHideFlags: 0
