@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public interface IItemParent {
@@ -11,4 +12,6 @@ public interface IItemParent {
     public void ClearItem();
 
     public bool HasItem();
+
+    public NetworkObject GetNetworkObject();
 }

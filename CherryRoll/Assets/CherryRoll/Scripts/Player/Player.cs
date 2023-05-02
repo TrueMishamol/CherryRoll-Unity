@@ -151,5 +151,9 @@ public class Player : NetworkBehaviour, IItemParent {
     public bool HasItem() {
         return item != null;
     }
+
+    public NetworkObject GetNetworkObject() {
+        return NetworkObject;
+    }
 }
 

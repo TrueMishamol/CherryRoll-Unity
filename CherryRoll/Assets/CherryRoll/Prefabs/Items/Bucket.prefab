@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1252875478942423302}
   - component: {fileID: 150859354119951005}
+  - component: {fileID: 2924093891834459954}
   m_Layer: 0
   m_Name: Bucket
   m_TagString: Untagged
@@ -46,6 +47,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSO: {fileID: 11400000, guid: 5f68858897860804f8a0318cfc447211, type: 2}
+--- !u!114 &2924093891834459954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917184053333463561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &4024465882953248195
 PrefabInstance:
   m_ObjectHideFlags: 0

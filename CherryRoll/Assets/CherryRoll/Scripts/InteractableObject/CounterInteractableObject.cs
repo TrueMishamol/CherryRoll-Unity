@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.Netcode;
+using UnityEngine;
 
 public class CounterInteractableObject : BaseInteractableObject, IItemParent {
 
@@ -9,18 +10,14 @@ public class CounterInteractableObject : BaseInteractableObject, IItemParent {
     private Item item;
 
     public override void Interact(Player player) {
-        if (item == null) {
-            SpawnItem();
+        if (!HasItem()) {
+            Item.SpawnItem(itemSO, player);
+            //!Item.SpawnItem(itemSO, this);
         } else {
             // Give Item to the Player
             item.SetItemParent(player);
         }
     }
-
-    private void SpawnItem() {
-        Transform itemTransform = Instantiate(itemSO.prefab, itemHolder);
-        itemTransform.GetComponent<Item>().SetItemParent(this);
-    } 
 
     public Transform GetItemFollowTransform() {
         return itemHolder;
@@ -40,5 +37,9 @@ public class CounterInteractableObject : BaseInteractableObject, IItemParent {
 
     public bool HasItem() {
         return item != null;
+    }
+
+    public NetworkObject GetNetworkObject() {
+        return null;
     }
 }
