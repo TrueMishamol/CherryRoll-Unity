@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4657409673129676241}
   - component: {fileID: 383758030929223123}
   - component: {fileID: 2878289954227786194}
+  - component: {fileID: -543026048736305712}
   m_Layer: 6
   m_Name: Counter
   m_TagString: Untagged
@@ -92,8 +93,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c59882eab57f7441ac867b56fadd555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flourPrefab: {fileID: 329092276730254172, guid: 5f5fd3667e136444aa2971de41182043, type: 3}
+  itemSO: {fileID: 0}
   itemHolder: {fileID: 4456577846632418544}
+--- !u!114 &-543026048736305712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4900390797501530018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1001 &2039984347731113862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,7 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4cc7b3543026544b2496c46c5071da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableObject: {fileID: 2878289954227786194}
   visualGameObjectArray:
   - {fileID: 5813285580203305343}
 --- !u!1 &5813285580203305343 stripped

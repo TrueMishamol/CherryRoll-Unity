@@ -1,15 +1,13 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using TMPro;
 using Unity.Netcode;
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 using Unity.Netcode.Transports.UTP;
+using Unity.Networking.Transport.Relay;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
-using Unity.Networking.Transport.Relay;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class NetworkManagerUI : NetworkBehaviour
 {

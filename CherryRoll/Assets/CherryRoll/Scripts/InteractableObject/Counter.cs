@@ -1,21 +1,26 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class CounterInteractableObject : NetworkBehaviour, IInteractableObject, IItemParent {
+public class Counter : NetworkBehaviour, IInteractableObject, IItemParent {
 
     [SerializeField] private ItemSO itemSO;
-    //[SerializeField] private Transform flourPrefab;
     [SerializeField] private Transform itemHolder;
 
     private Item item;
 
     public void Interact(Player player) {
         if (!HasItem()) {
-            Item.SpawnItem(itemSO, player);
-            //!Item.SpawnItem(itemSO, this);
+            // There is no Item on Counter
+            Item.SpawnItem(itemSO, this);
         } else {
-            // Give Item to the Player
-            item.SetItemParent(player);
+            // There is Item on Counter
+            if (!player.HasItem()) {
+                // Player is emptyhanded
+                // Give Item to the Player
+                item.SetItemParent(player);
+            } else {
+                // Player holds Item
+            }
         }
     }
 
@@ -40,6 +45,6 @@ public class CounterInteractableObject : NetworkBehaviour, IInteractableObject, 
     }
 
     public NetworkObject GetNetworkObject() {
-        return null;
+        return NetworkObject;
     }
 }

@@ -8,7 +8,7 @@ public class Player : NetworkBehaviour, IItemParent {
     public static event EventHandler OnAnyPlayerSpawned;
 
     public static void ResetStaticData() {
-        //LocalInstance = null;
+        LocalInstance = null; //! IDK why this line was commented
         OnAnyPlayerSpawned = null;
     }
 
