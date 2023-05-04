@@ -14,7 +14,6 @@ public class NetworkHandleConnection : NetworkBehaviour {
     public static NetworkHandleConnection Instance { get; private set; }
 
     public static event EventHandler OnJoinCodeUpdated;
-    public static event EventHandler OnPlayersCountUpdated;
 
     public static string JoinCode { get; private set; }
 

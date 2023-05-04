@@ -22,7 +22,6 @@ public class NetworkHandlePlayersCount : NetworkBehaviour {
     }
 
     private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
-        Debug.Log("Player_OnAnyPlayerSpawned in NetworkHandleConnection");
         UpdatePlayersCount();
     }
 
@@ -32,8 +31,7 @@ public class NetworkHandlePlayersCount : NetworkBehaviour {
     }
 
     private void UpdatePlayersCount() {
-        // Player Counting for UI
-        Debug.Log("Players: " + playersCount.Value.ToString());
+        //Debug.Log("Players: " + playersCount.Value.ToString());
 
         if (!IsServer) return;
         try {
