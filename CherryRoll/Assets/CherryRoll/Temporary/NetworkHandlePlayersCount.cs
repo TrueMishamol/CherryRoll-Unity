@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class NetworkHandlePlayersCount : NetworkBehaviour {
 
+
     public static NetworkHandlePlayersCount Instance { get; private set; }
 
     public static event EventHandler OnPlayersCountUpdated;
 
-
     private NetworkVariable<int> playersCount = new NetworkVariable<int>(
         0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
 
     private void Awake() {
         Instance = this;
     }
 
     private void Start() {
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+    }
 
+    private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
+        Debug.Log("Player_OnAnyPlayerSpawned in NetworkHandleConnection");
+        UpdatePlayersCount();
     }
 
     private void Update() {

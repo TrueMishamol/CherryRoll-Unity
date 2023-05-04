@@ -15,10 +15,6 @@ public class NetworkDisconnectUI : MonoBehaviour {
     private void Awake() {
         Instance = this;
 
-        //nameChangeButton.onClick.AddListener(() => {
-        //    UpdateTheNameFromField();
-        //});
-
         // Originally events are listening on start, but also on the start we ran IngameMenuUI.Hide()
         NetworkHandlePlayersCount.OnPlayersCountUpdated += NetworkHandleConnection_OnPlayersCountUpdated;
     }
@@ -34,20 +30,6 @@ public class NetworkDisconnectUI : MonoBehaviour {
             playersCountText.text = "Players: " + NetworkHandlePlayersCount.Instance.GetPlayersCount().ToString();
         }
     }
-
-    //private void Update() {
-    //    // Player Counting for UI
-    //    playersCountText.text = "Players: " + playersNum.Value.ToString();
-
-    //    if (!IsServer) return;
-    //    try {
-    //        playersNum.Value = NetworkManager.Singleton.ConnectedClients.Count;
-    //    } catch (Unity.Netcode.NotServerException) {
-    //        // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
-    //        playersCountText.text = "Server stopped";
-    //        return;
-    //    }
-    //}
 
     public void Show() {
         gameObject.SetActive(true);

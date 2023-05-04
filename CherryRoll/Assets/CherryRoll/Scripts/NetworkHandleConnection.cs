@@ -18,9 +18,6 @@ public class NetworkHandleConnection : NetworkBehaviour {
 
     public static string JoinCode { get; private set; }
 
-    private NetworkVariable<int> PlayersCount = new NetworkVariable<int>(
-    0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
 
     private void Awake() {
         Instance = this;
@@ -35,13 +32,6 @@ public class NetworkHandleConnection : NetworkBehaviour {
             Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
         };
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
-
-        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
-    }
-
-    private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
-        Debug.Log("Player_OnAnyPlayerSpawned in NetworkHandleConnection");
-        UpdatePlayersCount();
     }
 
     public async void CreateRelay() {
@@ -85,52 +75,4 @@ public class NetworkHandleConnection : NetworkBehaviour {
         JoinCode = newJoinCode;
         OnJoinCodeUpdated?.Invoke(this, EventArgs.Empty);
     }
-
-    public void UpdatePlayersCount() {
-        Debug.Log("Players count start Updating");
-
-        ////UpdatePlayersCountClientRpc();
-        //Debug.Log("Players count Updated: " + PlayersCount);
-
-        //if (!IsServer) return;
-        //! NetworkVariable is written to, but doesn't know its NetworkBehaviour yet. Are you modifying a NetworkVariable before the NetworkObject is spawned?
-        try {
-            PlayersCount.Value = NetworkManager.Singleton.ConnectedClients.Count;
-            Debug.Log("Players count Updated: " + PlayersCount);
-
-        } catch (NotServerException) {
-            // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
-            PlayersCount.Value = 0;
-            Debug.Log("Players count Updated: Server has stopped");
-            return; 
-        }
-        Debug.Log("Players count Updated: " + PlayersCount);
-    }
-
-    //[ServerRpc(RequireOwnership = false)]
-    //private void UpdatePlayersCountServerRpc() {
-
-    //}
-
-    //[ClientRpc]
-    //private void UpdatePlayersCountClientRpc() {
-    //    //if (success) {
-    //    //    Debug.Log("Players count Updated (client rpc): " + PlayersCount);
-    //    //} else {
-    //    //    Debug.Log("Server stopped (client rpc)");
-
-    //    //}
-
-    //    try {
-    //        PlayersCount = NetworkManager.Singleton.ConnectedClients.Count;
-    //        Debug.Log("Players count Updated (client): " + PlayersCount);
-
-    //    } catch (Unity.Netcode.NotServerException) {
-    //        // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
-    //        //playersCountText.text = "Server stopped";
-    //        Debug.Log("Server stopped");
-
-    //        return;
-    //    }
-    //}
 }
