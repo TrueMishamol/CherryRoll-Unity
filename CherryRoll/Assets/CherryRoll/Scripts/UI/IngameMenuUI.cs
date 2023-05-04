@@ -38,10 +38,12 @@ public class IngameMenuUI : MonoBehaviour {
     }
 
     public void Show() {
+        isIngameMenuOppened = true;
         gameObject.SetActive(true);
     }
 
     public void Hide() {
+        isIngameMenuOppened = false;
         gameObject.SetActive(false);
     }
 }

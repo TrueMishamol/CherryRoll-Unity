@@ -17,7 +17,9 @@ public class NetworkHandleConnection : NetworkBehaviour {
     public static event EventHandler OnPlayersCountUpdated;
 
     public static string JoinCode { get; private set; }
-    public static int PlayersCount { get; private set; }
+
+    private NetworkVariable<int> PlayersCount = new NetworkVariable<int>(
+    0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
 
     private void Awake() {
@@ -38,6 +40,7 @@ public class NetworkHandleConnection : NetworkBehaviour {
     }
 
     private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
+        Debug.Log("Player_OnAnyPlayerSpawned in NetworkHandleConnection");
         UpdatePlayersCount();
     }
 
@@ -84,24 +87,31 @@ public class NetworkHandleConnection : NetworkBehaviour {
     }
 
     public void UpdatePlayersCount() {
-        //Debug.Log("Players count start Updating");
+        Debug.Log("Players count start Updating");
 
         ////UpdatePlayersCountClientRpc();
         //Debug.Log("Players count Updated: " + PlayersCount);
 
         //if (!IsServer) return;
+        //! NetworkVariable is written to, but doesn't know its NetworkBehaviour yet. Are you modifying a NetworkVariable before the NetworkObject is spawned?
         try {
-            PlayersCount = NetworkManager.Singleton.ConnectedClients.Count;
-            //Debug.Log("Players count Updated: " + PlayersCount);
+            PlayersCount.Value = NetworkManager.Singleton.ConnectedClients.Count;
+            Debug.Log("Players count Updated: " + PlayersCount);
 
-        } catch (Unity.Netcode.NotServerException) {
+        } catch (NotServerException) {
             // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
-            PlayersCount = 0;
+            PlayersCount.Value = 0;
+            Debug.Log("Players count Updated: Server has stopped");
             return;
         }
-        //Debug.Log("Players count Updated: " + PlayersCount);
+        Debug.Log("Players count Updated: " + PlayersCount);
+
 
         OnPlayersCountUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    public int GetPlayersCount() {
+        return PlayersCount.Value;
     }
 
     //[ServerRpc(RequireOwnership = false)]

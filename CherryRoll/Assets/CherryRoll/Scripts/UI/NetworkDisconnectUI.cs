@@ -19,23 +19,19 @@ public class NetworkDisconnectUI : MonoBehaviour {
         //    UpdateTheNameFromField();
         //});
 
+        // Originally events are listening on start, but also on the start we ran IngameMenuUI.Hide()
         NetworkHandleConnection.OnPlayersCountUpdated += NetworkHandleConnection_OnPlayersCountUpdated;
-
-        Hide();
     }
 
     private void Start() {
-
-        //NetworkHandleConnection.OnPlayersCountUpdated += NetworkHandleConnection_OnPlayersCountUpdated;
-
-        //Hide();
+        Hide();
     }
 
     private void NetworkHandleConnection_OnPlayersCountUpdated(object sender, System.EventArgs e) {
-        if (NetworkHandleConnection.PlayersCount == 0) {
+        if (NetworkHandleConnection.Instance.GetPlayersCount() == 0) {
             playersCountText.text = "Server stopped";
         } else {
-            playersCountText.text = "Players: " + NetworkHandleConnection.PlayersCount.ToString();
+            playersCountText.text = "Players: " + NetworkHandleConnection.Instance.GetPlayersCount().ToString();
         }
     }
 

@@ -81,6 +81,9 @@ public class Player : NetworkBehaviour, IItemParent {
 
         // See others' Players Colors on Server Join
         meshRenderer.material.color = playerColor.Value;
+
+        //! fesfe
+        //NetworkHandleConnection.Instance.UpdatePlayersCount();
     }
 
     [ServerRpc(RequireOwnership = false)]

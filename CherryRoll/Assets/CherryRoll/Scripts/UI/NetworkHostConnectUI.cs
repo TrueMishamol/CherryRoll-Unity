@@ -9,7 +9,7 @@ public class NetworkHostConnectUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI joinCodeInputField;
     [SerializeField] private TextMeshProUGUI nameInputField;
 
-    private string playerName;
+    //private string playerName;
 
     private void Awake() {
         hostButton.onClick.AddListener(() => {
