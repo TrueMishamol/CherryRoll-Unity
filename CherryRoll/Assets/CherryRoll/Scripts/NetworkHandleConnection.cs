@@ -102,16 +102,9 @@ public class NetworkHandleConnection : NetworkBehaviour {
             // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
             PlayersCount.Value = 0;
             Debug.Log("Players count Updated: Server has stopped");
-            return;
+            return; 
         }
         Debug.Log("Players count Updated: " + PlayersCount);
-
-
-        OnPlayersCountUpdated?.Invoke(this, EventArgs.Empty);
-    }
-
-    public int GetPlayersCount() {
-        return PlayersCount.Value;
     }
 
     //[ServerRpc(RequireOwnership = false)]
