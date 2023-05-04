@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4cc7b3543026544b2496c46c5071da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactableObject: {fileID: 6198036882532853876}
+  interactableObjectTransform: {fileID: 6198036882532853878}
   visualGameObjectArray:
   - {fileID: 1705504783099703162}
 --- !u!1 &1705504783099703162 stripped

@@ -81,9 +81,6 @@ public class Player : NetworkBehaviour, IItemParent {
 
         // See others' Players Colors on Server Join
         meshRenderer.material.color = playerColor.Value;
-
-        //! fesfe
-        //NetworkHandleConnection.Instance.UpdatePlayersCount();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -95,7 +92,6 @@ public class Player : NetworkBehaviour, IItemParent {
     }
 
     private void Update() {
-
         if (!IsOwner) return;
         HandleInteractions();
     }
@@ -112,10 +108,10 @@ public class Player : NetworkBehaviour, IItemParent {
 
         float interactDistance = .55f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask)) {
-            if (raycastHit.transform.TryGetComponent(out IInteractableObject baseInteractableObject)) {
+            if (raycastHit.transform.TryGetComponent(out IInteractableObject interactableObject)) {
                 // Has BaseInteractableObject
-                if (baseInteractableObject != selectedInteractableObject) {
-                    SetSelectedInteractableObject(baseInteractableObject);
+                if (interactableObject != selectedInteractableObject) {
+                    SetSelectedInteractableObject(interactableObject);
                 }
             } else {
                 // Has no BaseInteractableObject

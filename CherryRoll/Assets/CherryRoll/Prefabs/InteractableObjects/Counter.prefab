@@ -66,7 +66,7 @@ Transform:
   - {fileID: 331440997782559735}
   - {fileID: 4456577846632418544}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &383758030929223123
 BoxCollider:
@@ -236,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d4cc7b3543026544b2496c46c5071da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactableObjectTransform: {fileID: 4657409673129676241}
   visualGameObjectArray:
   - {fileID: 5813285580203305343}
 --- !u!1 &5813285580203305343 stripped

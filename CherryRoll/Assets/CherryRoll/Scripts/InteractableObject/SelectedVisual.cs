@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class SelectedVisual : MonoBehaviour {
 
-    [SerializeField] private IInteractableObject interactableObject;
+
+    [SerializeField] private Transform interactableObjectTransform;
     [SerializeField] private GameObject[] visualGameObjectArray;
+
+    private IInteractableObject interactableObject;
+
+
+    private void Awake() {
+        interactableObject = interactableObjectTransform.GetComponent<IInteractableObject>();
+    }
 
     private void Start() {
         if (Player.LocalInstance != null) {
@@ -21,9 +29,6 @@ public class SelectedVisual : MonoBehaviour {
     }
 
     private void Player_OnSelectedInteractableObjectChanged(object sender, Player.OnSelectedInteractableObjectChangedEventArgs e) {
-
-        //Debug.Log("Selected object" + e);
-
         if (e.selectedInteractableObject == interactableObject) {
             Show();
         } else {
