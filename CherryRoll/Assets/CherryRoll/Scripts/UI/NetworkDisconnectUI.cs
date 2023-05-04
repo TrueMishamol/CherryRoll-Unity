@@ -23,6 +23,15 @@ public class NetworkDisconnectUI : MonoBehaviour {
         Hide();
     }
 
+    //! Refactor
+    private void Update() {
+        if (NetworkHandlePlayersCount.Instance.GetPlayersCount() == 0) {
+            playersCountText.text = "Server stopped";
+        } else {
+            playersCountText.text = "Players: " + NetworkHandlePlayersCount.Instance.GetPlayersCount().ToString();
+        }
+    }
+
     private void NetworkHandleConnection_OnPlayersCountUpdated(object sender, System.EventArgs e) {
         if (NetworkHandlePlayersCount.Instance.GetPlayersCount() == 0) {
             playersCountText.text = "Server stopped";
