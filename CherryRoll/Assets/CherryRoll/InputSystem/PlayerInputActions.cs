@@ -55,7 +55,16 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""MenuOpen"",
+                    ""name"": ""InteractAlternate"",
+                    ""type"": ""Button"",
+                    ""id"": ""99b75882-5762-44d8-b8e1-932341ef45a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""MenuOpenClose"",
                     ""type"": ""Button"",
                     ""id"": ""f4cb5ddf-43f7-422e-af13-0bbccd3d9c24"",
                     ""expectedControlType"": ""Button"",
@@ -121,7 +130,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
-                    ""action"": ""MenuOpen"",
+                    ""action"": ""MenuOpenClose"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -245,103 +254,26 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""Help"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""UI"",
-            ""id"": ""5f245a0f-f396-4be8-bc6a-db415bb38710"",
-            ""actions"": [
-                {
-                    ""name"": ""Submit"",
-                    ""type"": ""Button"",
-                    ""id"": ""f9cbc65b-6b44-4c8b-92a3-f13ae31ef941"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 },
-                {
-                    ""name"": ""Chat"",
-                    ""type"": ""Button"",
-                    ""id"": ""504d3235-5edf-464b-a6c9-23c5896f668f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Menu"",
-                    ""type"": ""Button"",
-                    ""id"": ""3cbbb29c-1663-414a-b160-a3180e24ea7e"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""MenuClose"",
-                    ""type"": ""Button"",
-                    ""id"": ""09d9e2cb-746d-4343-9904-640e3dec3c55"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""78f03807-a20e-4f42-8d5b-5a2e724ddd58"",
-                    ""path"": """",
+                    ""id"": ""653ffcc2-5501-47f7-88e5-fa5ff38a9418"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Submit"",
+                    ""groups"": """",
+                    ""action"": ""InteractAlternate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""27bf84ea-7e62-41d9-8cca-3d515ffee496"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""bbc79885-ca8f-4fae-ade2-8c71262975f0"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Submit"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3259d6b7-94d7-463b-a223-bf753927e03e"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Chat"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""30b80188-fc50-4b62-b64a-094003be1cf0"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Menu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0beee887-c46e-414d-82b8-2526c2ea37c8"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""MenuClose"",
+                    ""groups"": """",
+                    ""action"": ""InteractAlternate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -378,16 +310,11 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_MenuOpen = m_Player.FindAction("MenuOpen", throwIfNotFound: true);
+        m_Player_InteractAlternate = m_Player.FindAction("InteractAlternate", throwIfNotFound: true);
+        m_Player_MenuOpenClose = m_Player.FindAction("MenuOpenClose", throwIfNotFound: true);
         m_Player_DebugOpen = m_Player.FindAction("DebugOpen", throwIfNotFound: true);
         m_Player_ChatOpen = m_Player.FindAction("ChatOpen", throwIfNotFound: true);
         m_Player_Help = m_Player.FindAction("Help", throwIfNotFound: true);
-        // UI
-        m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
-        m_UI_Submit = m_UI.FindAction("Submit", throwIfNotFound: true);
-        m_UI_Chat = m_UI.FindAction("Chat", throwIfNotFound: true);
-        m_UI_Menu = m_UI.FindAction("Menu", throwIfNotFound: true);
-        m_UI_MenuClose = m_UI.FindAction("MenuClose", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -450,7 +377,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_MenuOpen;
+    private readonly InputAction m_Player_InteractAlternate;
+    private readonly InputAction m_Player_MenuOpenClose;
     private readonly InputAction m_Player_DebugOpen;
     private readonly InputAction m_Player_ChatOpen;
     private readonly InputAction m_Player_Help;
@@ -461,7 +389,8 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @MenuOpen => m_Wrapper.m_Player_MenuOpen;
+        public InputAction @InteractAlternate => m_Wrapper.m_Player_InteractAlternate;
+        public InputAction @MenuOpenClose => m_Wrapper.m_Player_MenuOpenClose;
         public InputAction @DebugOpen => m_Wrapper.m_Player_DebugOpen;
         public InputAction @ChatOpen => m_Wrapper.m_Player_ChatOpen;
         public InputAction @Help => m_Wrapper.m_Player_Help;
@@ -483,9 +412,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
-                @MenuOpen.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
-                @MenuOpen.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
-                @MenuOpen.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpen;
+                @InteractAlternate.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteractAlternate;
+                @InteractAlternate.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteractAlternate;
+                @InteractAlternate.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteractAlternate;
+                @MenuOpenClose.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpenClose;
+                @MenuOpenClose.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpenClose;
+                @MenuOpenClose.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMenuOpenClose;
                 @DebugOpen.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugOpen;
                 @DebugOpen.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugOpen;
                 @DebugOpen.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDebugOpen;
@@ -508,9 +440,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
-                @MenuOpen.started += instance.OnMenuOpen;
-                @MenuOpen.performed += instance.OnMenuOpen;
-                @MenuOpen.canceled += instance.OnMenuOpen;
+                @InteractAlternate.started += instance.OnInteractAlternate;
+                @InteractAlternate.performed += instance.OnInteractAlternate;
+                @InteractAlternate.canceled += instance.OnInteractAlternate;
+                @MenuOpenClose.started += instance.OnMenuOpenClose;
+                @MenuOpenClose.performed += instance.OnMenuOpenClose;
+                @MenuOpenClose.canceled += instance.OnMenuOpenClose;
                 @DebugOpen.started += instance.OnDebugOpen;
                 @DebugOpen.performed += instance.OnDebugOpen;
                 @DebugOpen.canceled += instance.OnDebugOpen;
@@ -524,63 +459,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-
-    // UI
-    private readonly InputActionMap m_UI;
-    private IUIActions m_UIActionsCallbackInterface;
-    private readonly InputAction m_UI_Submit;
-    private readonly InputAction m_UI_Chat;
-    private readonly InputAction m_UI_Menu;
-    private readonly InputAction m_UI_MenuClose;
-    public struct UIActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public UIActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Submit => m_Wrapper.m_UI_Submit;
-        public InputAction @Chat => m_Wrapper.m_UI_Chat;
-        public InputAction @Menu => m_Wrapper.m_UI_Menu;
-        public InputAction @MenuClose => m_Wrapper.m_UI_MenuClose;
-        public InputActionMap Get() { return m_Wrapper.m_UI; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(UIActions set) { return set.Get(); }
-        public void SetCallbacks(IUIActions instance)
-        {
-            if (m_Wrapper.m_UIActionsCallbackInterface != null)
-            {
-                @Submit.started -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Submit.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Submit.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnSubmit;
-                @Chat.started -= m_Wrapper.m_UIActionsCallbackInterface.OnChat;
-                @Chat.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnChat;
-                @Chat.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnChat;
-                @Menu.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
-                @Menu.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
-                @Menu.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMenu;
-                @MenuClose.started -= m_Wrapper.m_UIActionsCallbackInterface.OnMenuClose;
-                @MenuClose.performed -= m_Wrapper.m_UIActionsCallbackInterface.OnMenuClose;
-                @MenuClose.canceled -= m_Wrapper.m_UIActionsCallbackInterface.OnMenuClose;
-            }
-            m_Wrapper.m_UIActionsCallbackInterface = instance;
-            if (instance != null)
-            {
-                @Submit.started += instance.OnSubmit;
-                @Submit.performed += instance.OnSubmit;
-                @Submit.canceled += instance.OnSubmit;
-                @Chat.started += instance.OnChat;
-                @Chat.performed += instance.OnChat;
-                @Chat.canceled += instance.OnChat;
-                @Menu.started += instance.OnMenu;
-                @Menu.performed += instance.OnMenu;
-                @Menu.canceled += instance.OnMenu;
-                @MenuClose.started += instance.OnMenuClose;
-                @MenuClose.performed += instance.OnMenuClose;
-                @MenuClose.canceled += instance.OnMenuClose;
-            }
-        }
-    }
-    public UIActions @UI => new UIActions(this);
     private int m_KeyboardSchemeIndex = -1;
     public InputControlScheme KeyboardScheme
     {
@@ -604,16 +482,10 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnMenuOpen(InputAction.CallbackContext context);
+        void OnInteractAlternate(InputAction.CallbackContext context);
+        void OnMenuOpenClose(InputAction.CallbackContext context);
         void OnDebugOpen(InputAction.CallbackContext context);
         void OnChatOpen(InputAction.CallbackContext context);
         void OnHelp(InputAction.CallbackContext context);
-    }
-    public interface IUIActions
-    {
-        void OnSubmit(InputAction.CallbackContext context);
-        void OnChat(InputAction.CallbackContext context);
-        void OnMenu(InputAction.CallbackContext context);
-        void OnMenuClose(InputAction.CallbackContext context);
     }
 }

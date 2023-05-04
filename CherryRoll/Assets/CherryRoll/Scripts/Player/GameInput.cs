@@ -2,8 +2,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameInput : MonoBehaviour
-{
+public class GameInput : MonoBehaviour {
     public static GameInput Instance { get; private set; }
 
     private PlayerInputActions playerInputActions;
@@ -14,9 +13,11 @@ public class GameInput : MonoBehaviour
     [SerializeField] private float smoothInputSpeed = .4f;
 
     public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnMenuOpenCloseAction;
+    public event EventHandler OnDebugOpenCloseAction;
 
-    private void Awake()
-    {
+    private void Awake() {
         Instance = this;
 
         // Initialize all the variables for Input System
@@ -24,21 +25,33 @@ public class GameInput : MonoBehaviour
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Interact.performed += Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
+        playerInputActions.Player.MenuOpenClose.performed += MenuOpenClose_performed;
+        playerInputActions.Player.DebugOpen.performed += DebugOpen_performed;
     }
 
-    private void Interact_performed(InputAction.CallbackContext obj)
-    {
+    private void DebugOpen_performed(InputAction.CallbackContext obj) {
+        OnDebugOpenCloseAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void MenuOpenClose_performed(InputAction.CallbackContext obj) {
+        OnMenuOpenCloseAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void InteractAlternate_performed(InputAction.CallbackContext obj) {
+        OnInteractAlternateAction?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void Interact_performed(InputAction.CallbackContext obj) {
         OnInteractAction?.Invoke(this, EventArgs.Empty);
     }
 
-    public bool IsJumping()
-    {
+    public bool IsJumping() {
         bool isJumping = playerInputActions.Player.Jump.ReadValue<float>() > 0.5f;
         return isJumping;
     }
 
-    public Vector2 GetMovementVectorSmoothed()
-    {
+    public Vector2 GetMovementVectorSmoothed() {
         Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
         inputVector = inputVector.normalized;
 
