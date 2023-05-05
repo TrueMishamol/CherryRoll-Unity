@@ -42,7 +42,7 @@ public class Item : NetworkBehaviour {
 
         itemParent.SetItem(this);
 
-        followTransform.SetTargetTransform(itemParent.GetItemFollowTransform());
+        followTransform.SetTargetTransform(itemParent);
     }
 
     public IItemParent GetItemParent() {
@@ -51,5 +51,9 @@ public class Item : NetworkBehaviour {
 
     public static void SpawnItem(ItemSO itemSO, IItemParent itemParent) {
         Multiplayer.Instance.SpawnItem(itemSO, itemParent);
+    }
+
+    public NetworkObject GetNetworkObject() {
+        return NetworkObject;
     }
 }

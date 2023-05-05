@@ -1,13 +1,10 @@
 ﻿using Unity.Netcode;
-
 using UnityEngine;
 
 public class FollowTransform : NetworkBehaviour {
 
 
-    private Transform targetTransform;
-
-    //[SerializeField] private NetworkVariable<Transform> networkVariableTransform = new NetworkVariable<Transform>(null, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+    private IItemParent targetIItemParent;
 
 
     private void Awake() {
@@ -15,16 +12,18 @@ public class FollowTransform : NetworkBehaviour {
     }
 
     private void LateUpdate() {
-        if (targetTransform == null) {
+        if (targetIItemParent == null) {
             return;
         }
+
+        Transform targetTransform = targetIItemParent.GetItemFollowTransform();
 
         transform.position = targetTransform.position;
         transform.rotation = targetTransform.rotation;
     }
 
-    public void SetTargetTransform(Transform targetTransform) {
-        this.targetTransform = targetTransform;
+    public void SetTargetTransform(IItemParent targetIItemParent) {
+        this.targetIItemParent = targetIItemParent;
     }
 
     private void NetworkManager_OnClientConnectedCallback(ulong obj) {
@@ -34,25 +33,12 @@ public class FollowTransform : NetworkBehaviour {
     private void RefreshTargetTransform() {
         if (!IsServer) return;
 
-        //transformNetworkObjectReference = targetTransform;
-        IItemParent targetTransformItemParent = targetTransform.GetComponent<IItemParent>();
-
-        RefreshTargetTransformClientRpc(targetTransformItemParent.GetNetworkObject());
-        //NetworkVariable
+        RefreshTargetTransformClientRpc(targetIItemParent.GetNetworkObject());
     }
-
-    //[ServerRpc(RequireOwnership = false)]
-    //private void RefreshTargetTransformServerRpc(NetworkVariable<Transform> networkVariableTransform) {
-    //    // Сервер будет хранить данные о targetTransform и при подключении нового игрока, все игроки берут и обновляют эти данные у себя в соответствии с сервером. Либо только подключившийся игрок
-    //}
 
     [ClientRpc]
-    private void RefreshTargetTransformClientRpc(NetworkObjectReference transformNetworkObjectReference) {
-        transformNetworkObjectReference.TryGet(out NetworkObject transformNetworkObject);
-        Transform transform = transformNetworkObject.transform;
-
-        targetTransform = transform;
+    private void RefreshTargetTransformClientRpc(NetworkObjectReference targetNetworkObjectReference) {
+        targetNetworkObjectReference.TryGet(out NetworkObject targetNetworkObject);
+        targetIItemParent = targetNetworkObject.GetComponent<IItemParent>();
     }
-
-    //NetworkObjectReference
 }

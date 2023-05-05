@@ -3,10 +3,39 @@ using UnityEngine;
 
 public class Counter : NetworkBehaviour, IInteractableObject, IItemParent {
 
+
     [SerializeField] private ItemSO itemSO;
     [SerializeField] private Transform itemHolder;
 
     private Item item;
+
+
+    private void Awake() {
+        //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+    }
+
+
+
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
+        RefreshItem();
+    }
+
+    //private void NetworkManager_OnClientConnectedCallback(ulong obj) {
+    //    RefreshItem();
+    //}
+
+    private void RefreshItem() {
+        if (!IsServer) return;
+
+        RefreshItemClientRpc(item.GetNetworkObject());
+    }
+
+    [ClientRpc]
+    private void RefreshItemClientRpc(NetworkObjectReference itemNetworkObjectReference) {
+        itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
+        item = itemNetworkObject.GetComponent<Item>();
+    }
 
     public void Interact(Player player) {
         if (!HasItem()) {
