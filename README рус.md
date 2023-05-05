@@ -1,4 +1,4 @@
-### [English README](https://github.com/TrueMishamol/CherryRoll/blob/59c12e6e7e8eaa3e2b1126913634282c64d3f78c/README.md)
+### [README on English](https://github.com/TrueMishamol/CherryRoll/blob/master/README.md)
 
 # Cherry Roll
 
