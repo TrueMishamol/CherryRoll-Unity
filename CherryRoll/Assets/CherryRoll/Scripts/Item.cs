@@ -62,15 +62,15 @@ public class Item : NetworkBehaviour {
         return NetworkObject;
     }
 
-    //!public void RefreshItemParent() {
-    //    if (!IsServer) return;
+    public void RefreshItemParent() {
+        if (!IsServer) return;
 
-    //    RefreshItemParentClientRpc(itemParent.GetNetworkObject());
-    //}
+        RefreshItemParentClientRpc(itemParent.GetNetworkObject());
+    }
 
-    //[ClientRpc]
-    //private void RefreshItemParentClientRpc(NetworkObjectReference itemParentNetworkObjectReference) {
-    //    itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
-    //    itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
-    //}
+    [ClientRpc]
+    private void RefreshItemParentClientRpc(NetworkObjectReference itemParentNetworkObjectReference) {
+        itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
+        itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
+    }
 }

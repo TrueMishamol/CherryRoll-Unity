@@ -33,7 +33,7 @@ public class FollowTransform : NetworkBehaviour {
             targetIItemParent.RefreshItem();
         }
 
-        //!GetComponent<Item>().RefreshItemParent();
+        GetComponent<Item>().RefreshItemParent();
     }
 
     private void RefreshTargetTransform() {
