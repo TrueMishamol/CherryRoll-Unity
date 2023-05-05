@@ -1,12 +1,14 @@
-using Unity.Netcode;
+﻿using Unity.Netcode;
 using UnityEngine;
 
 public class Item : NetworkBehaviour {
+
 
     [SerializeField] private ItemSO itemSO;
 
     private IItemParent itemParent;
     private FollowTransform followTransform;
+
 
     private void Awake() {
         followTransform = GetComponent<FollowTransform>();
@@ -30,7 +32,10 @@ public class Item : NetworkBehaviour {
         itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
         IItemParent itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
 
+        //Debug.Log("Cleat Item");
+
         if (this.itemParent != null) {
+            // Clear Current Item Parent (to re-Parent)
             this.itemParent.ClearItem();
         }
 
@@ -56,4 +61,16 @@ public class Item : NetworkBehaviour {
     public NetworkObject GetNetworkObject() {
         return NetworkObject;
     }
+
+    //!public void RefreshItemParent() {
+    //    if (!IsServer) return;
+
+    //    RefreshItemParentClientRpc(itemParent.GetNetworkObject());
+    //}
+
+    //[ClientRpc]
+    //private void RefreshItemParentClientRpc(NetworkObjectReference itemParentNetworkObjectReference) {
+    //    itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
+    //    itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
+    //}
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : NetworkBehaviour, IItemParent {
 
+
     public static Player LocalInstance { get; private set; }
     public static event EventHandler OnAnyPlayerSpawned;
 
@@ -11,6 +12,7 @@ public class Player : NetworkBehaviour, IItemParent {
         LocalInstance = null; //! IDK why this line was commented
         OnAnyPlayerSpawned = null;
     }
+
 
     [SerializeField] float spawnPositionRange = 5f;
 

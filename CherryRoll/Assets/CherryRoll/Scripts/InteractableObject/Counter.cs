@@ -10,27 +10,6 @@ public class Counter : NetworkBehaviour, IInteractableObject, IItemParent {
     private Item item;
 
 
-    //private void Awake() {
-    //    //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
-    //    //Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
-    //}
-
-    //private void Start() {
-    //    if (Player.LocalInstance != null) {
-    //        Player.LocalInstance.OnSelectedCounterChanged += Player_OnSelectedCounterChanged;
-    //    } else {
-    //        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
-    //    }
-    //}
-
-    //private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
-    //    RefreshItem();
-    //}
-
-    //private void NetworkManager_OnClientConnectedCallback(ulong obj) {
-    //    RefreshItem();
-    //}
-
     public void RefreshItem() {
         if (!IsServer) return;
 

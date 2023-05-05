@@ -28,10 +28,12 @@ public class FollowTransform : NetworkBehaviour {
 
     private void NetworkManager_OnClientConnectedCallback(ulong obj) {
         RefreshTargetTransform();
-        //! Null
+
         if (targetIItemParent != null) {
             targetIItemParent.RefreshItem();
         }
+
+        //!GetComponent<Item>().RefreshItemParent();
     }
 
     private void RefreshTargetTransform() {

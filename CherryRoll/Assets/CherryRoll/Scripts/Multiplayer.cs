@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class Multiplayer : NetworkBehaviour {
 
+
     public static Multiplayer Instance { get; private set; }
 
     [SerializeField] private ItemSOListSO itemSOListSO;
+
 
     private void Awake() {
         Instance = this;
