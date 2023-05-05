@@ -1,4 +1,4 @@
-### [Читать на русском](https://github.com/TrueMishamol/CherryRoll/blob/736eae09276f0cb9dd3657953c0a1c91ef837fd1/README%20%D1%80%D1%83%D1%81.md)
+### [Читать на русском](https://github.com/TrueMishamol/CherryRoll/blob/master/README%20%D1%80%D1%83%D1%81.md)
 
 # Cherry Roll
 
