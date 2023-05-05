@@ -131,6 +131,18 @@ public class Player : NetworkBehaviour, IItemParent {
         });
     }
 
+    public void RefreshItem() {
+        if (!IsServer) return;
+
+        RefreshItemClientRpc(item.GetNetworkObject());
+    }
+
+    [ClientRpc]
+    private void RefreshItemClientRpc(NetworkObjectReference itemNetworkObjectReference) {
+        itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
+        item = itemNetworkObject.GetComponent<Item>();
+    }
+
     public Transform GetItemFollowTransform() {
         return itemHolder;
     }
