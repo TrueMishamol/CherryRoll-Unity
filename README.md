@@ -8,9 +8,8 @@ Made with Unity 3D
 
 # Overview
 
-Обзор 0.1.4 на русском:
-
-https://user-images.githubusercontent.com/101403719/233323128-a6600c9e-caf1-4116-80a7-471804e41bf5.mp4
+Обзор 0.1.5 на русском:
+https://vk.com/wall-176267168_1603
 
 # Concept
 
@@ -42,5 +41,3 @@ The game is going to be great, but I have to warn you. Concepts are not how the 
 My site: [mishamol.ru](https://mishamol.ru)
 
 Updates on game & other stuff: [vk.com/mishamol_news](https://vk.com/mishamol_news)
-
-My teacher: [vk.com/shmeli_studio](https://vk.com/shmeli_studio)
