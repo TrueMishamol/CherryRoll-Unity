@@ -62,6 +62,19 @@ public class Item : NetworkBehaviour {
         return NetworkObject;
     }
 
+    public void DestroySelf() {
+        Destroy(gameObject);
+    }
+
+    public void ClearItemOnParent() {
+        itemParent.ClearItem();
+    }
+
+    public static void DestroyItem(Item item) {
+        Multiplayer.Instance.DestroyItem(item);
+    }
+
+
     public void RefreshItemParent() {
         if (!IsServer) return;
 

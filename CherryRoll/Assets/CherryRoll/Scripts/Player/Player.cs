@@ -83,6 +83,17 @@ public class Player : NetworkBehaviour, IItemParent {
 
         // See others' Players Colors on Server Join
         meshRenderer.material.color = playerColor.Value;
+
+        // Handle Disconnect
+        if (IsServer) {
+            NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+        }
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
+        if (clientId == OwnerClientId && HasItem()) {
+            Item.DestroyItem(GetItem());
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

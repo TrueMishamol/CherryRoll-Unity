@@ -34,6 +34,29 @@ public class Multiplayer : NetworkBehaviour {
         item.SetItemParent(itemParent);
     }
 
+    public void DestroyItem(Item item) {
+        DestroyItemServerRpc(item.NetworkObject);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyItemServerRpc(NetworkObjectReference itemNetworkObjectReference) {
+        itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
+        Item item = itemNetworkObject.GetComponent<Item>();
+
+        ClearKitchenObjectOnParentClientRpc(itemNetworkObjectReference);
+
+        item.DestroySelf();
+    }
+
+    [ClientRpc]
+    private void ClearKitchenObjectOnParentClientRpc(NetworkObjectReference itemNetworkObjectReference) {
+        itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
+        Item item = itemNetworkObject.GetComponent<Item>();
+
+        item.ClearItemOnParent();
+    }
+
+
     private int GetItemSOIndex(ItemSO itemSO) {
         return itemSOListSO.itemSOList.IndexOf(itemSO);
     }
