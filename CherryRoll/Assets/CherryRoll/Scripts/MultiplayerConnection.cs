@@ -7,6 +7,7 @@ using Unity.Services.Core;
 using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MultiplayerConnection : NetworkBehaviour {
 
@@ -40,6 +41,8 @@ public class MultiplayerConnection : NetworkBehaviour {
     }
 
     public async void CreateRelay() {
+        NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
+
         try {
             // Creating Allocation on Relay
             Allocation allocation = await RelayService.Instance.CreateAllocationAsync(49); // 50 players
@@ -81,6 +84,26 @@ public class MultiplayerConnection : NetworkBehaviour {
         } catch (RelayServiceException e) {
             Debug.Log(e);
         }
+    }
+
+    private void NetworkManager_ConnectionApprovalCallback(NetworkManager.ConnectionApprovalRequest connectionApprovalRequest, NetworkManager.ConnectionApprovalResponse connectionApprovalResponse) {
+        bool canJoinOnGameStarted = true; //! Move to options
+
+        if (canJoinOnGameStarted == false & 
+            SceneManager.GetActiveScene().name != Loader.Scene.LobbyScene.ToString()) 
+        {
+            connectionApprovalResponse.Approved = false;
+            connectionApprovalResponse.Reason = "Game has already started";
+            return;
+        }
+
+        if (NetworkManager.Singleton.ConnectedClientsIds.Count > MultiplayerPlayersCount.maxPlayerAmount) {
+            connectionApprovalResponse.Approved = false;
+            connectionApprovalResponse.Reason = "Game is full";
+            return;
+        }
+
+        connectionApprovalResponse.Approved = true;
     }
 
     public void UpdateJoinCode(string newJoinCode) {

@@ -14,30 +14,22 @@ public class NetworkDisconnectUI : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-
-        // Originally events are listening on start, but also on the start we ran IngameMenuUI.Hide()
-        MultiplayerPlayersCount.OnPlayersCountUpdated += NetworkHandleConnection_OnPlayersCountUpdated;
     }
 
     private void Start() {
+        //! Originally events are listening on start, but also on the start we ran IngameMenuUI.Hide()
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+
         Hide();
     }
 
-    //! Refactor
-    private void Update() {
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
         if (MultiplayerPlayersCount.Instance.GetPlayersCount() == 0) {
             playersCountText.text = "Server stopped";
         } else {
             playersCountText.text = "Players: " + MultiplayerPlayersCount.Instance.GetPlayersCount().ToString();
         }
-    }
-
-    private void NetworkHandleConnection_OnPlayersCountUpdated(object sender, System.EventArgs e) {
-        if (MultiplayerPlayersCount.Instance.GetPlayersCount() == 0) {
-            playersCountText.text = "Server stopped";
-        } else {
-            playersCountText.text = "Players: " + MultiplayerPlayersCount.Instance.GetPlayersCount().ToString();
-        }
+        //! Is it working?
     }
 
     public void Show() {
