@@ -24,6 +24,8 @@ public class MultiplayerConnection : NetworkBehaviour {
 
     private void Awake() {
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private async void Start() {

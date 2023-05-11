@@ -12,6 +12,8 @@ public class MultiplayerPlayersCount : NetworkBehaviour {
 
     private void Awake() {
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public int GetPlayersCount() {

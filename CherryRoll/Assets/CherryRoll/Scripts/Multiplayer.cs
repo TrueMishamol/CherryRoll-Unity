@@ -11,6 +11,8 @@ public class Multiplayer : NetworkBehaviour {
 
     private void Awake() {
         Instance = this;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SpawnItem(ItemSO itemSO, IItemParent itemParent) {
