@@ -20,8 +20,6 @@ public class MultiplayerMenuUI : MonoBehaviour {
 
         hostButton.onClick.AddListener(() => {
             MultiplayerConnection.Instance.CreateRelay();
-
-            Loader.LoadNetwork(Loader.Scene.CharacterSetupScene);
         });
 
         connectButton.onClick.AddListener(() => {

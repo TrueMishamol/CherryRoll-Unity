@@ -14,6 +14,7 @@ public class MultiplayerConnection : NetworkBehaviour {
     public static MultiplayerConnection Instance { get; private set; }
 
     public static event EventHandler OnJoinCodeUpdated;
+    public static event EventHandler OnRelayStarted;
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailedToJoinGame;
 
@@ -58,6 +59,10 @@ public class MultiplayerConnection : NetworkBehaviour {
         } catch (RelayServiceException e) {
             Debug.Log(e);
         }
+
+        OnRelayStarted?.Invoke(this, EventArgs.Empty);
+
+        Loader.LoadNetwork(Loader.Scene.LobbyScene);
     }
 
     public async void JoinRelay() {

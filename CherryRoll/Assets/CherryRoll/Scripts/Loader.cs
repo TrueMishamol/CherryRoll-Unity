@@ -8,15 +8,14 @@ public static class Loader {
         MainMenuScene,
         LoadingScene,
         MultiplayerMenuScene,
-
         CharacterSetupScene,
-        
         LobbyScene,
         GameBunScene,
         GameCollectThePlateScene,
     }
 
     private static Scene targetScene;
+
 
     public static void Load(Scene targetScene) {
         Loader.targetScene = targetScene;
@@ -26,7 +25,6 @@ public static class Loader {
     }
 
     public static void LoadNetwork(Scene targetScene) {
-        Debug.Log(targetScene);
         NetworkManager.Singleton.SceneManager.LoadScene(targetScene.ToString(), LoadSceneMode.Single);
     }
 
