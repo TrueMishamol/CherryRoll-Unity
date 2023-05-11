@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public static class Loader {
@@ -20,10 +21,12 @@ public static class Loader {
     public static void Load(Scene targetScene) {
         Loader.targetScene = targetScene;
 
-        SceneManager.LoadScene(Scene.LoadingScene.ToString());
+        //SceneManager.LoadScene(Scene.LoadingScene.ToString());
+        SceneManager.LoadScene(targetScene.ToString());
     }
 
     public static void LoadNetwork(Scene targetScene) {
+        Debug.Log(targetScene);
         NetworkManager.Singleton.SceneManager.LoadScene(targetScene.ToString(), LoadSceneMode.Single);
     }
 

@@ -8,12 +8,14 @@ using Unity.Services.Relay;
 using Unity.Services.Relay.Models;
 using UnityEngine;
 
-public class NetworkHandleConnection : NetworkBehaviour {
+public class MultiplayerConnection : NetworkBehaviour {
 
 
-    public static NetworkHandleConnection Instance { get; private set; }
+    public static MultiplayerConnection Instance { get; private set; }
 
     public static event EventHandler OnJoinCodeUpdated;
+    public event EventHandler OnTryingToJoinGame;
+    public event EventHandler OnFailedToJoinGame;
 
     public static string JoinCode { get; private set; }
 
@@ -23,14 +25,17 @@ public class NetworkHandleConnection : NetworkBehaviour {
     }
 
     private async void Start() {
+
         // Sends a request to Unity Services to initialize the API
         // With Async, the game does not freeze until response
-        await UnityServices.InitializeAsync();
+        if (UnityServices.State == 0) {
+            await UnityServices.InitializeAsync();
 
-        AuthenticationService.Instance.SignedIn += () => {
-            Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
-        };
-        await AuthenticationService.Instance.SignInAnonymouslyAsync();
+            AuthenticationService.Instance.SignedIn += () => {
+                Debug.Log("Signed in " + AuthenticationService.Instance.PlayerId);
+            };
+            await AuthenticationService.Instance.SignInAnonymouslyAsync();
+        }
     }
 
     public async void CreateRelay() {
@@ -56,6 +61,9 @@ public class NetworkHandleConnection : NetworkBehaviour {
     }
 
     public async void JoinRelay() {
+        OnTryingToJoinGame?.Invoke(this, EventArgs.Empty);
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+
         try {
             Debug.Log("Joining relay with " + JoinCode);
 
@@ -73,5 +81,9 @@ public class NetworkHandleConnection : NetworkBehaviour {
     public void UpdateJoinCode(string newJoinCode) {
         JoinCode = newJoinCode;
         OnJoinCodeUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
+        OnFailedToJoinGame?.Invoke(this, EventArgs.Empty);
     }
 }

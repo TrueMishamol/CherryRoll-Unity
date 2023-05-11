@@ -12,14 +12,14 @@ public class JoinCodeOutput : MonoBehaviour {
 
     private void Awake() {
         // Originally events are listening on start, but also on the start we ran IngameMenuUI.Hide()
-        NetworkHandleConnection.OnJoinCodeUpdated += NetworkHandleConnection_OnJoinCodeUpdated;
+        MultiplayerConnection.OnJoinCodeUpdated += NetworkHandleConnection_OnJoinCodeUpdated;
 
         joinCodeCopyButton.onClick.AddListener(() => {
-            CopyToClipboard.Copy(NetworkHandleConnection.JoinCode);
+            CopyToClipboard.Copy(MultiplayerConnection.JoinCode);
         });
     }
 
     private void NetworkHandleConnection_OnJoinCodeUpdated(object sender, EventArgs e) {
-        joinCodeOutputText.text = NetworkHandleConnection.JoinCode;
+        joinCodeOutputText.text = MultiplayerConnection.JoinCode;
     }
 }

@@ -2,12 +2,14 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class NetworkHandlePlayersCount : NetworkBehaviour {
+public class MultiplayerPlayersCount : NetworkBehaviour {
 
 
-    public static NetworkHandlePlayersCount Instance { get; private set; }
+    public static MultiplayerPlayersCount Instance { get; private set; }
 
     public static event EventHandler OnPlayersCountUpdated;
+
+    private int maxPlayerAmount = 10;
 
     private NetworkVariable<int> playersCount = new NetworkVariable<int>(
         0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);

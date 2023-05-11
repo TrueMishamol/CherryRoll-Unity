@@ -17,7 +17,7 @@ public class DebugUI : MonoBehaviour {
     }
 
     private void Start() {
-        GameInput.Instance.OnDebugOpenCloseAction += GameInput_OnDebugOpenCloseAction;
+        //!GameInput.Instance.OnDebugOpenCloseAction += GameInput_OnDebugOpenCloseAction;
 
         Hide();
     }
