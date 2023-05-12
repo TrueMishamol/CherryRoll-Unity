@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour {
+
+
     public static GameInput Instance { get; private set; }
 
     private PlayerInputActions playerInputActions;
@@ -16,6 +18,7 @@ public class GameInput : MonoBehaviour {
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnMenuOpenCloseAction;
     public event EventHandler OnDebugOpenCloseAction;
+
 
     private void Awake() {
         Instance = this;
@@ -60,4 +63,12 @@ public class GameInput : MonoBehaviour {
         return inputVector;
     }
 
+    private void OnDestroy() {
+        Debug.Log("Game Input OnDestroy");
+
+        playerInputActions.Player.Interact.performed -= Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
+        playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
+        playerInputActions.Player.DebugOpen.performed -= DebugOpen_performed;
+    }
 }

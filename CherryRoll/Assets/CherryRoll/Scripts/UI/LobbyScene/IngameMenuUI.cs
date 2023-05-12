@@ -29,8 +29,8 @@ public class IngameMenuUI : MonoBehaviour {
             CopyToClipboard.Copy(MultiplayerConnection.JoinCode);
         });
 
-        optionsButton.onClick.AddListener(() => { 
-        
+        optionsButton.onClick.AddListener(() => {
+
         });
 
         quitButton.onClick.AddListener(() => {
@@ -43,6 +43,7 @@ public class IngameMenuUI : MonoBehaviour {
                     // Active scene is Lobby
                     Loader.Load(Loader.Scene.MainMenuScene);
                 }
+            } else {
                 // Is Client
                 Loader.Load(Loader.Scene.MainMenuScene);
             }
@@ -50,6 +51,7 @@ public class IngameMenuUI : MonoBehaviour {
 
         closeButton.onClick.AddListener(() => {
             SwitchOpenClose();
+            PauseGameManager.Instance.ToggleLocalPauseGame();
         });
 
         backButton.onClick.AddListener(() => {
@@ -65,7 +67,7 @@ public class IngameMenuUI : MonoBehaviour {
         Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
 
         UpdateJoinCodeOutputText();
-        UpdatePlayersCountOutputText();
+        UpdatePlayersCountOutputTextServerRpc();
 
         Hide();
     }
@@ -83,10 +85,16 @@ public class IngameMenuUI : MonoBehaviour {
     }
 
     private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
-        UpdatePlayersCountOutputText();
+        UpdatePlayersCountOutputTextServerRpc();
     }
 
-    private void UpdatePlayersCountOutputText() {
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdatePlayersCountOutputTextServerRpc() {
+        UpdatePlayersCountOutputTextClientRpc();
+    }
+
+    [ClientRpc]
+    private void UpdatePlayersCountOutputTextClientRpc() {
         playersCountNumberText.text = MultiplayerPlayersCount.Instance.GetPlayersCount().ToString();
     }
 

@@ -15,6 +15,7 @@ public class MultiplayerConnection : NetworkBehaviour {
     public static MultiplayerConnection Instance { get; private set; }
 
     public static event EventHandler OnJoinCodeUpdated;
+    public event EventHandler OnStartingRelay;
     public static event EventHandler OnRelayStarted;
     public event EventHandler OnTryingToJoinGame;
     public event EventHandler OnFailedToJoinGame;
@@ -43,6 +44,8 @@ public class MultiplayerConnection : NetworkBehaviour {
     }
 
     public async void CreateRelay() {
+        OnStartingRelay?.Invoke(this, EventArgs.Empty);
+
         NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
 
         try {
