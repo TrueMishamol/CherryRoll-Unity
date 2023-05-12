@@ -3,10 +3,12 @@ using UnityEngine;
 public class PauseMultiplayerUI : MonoBehaviour {
 
     private void Start() {
-        PauseGameManager.Instance.OnMultiplayerGamePaused += PauseGameManager_OnMultiplayerGamePaused;
-        PauseGameManager.Instance.OnMultiplayerGameUnpaused += PauseGameManager_OnMultiplayerGameUnpaused;
+        GamePause.Instance.OnMultiplayerGamePaused += PauseGameManager_OnMultiplayerGamePaused;
+        GamePause.Instance.OnMultiplayerGameUnpaused += PauseGameManager_OnMultiplayerGameUnpaused;
 
-        Hide();
+        if (!GamePause.Instance.IsGamePaused()) {
+            Hide();
+        }
     }
 
     private void PauseGameManager_OnMultiplayerGameUnpaused(object sender, System.EventArgs e) {

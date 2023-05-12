@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PauseGameManager : NetworkBehaviour {
+public class GamePause : NetworkBehaviour {
 
 
-    public static PauseGameManager Instance { get; private set; }
+    public static GamePause Instance { get; private set; }
 
 
     public event EventHandler OnLocalGamePaused;
@@ -15,7 +15,7 @@ public class PauseGameManager : NetworkBehaviour {
     public event EventHandler OnMultiplayerGameUnpaused;
 
     private bool isLocalGamePaused = false;
-    private NetworkVariable<bool> isGamePaused = new NetworkVariable<bool>(false);
+    private NetworkVariable<bool> isMultiplayerGamePaused = new NetworkVariable<bool>(false);
     private Dictionary<ulong, bool> playerPausedDictionary;
     private bool autoTestGamePauseState;
 
@@ -32,7 +32,7 @@ public class PauseGameManager : NetworkBehaviour {
 
     public override void OnNetworkSpawn() {
 
-        isGamePaused.OnValueChanged += IsGamePaused_OnValueChanged;
+        isMultiplayerGamePaused.OnValueChanged += IsMultiplayerGamePaused_OnValueChanged;
 
         if (IsServer) {
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
@@ -40,6 +40,8 @@ public class PauseGameManager : NetworkBehaviour {
     }
 
     private void LateUpdate() {
+        if (!IsServer) return;
+
         if (autoTestGamePauseState) {
             autoTestGamePauseState = false;
             TestGamePausedState();
@@ -50,8 +52,8 @@ public class PauseGameManager : NetworkBehaviour {
         autoTestGamePauseState = true;
     }
 
-    private void IsGamePaused_OnValueChanged(bool previousValue, bool newValue) {
-        if (isGamePaused.Value) {
+    private void IsMultiplayerGamePaused_OnValueChanged(bool previousValue, bool newValue) {
+        if (isMultiplayerGamePaused.Value) {
             Time.timeScale = 0f;
 
             OnMultiplayerGamePaused?.Invoke(this, EventArgs.Empty);
@@ -97,12 +99,16 @@ public class PauseGameManager : NetworkBehaviour {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             if (playerPausedDictionary.ContainsKey(clientId) && playerPausedDictionary[clientId]) {
                 // This player is paused
-                isGamePaused.Value = true;
+                isMultiplayerGamePaused.Value = true;
                 return;
             }
         }
 
         // All players are unpaused
-        isGamePaused.Value = false;
+        isMultiplayerGamePaused.Value = false;
+    }
+
+    public bool IsGamePaused() {
+        return isMultiplayerGamePaused.Value;
     }
 }

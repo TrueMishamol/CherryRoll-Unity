@@ -51,7 +51,7 @@ public class IngameMenuUI : MonoBehaviour {
 
         closeButton.onClick.AddListener(() => {
             SwitchOpenClose();
-            PauseGameManager.Instance.ToggleLocalPauseGame();
+            GamePause.Instance.ToggleLocalPauseGame();
         });
 
         backButton.onClick.AddListener(() => {
@@ -64,12 +64,16 @@ public class IngameMenuUI : MonoBehaviour {
     private void Start() {
         GameInput.Instance.OnMenuOpenCloseAction += GameInput_OnMenuOpenCloseAction;
         MultiplayerConnection.OnJoinCodeUpdated += NetworkHandleConnection_OnJoinCodeUpdated;
-        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+        MultiplayerPlayersCount.OnPlayerCountUpdate += MultiplayerPlayersCount_OnPlayerCountUpdate;
 
         UpdateJoinCodeOutputText();
         UpdatePlayersCountOutputTextServerRpc();
 
         Hide();
+    }
+
+    private void MultiplayerPlayersCount_OnPlayerCountUpdate(object sender, EventArgs e) {
+        UpdatePlayersCountOutputTextServerRpc(); //! Maybe I don't need RPC
     }
 
     private void NetworkHandleConnection_OnJoinCodeUpdated(object sender, EventArgs e) {
@@ -82,10 +86,6 @@ public class IngameMenuUI : MonoBehaviour {
 
     private void GameInput_OnMenuOpenCloseAction(object sender, System.EventArgs e) {
         SwitchOpenClose();
-    }
-
-    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
-        UpdatePlayersCountOutputTextServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]

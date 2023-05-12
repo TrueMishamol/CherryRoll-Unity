@@ -1,4 +1,5 @@
-﻿using Unity.Netcode;
+﻿using System;
+using Unity.Netcode;
 using UnityEngine;
 
 public class MultiplayerPlayersCount : NetworkBehaviour {
@@ -8,7 +9,11 @@ public class MultiplayerPlayersCount : NetworkBehaviour {
 
     private NetworkVariable<int> playersCount = new NetworkVariable<int>(0);
 
+    public static event EventHandler OnPlayerCountUpdate;
+
     public static int maxPlayerAmount = 10;
+
+    private bool autoUpdatePlayersCount;
 
 
     private void Awake() {
@@ -17,22 +22,59 @@ public class MultiplayerPlayersCount : NetworkBehaviour {
         DontDestroyOnLoad(gameObject);
     }
 
-    public int GetPlayersCount() {
+    public override void OnNetworkSpawn() {
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+        playersCount.OnValueChanged += PlayersCount_OnValueChanged;
+
+        if (IsServer) {
+            NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+        }
+    }
+
+    private void LateUpdate() {
+        if (!IsServer) return;
+
+        if (autoUpdatePlayersCount) {
+            autoUpdatePlayersCount = false;
+            UpdatePlayersCount();
+        }
+    }
+
+    private void PlayersCount_OnValueChanged(int previousValue, int newValue) {
+        UpdatePlayersCount(); //! Maybe I don't extra update 
+
+        OnPlayerCountUpdate?.Invoke(this, EventArgs.Empty);
+    }
+
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
+        autoUpdatePlayersCount = true;
         UpdatePlayersCount();
+    }
+
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
+        autoUpdatePlayersCount = true;
+        UpdatePlayersCount();
+    }
+
+
+    public int GetPlayersCount() {
         return playersCount.Value;
     }
 
-    public void UpdatePlayersCount() {
-        if (!IsServer) return;
+    private void UpdatePlayersCount() {
+        UpdatePlayerCountServerRpc();
+    }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdatePlayerCountServerRpc() {
+        //if (!IsServer) return;
         try {
             playersCount.Value = NetworkManager.Singleton.ConnectedClients.Count;
         } catch (NotServerException) {
             // If the host stops, then constantly occurs thiss exception Unity.Netcode.NotServerException: ConnectedClients should only be accessed on server
             Debug.Log("Server stopped");
-            playersCount.Value = 0;
+            playersCount.Value = -1;
         }
     }
-
-
 }

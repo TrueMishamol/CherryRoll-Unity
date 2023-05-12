@@ -12,8 +12,6 @@ public class LobbyGameManager : NetworkBehaviour {
 
 
     public override void OnNetworkSpawn() {
-        Debug.Log("OnNetworkSpawn");
-
         if (IsServer) {
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
         }
@@ -21,7 +19,6 @@ public class LobbyGameManager : NetworkBehaviour {
         if (!IsServer) {
             ulong clientId = NetworkManager.LocalClientId;
             InstantiatePlayerPrefabServerRpc(clientId);
-            Debug.Log("SceneManager_OnLoadEventCompleted - OnNetworkSpawn");
         }
     }
 
@@ -29,14 +26,11 @@ public class LobbyGameManager : NetworkBehaviour {
         ulong clientId = NetworkManager.LocalClientId;
 
         InstantiatePlayerPrefabServerRpc(clientId);
-        Debug.Log("SceneManager_OnLoadEventCompleted");
     }
 
     [ServerRpc (RequireOwnership = false)]
     private void InstantiatePlayerPrefabServerRpc(ulong clientId) {
         Transform playerTransform = Instantiate(playerPrefab);
         playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
-        Debug.Log("InstantiatePlayerPrefabServerRpc, Client ID: " + clientId);
-
     }
 }
