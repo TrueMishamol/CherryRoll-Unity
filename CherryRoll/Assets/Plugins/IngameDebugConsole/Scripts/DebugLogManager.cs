@@ -40,13 +40,13 @@ namespace IngameDebugConsole
 		public static DebugLogManager Instance { get; private set; }
 
 #pragma warning disable 0649
-		//[Header( "Properties" )]
-		//[SerializeField]
-		//[HideInInspector]
-		//[Tooltip( "If enabled, console window will persist between scenes (i.e. not be destroyed when scene changes)" )]
-		//private bool singleton = true;
+		[Header( "Properties" )]
+		[SerializeField]
+		[HideInInspector]
+		[Tooltip( "If enabled, console window will persist between scenes (i.e. not be destroyed when scene changes)" )]
+		private bool singleton = true;
 
-        [SerializeField]
+		[SerializeField]
 		[HideInInspector]
 		[Tooltip( "Minimum height of the console window" )]
 		private float minimumHeight = 200f;
@@ -411,9 +411,9 @@ namespace IngameDebugConsole
 				Instance = this;
 
 				// If it is a singleton object, don't destroy it between scene changes
-				//if( singleton )
-				//	DontDestroyOnLoad( gameObject );
-            }
+				if( singleton )
+					DontDestroyOnLoad( gameObject );
+			}
 			else if( Instance != this )
 			{
 				Destroy( gameObject );

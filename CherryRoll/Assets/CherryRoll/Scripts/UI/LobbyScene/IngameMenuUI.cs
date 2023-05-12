@@ -36,7 +36,7 @@ public class IngameMenuUI : MonoBehaviour {
         quitButton.onClick.AddListener(() => {
             if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
                 // Is Host
-                if (SceneManager.GetActiveScene().ToString() != Loader.Scene.LobbyScene.ToString()) {
+                if (SceneManager.GetActiveScene().name.ToString() != Loader.Scene.LobbyScene.ToString()) {
                     // Active scene is NOT Lobby
                     Loader.LoadNetwork(Loader.Scene.LobbyScene);
                 } else {

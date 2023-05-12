@@ -64,8 +64,6 @@ public class GameInput : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        Debug.Log("Game Input OnDestroy");
-
         playerInputActions.Player.Interact.performed -= Interact_performed;
         playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
         playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
