@@ -10,8 +10,8 @@ public class IngameMenuUI : MonoBehaviour {
 
     public static IngameMenuUI Instance { get; private set; }
 
-    [SerializeField] private TextMeshProUGUI joinCodeOutputText;
     [SerializeField] private Button joinCodeCopyButton;
+    [SerializeField] private TextMeshProUGUI joinCodeOutputText;
     [SerializeField] private Button optionsButton;
     [SerializeField] private TextMeshProUGUI nameInputField;
     [SerializeField] private Button quitButton;
@@ -56,7 +56,7 @@ public class IngameMenuUI : MonoBehaviour {
 
         });
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {
