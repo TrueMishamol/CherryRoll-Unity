@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: CollectThePlate
   m_EditorClassIdentifier: 
   gameScene: 6
-  gamePreview: {fileID: 21300000, guid: a8c12689ef11dae45a89ca1edb1fa84b, type: 3}
+  gamePreview: {fileID: 21300000, guid: 3a9dc3e99a6bd75419e06c545d63887e, type: 3}
   gameName: Collect The Plate
   gameDescription: Collect full item kit faster then opponents
