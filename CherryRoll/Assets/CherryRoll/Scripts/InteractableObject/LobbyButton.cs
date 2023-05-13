@@ -11,5 +11,8 @@ public class LobbyButton : MonoBehaviour, IInteractableObject {
 
     public void Interact(Player player) {
         OnPlayerPressButton?.Invoke(this, EventArgs.Empty);
+
+        //! if host
+        GameChooseMenuUI.Instance.Show();
     }
 }
