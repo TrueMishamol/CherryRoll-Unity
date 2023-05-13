@@ -7,11 +7,11 @@ public class IngameMenuUI : MonoBehaviour {
 
 
     private void Awake() {
-        if (Instance != null & Instance != this) {
-            Destroy(Instance.gameObject);
-        }
+        //if (Instance != null & Instance != this) {
+        //    Destroy(Instance.gameObject);
+        //}
         Instance = this;
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 }
