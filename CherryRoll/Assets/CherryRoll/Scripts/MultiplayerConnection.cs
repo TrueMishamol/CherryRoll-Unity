@@ -22,6 +22,8 @@ public class MultiplayerConnection : NetworkBehaviour {
 
     public static string JoinCode { get; private set; }
 
+    private float isSignedInAutoCheckTimer = 0f;
+
 
     private void Awake() {
         Instance = this;
@@ -30,7 +32,6 @@ public class MultiplayerConnection : NetworkBehaviour {
     }
 
     private async void Start() {
-
         // Sends a request to Unity Services to initialize the API
         // With Async, the game does not freeze until response
         if (UnityServices.State == 0) {
@@ -43,8 +44,24 @@ public class MultiplayerConnection : NetworkBehaviour {
         }
     }
 
+    private void Update() {
+        if (isSignedInAutoCheckTimer > 0f) {
+            if (AuthenticationService.Instance.IsSignedIn) {
+                isSignedInAutoCheckTimer = 0f;
+                CreateRelay();
+            } else {
+                isSignedInAutoCheckTimer -= Time.deltaTime;
+            }
+        }
+    }
+
     public async void CreateRelay() {
         OnStartingRelay?.Invoke(this, EventArgs.Empty);
+
+        if (!AuthenticationService.Instance.IsSignedIn) {
+            isSignedInAutoCheckTimer = 10f;
+            return;
+        }
 
         NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
 

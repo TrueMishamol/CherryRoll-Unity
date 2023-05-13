@@ -1,6 +1,7 @@
 ﻿using System;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : NetworkBehaviour, IItemParent {
 
@@ -45,6 +46,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
     private void Start() {
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
+        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
         if (IsClient && IsOwner) {
             // Cinemachine
@@ -52,6 +54,11 @@ public class Player : NetworkBehaviour, IItemParent {
             cameraFollow.TryGetComponent<PlayerCameraFollow>(out playerCameraFollow);
             playerCameraFollow.FollowPlayer(transform);
         }
+    }
+
+    private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
+        //SetSelectedInteractableObject(null);
+        selectedInteractableObject = null;
     }
 
     private void GameInput_OnInteractAction(object sender, System.EventArgs e) {
@@ -177,6 +184,10 @@ public class Player : NetworkBehaviour, IItemParent {
 
     public NetworkObject GetNetworkObject() {
         return NetworkObject;
+    }
+
+    private void OnDestroy() {
+        GameInput.Instance.OnInteractAction -= GameInput_OnInteractAction;
     }
 }
 

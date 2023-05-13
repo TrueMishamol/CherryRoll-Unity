@@ -21,6 +21,9 @@ public class GameInput : MonoBehaviour {
 
 
     private void Awake() {
+        if (Instance != null & Instance != this) {
+            Destroy(Instance.gameObject);
+        }
         Instance = this;
 
         // Initialize all the variables for Input System
@@ -31,6 +34,8 @@ public class GameInput : MonoBehaviour {
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
         playerInputActions.Player.MenuOpenClose.performed += MenuOpenClose_performed;
         playerInputActions.Player.DebugOpen.performed += DebugOpen_performed;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void DebugOpen_performed(InputAction.CallbackContext obj) {
@@ -64,9 +69,11 @@ public class GameInput : MonoBehaviour {
     }
 
     private void OnDestroy() {
-        playerInputActions.Player.Interact.performed -= Interact_performed;
-        playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
-        playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
-        playerInputActions.Player.DebugOpen.performed -= DebugOpen_performed;
+        if (Instance == this) {
+            playerInputActions.Player.Interact.performed -= Interact_performed;
+            playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
+            playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
+            playerInputActions.Player.DebugOpen.performed -= DebugOpen_performed;
+        }
     }
 }

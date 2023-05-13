@@ -13,6 +13,7 @@ public class MultiplayerMenuUI : MonoBehaviour {
     [SerializeField] private Button backButton;
     [SerializeField] private TextMeshProUGUI joinCodeInputField;
     [SerializeField] private TextMeshProUGUI nameInputField;
+    [SerializeField] private Button closeButton;
 
 
     private void Awake() {
@@ -35,6 +36,10 @@ public class MultiplayerMenuUI : MonoBehaviour {
         backButton.onClick.AddListener(() => {
             Hide();
             ChoosePlaymodeUI.Instance.Show();
+        });
+
+        closeButton.onClick.AddListener(() => {
+            Loader.Load(Loader.Scene.MainMenuScene);
         });
     }
 

@@ -21,9 +21,14 @@ public class GamePause : NetworkBehaviour {
 
 
     private void Awake() {
+        if (Instance != null & Instance != this) {
+            Destroy(Instance.gameObject);
+        }
         Instance = this;
 
         playerPausedDictionary = new Dictionary<ulong, bool>();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {
@@ -110,5 +115,10 @@ public class GamePause : NetworkBehaviour {
 
     public bool IsGamePaused() {
         return isMultiplayerGamePaused.Value;
+    }
+
+    private void OnDestroy() {
+        Debug.Log("dsfjlkdjf OnDestroy");
+        GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
     }
 }

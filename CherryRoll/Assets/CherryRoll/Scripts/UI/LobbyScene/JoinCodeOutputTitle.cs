@@ -25,5 +25,13 @@ public class JoinCodeOutputTitle : MonoBehaviour {
 
     private void Hide() {
         gameObject.SetActive(false);
+
+        MultiplayerConnection.OnJoinCodeUpdated -= NetworkHandleConnection_OnJoinCodeUpdated;
+        GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
+    }
+
+    private void OnDestroy() {
+        MultiplayerConnection.OnJoinCodeUpdated -= NetworkHandleConnection_OnJoinCodeUpdated;
+        GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
     }
 }

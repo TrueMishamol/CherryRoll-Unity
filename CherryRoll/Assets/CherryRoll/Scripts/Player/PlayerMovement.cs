@@ -4,9 +4,9 @@ using UnityEngine;
 public class PlayerMovement : NetworkBehaviour
 {
     // Game Input
-    private GameObject gameInputHolder;
+    //private GameObject gameInputHolder;
     private GameInput gameInput;
-    private string gameInputHolderName = "GameInput";
+    //private string gameInputHolderName = "GameInput";
 
     [SerializeField] private CharacterController characterController;
 
@@ -28,8 +28,9 @@ public class PlayerMovement : NetworkBehaviour
         if (IsOwner)
         {
             // Game Input
-            gameInputHolder = GameObject.Find(gameInputHolderName);
-            gameInputHolder.TryGetComponent<GameInput>(out gameInput);
+            //gameInputHolder = GameObject.Find(gameInputHolderName);
+            //gameInputHolder.TryGetComponent<GameInput>(out gameInput);
+            gameInput = GameInput.Instance;
         }
     }
 

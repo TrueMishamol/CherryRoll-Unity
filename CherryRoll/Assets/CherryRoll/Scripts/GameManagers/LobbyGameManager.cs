@@ -26,6 +26,8 @@ public class LobbyGameManager : NetworkBehaviour {
         ulong clientId = NetworkManager.LocalClientId;
 
         InstantiatePlayerPrefabServerRpc(clientId);
+
+        NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SceneManager_OnLoadEventCompleted;
     }
 
     [ServerRpc (RequireOwnership = false)]

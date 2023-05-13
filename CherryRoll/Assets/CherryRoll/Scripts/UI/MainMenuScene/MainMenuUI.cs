@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class MainMenuUI : MonoBehaviour {
 
 
+    [SerializeField] private TextMeshProUGUI gameVersionText;
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private TextMeshProUGUI gameVersionText;
 
 
     private void Awake() {
