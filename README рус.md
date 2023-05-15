@@ -1,6 +1,6 @@
 ### [README on English](https://github.com/TrueMishamol/CherryRoll/blob/master/README.md)
 
-# Cherry Roll
+# Вишнёвая булка
 
 ### [Скачать](https://github.com/TrueMishamol/CherryRoll/releases)
 
