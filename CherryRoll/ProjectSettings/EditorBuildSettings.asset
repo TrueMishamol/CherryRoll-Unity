@@ -6,24 +6,24 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/MainMenuScene.unity
+    path: Assets/CherryRoll/Scenes/MenuScenes/MainMenuScene.unity
     guid: 918d587bca5d6f648bcbbcd5eb01a613
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/LoadingScene.unity
+    path: Assets/CherryRoll/Scenes/MenuScenes/LoadingScene.unity
     guid: af43a605c95e6824085d80f7e206a0f2
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/MultiplayerMenuScene.unity
+    path: Assets/CherryRoll/Scenes/MenuScenes/MultiplayerMenuScene.unity
     guid: cb2092bdb5125594fae7e254ecc128b7
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/CharacterSetupScene.unity
+    path: Assets/CherryRoll/Scenes/MenuScenes/CharacterSetupScene.unity
     guid: 9d082c20bd7b920479eb856751c4ebb1
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/LobbyScene.unity
+    path: Assets/CherryRoll/Scenes/GameScenes/LobbyScene.unity
     guid: 948e258038e79204c9ffff7761b0d063
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/GameBunScene.unity
+    path: Assets/CherryRoll/Scenes/GameScenes/BigBunGameScene.unity
     guid: 49d51d5cc0c524349988065def3e459d
   - enabled: 1
-    path: Assets/CherryRoll/Scenes/GameCollectThePlateScene.unity
+    path: Assets/CherryRoll/Scenes/GameScenes/CollectThePlateGameScene.unity
     guid: a96dfeb70ab439e4faf99572db295e48
   m_configObjects: {}

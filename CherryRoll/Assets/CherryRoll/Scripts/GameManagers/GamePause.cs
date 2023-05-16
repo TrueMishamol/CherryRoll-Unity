@@ -32,7 +32,18 @@ public class GamePause : NetworkBehaviour {
     }
 
     private void Start() {
-        GameInput.Instance.OnMenuOpenCloseAction += GameInput_OnMenuOpenCloseAction;
+        IngameMenuUI.Instance.OnMenuClosed += IngameMenuUI_OnMenuClosed;
+        IngameMenuUI.Instance.OnMenuOpened += IngameMenuUI_OnMenuOpened;
+    }
+
+    private void IngameMenuUI_OnMenuOpened(object sender, EventArgs e) {
+        isLocalGamePaused = true;
+        UpdateLocalPauseGame();
+    }
+
+    private void IngameMenuUI_OnMenuClosed(object sender, EventArgs e) {
+        isLocalGamePaused = false;
+        UpdateLocalPauseGame();
     }
 
     public override void OnNetworkSpawn() {
@@ -69,12 +80,7 @@ public class GamePause : NetworkBehaviour {
         }
     }
 
-    private void GameInput_OnMenuOpenCloseAction(object sender, EventArgs e) {
-        ToggleLocalPauseGame();
-    }
-
-    public void ToggleLocalPauseGame() {
-        isLocalGamePaused = !isLocalGamePaused;
+    public void UpdateLocalPauseGame() {
         if (isLocalGamePaused) {
             PauseGameServerRpc();
 
@@ -117,7 +123,8 @@ public class GamePause : NetworkBehaviour {
         return isMultiplayerGamePaused.Value;
     }
 
-    private void OnDestroy() {
-        GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
-    }
+    //! Refactor?
+    //private void OnDestroy() {
+    //    GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
+    //}
 }

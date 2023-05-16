@@ -22,16 +22,18 @@ public class MainMenuCleanUp : MonoBehaviour {
             Destroy(MultiplayerPlayersCount.Instance.gameObject);
         }
 
-        if (IngameMenuUI.Instance != null) {
-            Destroy(IngameMenuUI.Instance.gameObject);
-        }
-
         if (GameInput.Instance != null) {
             Destroy(GameInput.Instance.gameObject);
         }
 
         if (GamePause.Instance != null) {
             Destroy(GamePause.Instance.gameObject);
+        }
+
+        DontDestroyOnLoadScript[] dontDestroyOnLoadScripts = FindObjectsOfType(typeof(DontDestroyOnLoadScript)) as DontDestroyOnLoadScript[];
+        foreach (DontDestroyOnLoadScript dontDestroyOnLoadScript in dontDestroyOnLoadScripts) {
+            Destroy(dontDestroyOnLoadScript.gameObject);
+            Debug.Log(dontDestroyOnLoadScript + " Destroyed");
         }
     }
 }

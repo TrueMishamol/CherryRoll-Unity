@@ -4,9 +4,7 @@ using UnityEngine;
 
 
 public class InstantiatePlayerPrefabs : NetworkBehaviour {
-    
 
-    //public static CollectThePlateGameManager Instance { get; private set; }
 
     [SerializeField] private Transform playerPrefab;
 
@@ -15,12 +13,24 @@ public class InstantiatePlayerPrefabs : NetworkBehaviour {
         if (IsServer) {
             NetworkManager.Singleton.SceneManager.OnLoadEventCompleted += SceneManager_OnLoadEventCompleted;
         }
+
+        if (!IsServer) {
+            ulong clientId = NetworkManager.LocalClientId;
+            InstantiatePlayerPrefabServerRpc(clientId);
+        }
     }
 
     private void SceneManager_OnLoadEventCompleted(string sceneName, UnityEngine.SceneManagement.LoadSceneMode loadSceneMode, List<ulong> clientsCompleted, List<ulong> clientsTimedOut) {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
-            Transform playerTransform = Instantiate(playerPrefab);
-            playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
+            InstantiatePlayerPrefabServerRpc(clientId);
         }
+
+        NetworkManager.Singleton.SceneManager.OnLoadEventCompleted -= SceneManager_OnLoadEventCompleted;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void InstantiatePlayerPrefabServerRpc(ulong clientId) {
+        Transform playerTransform = Instantiate(playerPrefab);
+        playerTransform.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, true);
     }
 }

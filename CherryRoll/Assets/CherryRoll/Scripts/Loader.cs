@@ -10,8 +10,8 @@ public static class Loader {
         MultiplayerMenuScene,
         CharacterSetupScene,
         LobbyScene,
-        GameBunScene,
-        GameCollectThePlateScene,
+        BigBunGameScene,
+        CollectThePlateGameScene,
     }
 
     private static Scene targetScene;
