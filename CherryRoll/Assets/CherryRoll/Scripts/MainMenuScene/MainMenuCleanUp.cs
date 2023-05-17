@@ -33,7 +33,6 @@ public class MainMenuCleanUp : MonoBehaviour {
         DontDestroyOnLoadScript[] dontDestroyOnLoadScripts = FindObjectsOfType(typeof(DontDestroyOnLoadScript)) as DontDestroyOnLoadScript[];
         foreach (DontDestroyOnLoadScript dontDestroyOnLoadScript in dontDestroyOnLoadScripts) {
             Destroy(dontDestroyOnLoadScript.gameObject);
-            Debug.Log(dontDestroyOnLoadScript + " Destroyed");
         }
     }
 }
