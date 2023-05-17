@@ -1,7 +1,7 @@
 using System;
-using UnityEngine;
+using Unity.Netcode;
 
-public class LobbyButton : MonoBehaviour, IInteractableObject {
+public class LobbyButton : NetworkBehaviour, IInteractableObject {
 
 
     public event EventHandler OnPlayerPressButton;
@@ -10,7 +10,8 @@ public class LobbyButton : MonoBehaviour, IInteractableObject {
     public void Interact(Player player) {
         OnPlayerPressButton?.Invoke(this, EventArgs.Empty);
 
-        //! if host
-        GameChooseMenuUI.Instance.Show();
+        if (IsHost) {
+            GameChooseMenuUI.Instance.Show();
+        }
     }
 }

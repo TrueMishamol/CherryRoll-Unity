@@ -134,11 +134,15 @@ public class Player : NetworkBehaviour, IItemParent {
                 }
             } else {
                 // Has no BaseInteractableObject
-                SetSelectedInteractableObject(null);
+                if (selectedInteractableObject != null) {
+                    SetSelectedInteractableObject(null);
+                }
             }
         } else {
             // Raycast do not hit interactLayerMask
-            SetSelectedInteractableObject(null);
+            if (selectedInteractableObject != null) {
+                SetSelectedInteractableObject(null);
+            }
         }
     }
 
@@ -185,9 +189,5 @@ public class Player : NetworkBehaviour, IItemParent {
     public NetworkObject GetNetworkObject() {
         return NetworkObject;
     }
-
-    //private void OnDestroy() {
-    //    GameInput.Instance.OnInteractAction -= GameInput_OnInteractAction;
-    //}
 }
 
