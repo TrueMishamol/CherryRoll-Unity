@@ -55,12 +55,10 @@ public class IngameMenuUI : MonoBehaviour {
 
         closeButton.onClick.AddListener(() => {
             SwitchOpenClose();
-            GamePause.Instance.UpdateLocalPauseGame();
         });
     }
 
     private void Start() {
-        GameInput.Instance.OnMenuOpenCloseAction += GameInput_OnMenuOpenCloseAction;
         MultiplayerConnection.OnJoinCodeUpdated += NetworkHandleConnection_OnJoinCodeUpdated;
         MultiplayerPlayersCount.OnPlayerCountUpdate += MultiplayerPlayersCount_OnPlayerCountUpdate;
 
@@ -82,10 +80,6 @@ public class IngameMenuUI : MonoBehaviour {
         joinCodeOutputText.text = MultiplayerConnection.JoinCode;
     }
 
-    private void GameInput_OnMenuOpenCloseAction(object sender, System.EventArgs e) {
-        SwitchOpenClose();
-    }
-
     [ServerRpc(RequireOwnership = false)]
     private void UpdatePlayersCountOutputTextServerRpc() {
         UpdatePlayersCountOutputTextClientRpc();
@@ -94,16 +88,6 @@ public class IngameMenuUI : MonoBehaviour {
     [ClientRpc]
     private void UpdatePlayersCountOutputTextClientRpc() {
         playersCountNumberText.text = MultiplayerPlayersCount.Instance.GetPlayersCount().ToString();
-    }
-
-    private void SwitchOpenClose() {
-        isIngameMenuOppened = !isIngameMenuOppened;
-
-        if (isIngameMenuOppened) {
-            Show();
-        } else {
-            Hide();
-        }
     }
 
     private void Show() {
@@ -116,5 +100,19 @@ public class IngameMenuUI : MonoBehaviour {
         isIngameMenuOppened = false;
         gameObject.SetActive(false);
         OnMenuClosed?.Invoke(this, EventArgs.Empty);
+    }
+
+    public void SwitchOpenClose() {
+        isIngameMenuOppened = !isIngameMenuOppened;
+
+        if (isIngameMenuOppened) {
+            Show();
+        } else {
+            Hide();
+        }
+    }
+
+    public bool IsIngameMenuOppened() {
+        return isIngameMenuOppened;
     }
 }

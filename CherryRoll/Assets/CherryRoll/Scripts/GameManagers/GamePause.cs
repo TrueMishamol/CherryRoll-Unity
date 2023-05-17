@@ -17,55 +17,21 @@ public class GamePause : NetworkBehaviour {
     private bool isLocalGamePaused = false;
     private NetworkVariable<bool> isMultiplayerGamePaused = new NetworkVariable<bool>(false);
     private Dictionary<ulong, bool> playerPausedDictionary;
-    private bool autoTestGamePauseState;
+    private bool autoTestMultiplayerGamePauseState;
 
 
     private void Awake() {
-        //if (Instance != null & Instance != this) {
-        //    Destroy(Instance.gameObject);
-        //}
         Instance = this;
 
         playerPausedDictionary = new Dictionary<ulong, bool>();
-
-        //DontDestroyOnLoad(gameObject);
-    }
-
-    private void Start() {
-        IngameMenuUI.Instance.OnMenuClosed += IngameMenuUI_OnMenuClosed;
-        IngameMenuUI.Instance.OnMenuOpened += IngameMenuUI_OnMenuOpened;
-    }
-
-    private void IngameMenuUI_OnMenuOpened(object sender, EventArgs e) {
-        isLocalGamePaused = true;
-        UpdateLocalPauseGame();
-    }
-
-    private void IngameMenuUI_OnMenuClosed(object sender, EventArgs e) {
-        isLocalGamePaused = false;
-        UpdateLocalPauseGame();
     }
 
     public override void OnNetworkSpawn() {
-
         isMultiplayerGamePaused.OnValueChanged += IsMultiplayerGamePaused_OnValueChanged;
 
         if (IsServer) {
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         }
-    }
-
-    private void LateUpdate() {
-        if (!IsServer) return;
-
-        if (autoTestGamePauseState) {
-            autoTestGamePauseState = false;
-            TestGamePausedState();
-        }
-    }
-
-    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
-        autoTestGamePauseState = true;
     }
 
     private void IsMultiplayerGamePaused_OnValueChanged(bool previousValue, bool newValue) {
@@ -80,7 +46,37 @@ public class GamePause : NetworkBehaviour {
         }
     }
 
-    public void UpdateLocalPauseGame() {
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
+        autoTestMultiplayerGamePauseState = true;
+    }
+
+    private void LateUpdate() {
+        if (!IsServer) return;
+
+        if (autoTestMultiplayerGamePauseState) {
+            autoTestMultiplayerGamePauseState = false;
+            TestMultiplayerGamePausedState();
+        }
+    }
+
+    private void TestMultiplayerGamePausedState() {
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
+            if (playerPausedDictionary.ContainsKey(clientId) && playerPausedDictionary[clientId]) {
+                // This player is paused
+                isMultiplayerGamePaused.Value = true;
+                return;
+            }
+        }
+        // All players are unpaused
+        isMultiplayerGamePaused.Value = false;
+    }
+
+    public void SetLocalGamePaused(bool isLocalGamePaused) {
+        this.isLocalGamePaused = isLocalGamePaused;
+        UpdateLocalPauseGame();
+    }
+
+    private void UpdateLocalPauseGame() {
         if (isLocalGamePaused) {
             PauseGameServerRpc();
 
@@ -96,35 +92,17 @@ public class GamePause : NetworkBehaviour {
     private void PauseGameServerRpc(ServerRpcParams serverRpcParams = default) {
         playerPausedDictionary[serverRpcParams.Receive.SenderClientId] = true;
 
-        TestGamePausedState();
+        TestMultiplayerGamePausedState();
     }
 
     [ServerRpc(RequireOwnership = false)]
     private void UnpauseGameServerRpc(ServerRpcParams serverRpcParams = default) {
         playerPausedDictionary[serverRpcParams.Receive.SenderClientId] = false;
 
-        TestGamePausedState();
-    }
-
-    private void TestGamePausedState() {
-        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
-            if (playerPausedDictionary.ContainsKey(clientId) && playerPausedDictionary[clientId]) {
-                // This player is paused
-                isMultiplayerGamePaused.Value = true;
-                return;
-            }
-        }
-
-        // All players are unpaused
-        isMultiplayerGamePaused.Value = false;
+        TestMultiplayerGamePausedState();
     }
 
     public bool IsGamePaused() {
         return isMultiplayerGamePaused.Value;
     }
-
-    //! Refactor?
-    //private void OnDestroy() {
-    //    GameInput.Instance.OnMenuOpenCloseAction -= GameInput_OnMenuOpenCloseAction;
-    //}
 }

@@ -1,13 +1,18 @@
 using UnityEngine;
 
-public class PauseMultiplayerUI : MonoBehaviour {
+public class PauseMultiplayerOverlayUI : MonoBehaviour {
 
     private void Start() {
         GamePause.Instance.OnMultiplayerGamePaused += PauseGameManager_OnMultiplayerGamePaused;
         GamePause.Instance.OnMultiplayerGameUnpaused += PauseGameManager_OnMultiplayerGameUnpaused;
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
 
-        if (!GamePause.Instance.IsGamePaused()) {
-            Hide();
+        Hide();
+    }
+
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
+        if (GamePause.Instance.IsGamePaused()) {
+            Show();
         }
     }
 
