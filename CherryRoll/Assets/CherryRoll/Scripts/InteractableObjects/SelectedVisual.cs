@@ -47,4 +47,9 @@ public class SelectedVisual : MonoBehaviour {
             visualGameObject.SetActive(false);
         }
     }
+
+    private void OnDestroy() {
+        Player.LocalInstance.OnSelectedInteractableObjectChanged -= Player_OnSelectedInteractableObjectChanged;
+        Player.OnAnyPlayerSpawned -= Player_OnAnyPlayerSpawned;
+    }
 }
