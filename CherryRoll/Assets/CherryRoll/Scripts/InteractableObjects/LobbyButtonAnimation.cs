@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LobbyButtonAnimation : MonoBehaviour {
@@ -12,10 +10,6 @@ public class LobbyButtonAnimation : MonoBehaviour {
     [SerializeField] private Animator animator;
 
 
-    private void Awake() {
-        //animator = GetComponent<Animator>();
-    }
-
     private void Start() {
         lobbyButton.OnPlayerPressButton += LobbyButton_OnPlayerPressButton;
     }
@@ -24,7 +18,7 @@ public class LobbyButtonAnimation : MonoBehaviour {
         animator.SetTrigger(PRESS);
     }
 
-    private void OnDestroy() {
-        lobbyButton.OnPlayerPressButton -= LobbyButton_OnPlayerPressButton;
-    }
+    //private void OnDestroy() {
+    //    lobbyButton.OnPlayerPressButton -= LobbyButton_OnPlayerPressButton;
+    //}
 }

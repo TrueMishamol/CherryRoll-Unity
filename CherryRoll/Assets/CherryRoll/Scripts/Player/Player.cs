@@ -186,8 +186,8 @@ public class Player : NetworkBehaviour, IItemParent {
         return NetworkObject;
     }
 
-    private void OnDestroy() {
-        GameInput.Instance.OnInteractAction -= GameInput_OnInteractAction;
-    }
+    //private void OnDestroy() {
+    //    GameInput.Instance.OnInteractAction -= GameInput_OnInteractAction;
+    //}
 }
 

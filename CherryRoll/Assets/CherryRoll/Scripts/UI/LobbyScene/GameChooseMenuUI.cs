@@ -30,7 +30,7 @@ public class GameChooseMenuUI : MonoBehaviour {
             gameTemplateTransform.GetComponent<GameChooseMenuSingleUI>().SetGameSceneSO(gameSceneSO);
         }
 
-        Hide();
+        //Hide();
     }
 
     public void Show() {
