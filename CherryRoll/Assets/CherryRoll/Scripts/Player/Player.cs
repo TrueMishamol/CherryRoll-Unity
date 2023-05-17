@@ -14,8 +14,6 @@ public class Player : NetworkBehaviour, IItemParent {
     }
 
 
-    [SerializeField] float spawnPositionRange = 5f;
-
     // Player Color
     [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
     private MeshRenderer meshRenderer;
@@ -74,8 +72,6 @@ public class Player : NetworkBehaviour, IItemParent {
     public override void OnNetworkSpawn() {
         if (IsOwner) {
             LocalInstance = this;
-
-            RandomSpawnServerRpc();
         }
 
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
@@ -99,14 +95,6 @@ public class Player : NetworkBehaviour, IItemParent {
         if (clientId == OwnerClientId && HasItem()) {
             Item.DestroyItem(GetItem());
         }
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void RandomSpawnServerRpc() {
-        transform.position = new Vector3(UnityEngine.Random.Range(spawnPositionRange, -spawnPositionRange), 0, UnityEngine.Random.Range(spawnPositionRange, -spawnPositionRange));
-
-        // Rotates player to face Camera
-        transform.rotation = new Quaternion(0, 180, 0, 0);
     }
 
     private void Update() {
