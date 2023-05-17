@@ -1,41 +1,34 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerMovement : NetworkBehaviour
-{
+public class PlayerMovement : NetworkBehaviour {
+
     // Game Input
-    //private GameObject gameInputHolder;
     private GameInput gameInput;
-    //private string gameInputHolderName = "GameInput";
 
     [SerializeField] private CharacterController characterController;
 
     // Walk
-    [SerializeField] private int walkSpeed = 3;
+    private int walkSpeed = 3;
     private Vector3 walkDir;
-    [SerializeField] float playerRotationSpeed = 300f;
+    float playerRotationSpeed = 300f;
 
     // Gravity
     private Vector3 fallingVelocityVector;
     private float standingVelocityValue = 0;
-    [SerializeField] private float gravity = -26f;
+    private float gravity = -20f;
 
     // Jump and Gravity
-    [SerializeField] private float jumpHeight = .03f;
+    private float jumpHeight = 0.1f;
 
-    private void Start()
-    {
-        if (IsOwner)
-        {
-            // Game Input
-            //gameInputHolder = GameObject.Find(gameInputHolderName);
-            //gameInputHolder.TryGetComponent<GameInput>(out gameInput);
+
+    private void Start() {
+        if (IsOwner) {
             gameInput = GameInput.Instance;
         }
     }
 
-    private void Update()
-    {
+    private void FixedUpdate() {
         if (!IsOwner) return;
 
         HandleMovement();
@@ -44,45 +37,37 @@ public class PlayerMovement : NetworkBehaviour
         ApplyFinalMovements();
     }
 
-    private void ApplyFinalMovements()
-    {
+    private void ApplyFinalMovements() {
         // Walk
-        if (walkDir != Vector3.zero)
-        {
-            characterController.Move(walkDir * walkSpeed * Time.deltaTime);
+        if (walkDir != Vector3.zero) {
+            characterController.Move(walkDir * walkSpeed * Time.fixedDeltaTime);
         }
 
         // Jump
         characterController.Move(fallingVelocityVector);
     }
 
-    private void HandleMovement()
-    {
+    private void HandleMovement() {
         Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
         walkDir = new Vector3(inputVector.x, 0, inputVector.y);
 
         // Rotates Player to face walkDir
-        if (walkDir != Vector3.zero)
-        {
+        if (walkDir != Vector3.zero) {
             Quaternion toRotation = Quaternion.LookRotation(walkDir, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotationSpeed * Time.fixedDeltaTime);
         }
     }
 
-    private void HandleJumpAndGravity()
-    {
-        if (characterController.isGrounded && fallingVelocityVector.y < 0)
-        {
+    private void HandleJumpAndGravity() {
+        if (characterController.isGrounded && fallingVelocityVector.y < 0) {
             fallingVelocityVector.y = standingVelocityValue;
         }
 
-        if (!characterController.isGrounded)
-        {
-            fallingVelocityVector.y += gravity * Time.deltaTime * Time.deltaTime; // sqare of time
+        if (!characterController.isGrounded) {
+            fallingVelocityVector.y += gravity * Time.fixedDeltaTime * Time.fixedDeltaTime; // sqare of time
         }
 
-        if (gameInput.IsJumping() && characterController.isGrounded)
-        {
+        if (gameInput.IsJumping() && characterController.isGrounded) {
             fallingVelocityVector.y = jumpHeight;
         }
     }

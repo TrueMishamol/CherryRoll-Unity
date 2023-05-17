@@ -57,7 +57,6 @@ public class Player : NetworkBehaviour, IItemParent {
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
-        //SetSelectedInteractableObject(null);
         selectedInteractableObject = null;
     }
 
