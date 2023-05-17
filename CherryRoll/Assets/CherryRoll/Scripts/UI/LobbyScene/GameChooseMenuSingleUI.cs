@@ -1,8 +1,9 @@
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameChooseMenuSingleUI : MonoBehaviour {
+public class GameChooseMenuSingleUI : NetworkBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI title;
@@ -16,8 +17,12 @@ public class GameChooseMenuSingleUI : MonoBehaviour {
         image.GetComponent<Image>().sprite = recipeSO.gamePreview;
         description.text = recipeSO.gameDescription;
 
-        playButton.onClick.AddListener(() => {
-            Loader.LoadNetwork(recipeSO.gameScene);
-        });
+        if (NetworkManager.IsHost) {
+            playButton.onClick.AddListener(() => {
+                Loader.LoadNetwork(recipeSO.gameScene);
+            });
+        } else {
+            playButton.gameObject.SetActive(false);
+        }
     }
 }

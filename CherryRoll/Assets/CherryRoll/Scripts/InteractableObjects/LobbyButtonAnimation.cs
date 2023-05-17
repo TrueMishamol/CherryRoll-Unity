@@ -17,8 +17,4 @@ public class LobbyButtonAnimation : MonoBehaviour {
     private void LobbyButton_OnPlayerPressButton(object sender, System.EventArgs e) {
         animator.SetTrigger(PRESS);
     }
-
-    //private void OnDestroy() {
-    //    lobbyButton.OnPlayerPressButton -= LobbyButton_OnPlayerPressButton;
-    //}
 }

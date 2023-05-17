@@ -10,8 +10,6 @@ public class LobbyButton : NetworkBehaviour, IInteractableObject {
     public void Interact(Player player) {
         OnPlayerPressButton?.Invoke(this, EventArgs.Empty);
 
-        if (IsHost) {
-            GameChooseMenuUI.Instance.Show();
-        }
+        GameChooseMenuUI.Instance.Show();
     }
 }
