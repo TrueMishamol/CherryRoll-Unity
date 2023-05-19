@@ -1,10 +1,9 @@
 ﻿using Unity.Netcode;
 using UnityEngine;
 
-public class Counter : NetworkBehaviour, IInteractableObject, IItemParent {
+public class BaseCounter : NetworkBehaviour, IInteractableObject, IItemParent {
 
 
-    [SerializeField] private ItemSO itemSO;
     [SerializeField] private Transform itemHolder;
 
     private Item item;
@@ -25,7 +24,12 @@ public class Counter : NetworkBehaviour, IInteractableObject, IItemParent {
     public void Interact(Player player) {
         if (!HasItem()) {
             // There is no Item on Counter
-            Item.SpawnItem(itemSO, this);
+            if (player.HasItem()) {
+                // Player is carrying something
+                player.GetItem().SetItemParent(this);
+            } else {
+                // Player is not carrying anything
+            }
         } else {
             // There is Item on Counter
             if (!player.HasItem()) {
