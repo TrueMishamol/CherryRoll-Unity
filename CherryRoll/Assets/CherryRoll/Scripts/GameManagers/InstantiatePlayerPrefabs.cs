@@ -7,7 +7,7 @@ public class InstantiatePlayerPrefabs : NetworkBehaviour {
 
     [SerializeField] private Transform playerPrefab;
 
-    //[SerializeField] float spawnRadius = 5f;
+    [SerializeField] float spawnRadius = 5f;
 
 
     public override void OnNetworkSpawn() {
