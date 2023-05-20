@@ -43,10 +43,12 @@ public class IngameMenuUI : MonoBehaviour {
                     Loader.LoadNetwork(Loader.Scene.LobbyScene);
                 } else {
                     // Active scene is Lobby
+                    NetworkManager.Singleton.Shutdown();
                     Loader.Load(Loader.Scene.MainMenuScene);
                 }
             } else {
                 // Is Client
+                NetworkManager.Singleton.Shutdown();
                 Loader.Load(Loader.Scene.MainMenuScene);
             }
 
