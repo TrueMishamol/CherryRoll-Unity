@@ -3,10 +3,10 @@ using UnityEngine;
 using System;
 using Unity.Netcode;
 
-public class CollectThePlateGameManager : NetworkBehaviour {
+public class GameStateAndTimerManager : NetworkBehaviour {
 
 
-    public static CollectThePlateGameManager Instance { get; private set; }
+    public static GameStateAndTimerManager Instance { get; private set; }
 
 
     public event EventHandler OnStateChanged;
@@ -24,7 +24,7 @@ public class CollectThePlateGameManager : NetworkBehaviour {
     private bool isLocalPlayerReady;
     private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(3f);
     private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(0f);
-    private float gamePlayingTimerMax = 90f;
+    private float gamePlayingTimerMax = 20f;
     private Dictionary<ulong, bool> playerReadyDictionary;
 
 
