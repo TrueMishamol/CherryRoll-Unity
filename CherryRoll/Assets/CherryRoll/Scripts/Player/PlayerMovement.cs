@@ -52,13 +52,12 @@ public class PlayerMovement : NetworkBehaviour {
         Vector2 inputVector = gameInput.GetMovementVectorSmoothed();
         walkDir = new Vector3(inputVector.x, 0, inputVector.y);
 
+        isWalking = walkDir != Vector3.zero;
+
         // Rotates Player to face walkDir
-        if (walkDir != Vector3.zero) {
+        if (isWalking) {
             Quaternion toRotation = Quaternion.LookRotation(walkDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotationSpeed * Time.fixedDeltaTime);
-            isWalking = true;
-        } else {
-            isWalking = false;
         }
     }
 
