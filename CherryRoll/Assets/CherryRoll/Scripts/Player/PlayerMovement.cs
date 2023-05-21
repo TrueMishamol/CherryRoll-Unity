@@ -1,9 +1,10 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerMovement : NetworkBehaviour {
 
-    // Game Input
+
     private GameInput gameInput;
 
     [SerializeField] private CharacterController characterController;
@@ -21,6 +22,7 @@ public class PlayerMovement : NetworkBehaviour {
 
     // Jump and Gravity
     private float jumpHeight = 0.1f;
+    public event EventHandler OnJump;
 
 
     private void Start() {
@@ -72,6 +74,7 @@ public class PlayerMovement : NetworkBehaviour {
 
         if (gameInput.IsJumping() && characterController.isGrounded) {
             fallingVelocityVector.y = jumpHeight;
+            OnJump?.Invoke(this, EventArgs.Empty);
         }
     }
 
