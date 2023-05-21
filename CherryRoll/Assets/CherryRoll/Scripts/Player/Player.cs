@@ -16,7 +16,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
     // Player Color
     [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    private MeshRenderer meshRenderer;
+    private SkinnedMeshRenderer meshRenderer;
 
     // Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
@@ -39,7 +39,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
 
     private void Awake() {
-        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
     }
 
     private void Start() {
