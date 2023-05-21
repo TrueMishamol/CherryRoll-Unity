@@ -604,7 +604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c70300f6de718146aee9412fa39ef22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3006508598800824621}
+  player: {fileID: 7471803885016030019}
 --- !u!1 &7519907154323553170 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7923923720807499441, guid: ba51f9881eb6ad848b0186bd3edfe5d4, type: 3}
@@ -643,5 +643,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 148665b54066b2e458bf2f45aedd5938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: 1744665739
+    DestinationState: 1137391654
+    TransitionDuration: 0
+    TriggerNameHash: 1326163458
+    TransitionIndex: 1
+  - Layer: 0
+    OriginatingState: 1744665739
+    DestinationState: 1090200292
+    TransitionDuration: 0
+    TriggerNameHash: -1522830408
+    TransitionIndex: 2
+  - Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 1137391654
+    TransitionDuration: 0
+    TriggerNameHash: 1326163458
+    TransitionIndex: 1
+  - Layer: 0
+    OriginatingState: 2081823275
+    DestinationState: 1090200292
+    TransitionDuration: 0
+    TriggerNameHash: -1522830408
+    TransitionIndex: 2
   m_Animator: {fileID: 2208382036008676186}

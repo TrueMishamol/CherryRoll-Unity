@@ -20,6 +20,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
     // Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
+    public event EventHandler OnInteract;
     public class OnSelectedInteractableObjectChangedEventArgs : EventArgs {
         public IInteractableObject selectedInteractableObject;
     }
@@ -62,6 +63,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
         if (selectedInteractableObject != null) {
             selectedInteractableObject.Interact(this);
+            OnInteract?.Invoke(this, EventArgs.Empty);
         }
     }
 

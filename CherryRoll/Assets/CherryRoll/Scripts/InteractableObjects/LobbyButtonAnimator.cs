@@ -7,11 +7,11 @@ public class LobbyButtonAnimator : MonoBehaviour {
 
     [SerializeField] private LobbyButton lobbyButton;
 
-    [SerializeField] private Animator animator;
+    private Animator animator;
 
 
     private void Awake() {
-        //!animator = GetComponentInChildren<Animator>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     private void Start() {

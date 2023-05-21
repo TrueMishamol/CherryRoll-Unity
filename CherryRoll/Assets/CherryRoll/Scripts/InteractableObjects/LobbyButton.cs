@@ -8,8 +8,18 @@ public class LobbyButton : NetworkBehaviour, IInteractableObject {
 
 
     public void Interact(Player player) {
-        OnPlayerPressButton?.Invoke(this, EventArgs.Empty);
-
         GameChooseMenuUI.Instance.Show();
+
+        InteractLogicServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void InteractLogicServerRpc() {
+        InteractLogicClientRpc();
+    }
+
+    [ClientRpc]
+    private void InteractLogicClientRpc() {
+        OnPlayerPressButton?.Invoke(this, EventArgs.Empty);
     }
 }
