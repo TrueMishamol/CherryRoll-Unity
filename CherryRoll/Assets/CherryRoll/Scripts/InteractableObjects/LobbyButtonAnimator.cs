@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class LobbyButtonAnimation : MonoBehaviour {
+public class LobbyButtonAnimator : MonoBehaviour {
 
 
     private const string PRESS = "Press";
@@ -9,6 +9,10 @@ public class LobbyButtonAnimation : MonoBehaviour {
 
     [SerializeField] private Animator animator;
 
+
+    private void Awake() {
+        //!animator = GetComponentInChildren<Animator>();
+    }
 
     private void Start() {
         lobbyButton.OnPlayerPressButton += LobbyButton_OnPlayerPressButton;

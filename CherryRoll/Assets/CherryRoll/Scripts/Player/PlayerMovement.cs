@@ -12,6 +12,7 @@ public class PlayerMovement : NetworkBehaviour {
     private int walkSpeed = 3;
     private Vector3 walkDir;
     float playerRotationSpeed = 300f;
+    private bool isWalking;
 
     // Gravity
     private Vector3 fallingVelocityVector;
@@ -55,6 +56,9 @@ public class PlayerMovement : NetworkBehaviour {
         if (walkDir != Vector3.zero) {
             Quaternion toRotation = Quaternion.LookRotation(walkDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotationSpeed * Time.fixedDeltaTime);
+            isWalking = true;
+        } else {
+            isWalking = false;
         }
     }
 
@@ -70,5 +74,9 @@ public class PlayerMovement : NetworkBehaviour {
         if (gameInput.IsJumping() && characterController.isGrounded) {
             fallingVelocityVector.y = jumpHeight;
         }
+    }
+
+    public bool IsWalking() {
+        return isWalking;
     }
 }
