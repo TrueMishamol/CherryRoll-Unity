@@ -45,7 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1b23fcd2c118f4294e989b695cdffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 1538322068873524586, guid: 608b2c7675958c64e85bf534dc354a2b, type: 3}
+  playerPrefab: {fileID: 6099486283320409041, guid: 608b2c7675958c64e85bf534dc354a2b, type: 3}
+  spawnRadius: 5
 --- !u!114 &1990475654498181827
 MonoBehaviour:
   m_ObjectHideFlags: 0
