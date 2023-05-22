@@ -11,10 +11,11 @@ public class GameOverUI : MonoBehaviour {
 
     private void Awake() {
         quitButton.onClick.AddListener(() => {
-            //! To lobby
             //! Also display this button only on Host & on Client display Main Menu button
-            NetworkManager.Singleton.Shutdown();
-            Loader.Load(Loader.Scene.MainMenuScene);
+            if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
+                // Is Host
+                Loader.LoadNetwork(Loader.Scene.LobbyScene);
+            }
         });
     }
 

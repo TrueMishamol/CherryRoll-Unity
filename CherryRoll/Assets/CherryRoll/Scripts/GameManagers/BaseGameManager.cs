@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -30,10 +29,21 @@ public class BaseGameManager : NetworkBehaviour {
         playersScoresDictionary[serverRpcParams.Receive.SenderClientId]++;
     }
 
-    //[ServerRpc(RequireOwnership = false)]
     public virtual void GetPlayersScores() {
+        GetPlayersScoresServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void GetPlayersScoresServerRpc() {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             Debug.Log("Player " + clientId + " score is " + playersScoresDictionary[clientId]);
         }
+
+        //GetPlayersScoresClientRpc();
     }
+
+    //[ClientRpc]
+    //private void GetPlayersScoresClientRpc() {
+
+    //}
 }

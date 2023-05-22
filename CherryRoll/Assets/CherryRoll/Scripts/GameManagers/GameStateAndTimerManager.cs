@@ -24,7 +24,7 @@ public class GameStateAndTimerManager : NetworkBehaviour {
     private bool isLocalPlayerReady;
     private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(3f);
     private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(0f);
-    private float gamePlayingTimerMax = 3 * 60f;
+    private float gamePlayingTimerMax = 1 * 60f;
     private Dictionary<ulong, bool> playerReadyDictionary;
 
 
