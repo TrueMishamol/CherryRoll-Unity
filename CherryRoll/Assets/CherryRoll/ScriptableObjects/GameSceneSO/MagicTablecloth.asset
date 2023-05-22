@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 47b38805e470df447afe1c873d20905b, type: 3}
-  m_Name: CollectThePlate
+  m_Name: MagicTablecloth
   m_EditorClassIdentifier: 
-  gameScene: 7
-  gamePreview: {fileID: 21300000, guid: 3a9dc3e99a6bd75419e06c545d63887e, type: 3}
-  gameName: Collect The Plate
-  gameDescription: Collect full item kit faster then opponents
+  gameScene: 6
+  gamePreview: {fileID: 21300000, guid: d9d3cc941e71079429fba16bac550456, type: 3}
+  gameName: Magic Tablecloth
+  gameDescription: Collect more food from the Magic Tablecloth than opponents

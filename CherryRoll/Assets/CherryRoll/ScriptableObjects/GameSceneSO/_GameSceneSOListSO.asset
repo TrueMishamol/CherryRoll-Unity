@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameSceneSOList:
   - {fileID: 11400000, guid: 51ce8aecede6ab74bbb1d0948eb7f579, type: 2}
+  - {fileID: 11400000, guid: e3e2b7962577b1647a755a183ed3b8a2, type: 2}
   - {fileID: 11400000, guid: e7a62ac508a4f004991e7aa721bf184c, type: 2}

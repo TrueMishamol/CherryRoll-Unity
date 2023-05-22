@@ -11,6 +11,7 @@ public static class Loader {
         CharacterSetupScene,
         LobbyScene,
         BigBunGameScene,
+        MagicTableclothGameScene,
         CollectThePlateGameScene,
     }
 
