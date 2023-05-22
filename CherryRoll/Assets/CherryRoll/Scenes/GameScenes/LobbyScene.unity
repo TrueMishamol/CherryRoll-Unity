@@ -1785,6 +1785,10 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2578822603
       objectReference: {fileID: 0}
+    - target: {fileID: 3547465506455151635, guid: 0d54bc1bd5b7be144a9a8d6815c865ee, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 1898211634
+      objectReference: {fileID: 0}
     - target: {fileID: 5914544082599698824, guid: 0d54bc1bd5b7be144a9a8d6815c865ee, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -1834,7 +1838,8 @@ PrefabInstance:
       value: BaseSceneSetup
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6561018277542207204, guid: 0d54bc1bd5b7be144a9a8d6815c865ee, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d54bc1bd5b7be144a9a8d6815c865ee, type: 3}
