@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4222771805919460600}
   - component: {fileID: 5023586002468002662}
-  - component: {fileID: 5248370333421652696}
   - component: {fileID: 5737702348306088508}
   m_Layer: 6
   m_Name: Table
@@ -59,18 +58,6 @@ CapsuleCollider:
   m_Height: 8.64
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5248370333421652696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342756239487522652}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3aba221598998ae4e9c2e5d9a4e19870, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5737702348306088508
 MonoBehaviour:
   m_ObjectHideFlags: 0
