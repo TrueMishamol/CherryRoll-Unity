@@ -746,10 +746,6 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2149033447
       objectReference: {fileID: 0}
-    - target: {fileID: 8364264986980225253, guid: de64e1d09632a9448adc937ac743cfde, type: 3}
-      propertyPath: m_Name
-      value: MagicTableclothGameTable
-      objectReference: {fileID: 0}
     - target: {fileID: 6641674249947544385, guid: de64e1d09632a9448adc937ac743cfde, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -793,6 +789,10 @@ PrefabInstance:
     - target: {fileID: 6641674249947544385, guid: de64e1d09632a9448adc937ac743cfde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8364264986980225253, guid: de64e1d09632a9448adc937ac743cfde, type: 3}
+      propertyPath: m_Name
+      value: MagicTableclothGameTable
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1098,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 7225730180165305573, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 99207120b420b394ba8a95f46ec855cc, type: 2}
+      objectReference: {fileID: 11400000, guid: 48a834ce5282fd94882a88c6807a9a77, type: 2}
     - target: {fileID: 7282275568332368294, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2989821609
@@ -1277,7 +1277,7 @@ PrefabInstance:
     - target: {fileID: 7225730180165305573, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 824a9802ea9ac46449e46080e194b7ca, type: 2}
+      objectReference: {fileID: 11400000, guid: 82f9bb40301d39a4ab18a632ceeccd4a, type: 2}
     - target: {fileID: 7282275568332368294, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 548786512
@@ -1507,7 +1507,7 @@ PrefabInstance:
     - target: {fileID: 7225730180165305573, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: bb5cbe2dc85f51f40aa63c5fd69d54b9, type: 2}
+      objectReference: {fileID: 11400000, guid: 13f120a4e3565e04ebca363e377e6d05, type: 2}
     - target: {fileID: 7282275568332368294, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2712825392
@@ -1889,7 +1889,7 @@ PrefabInstance:
     - target: {fileID: 7225730180165305573, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 05e905a3150793b4586f9a1af8ffd520, type: 2}
+      objectReference: {fileID: 11400000, guid: d9e4c72d7eff2394892fc97b7d88d08e, type: 2}
     - target: {fileID: 7282275568332368294, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 904862524
@@ -2578,7 +2578,7 @@ PrefabInstance:
     - target: {fileID: 7225730180165305573, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: itemSO
       value: 
-      objectReference: {fileID: 11400000, guid: 4dc30f76f896e1c46b3ef635b8041f6b, type: 2}
+      objectReference: {fileID: 11400000, guid: ac5ddbebb5cda23428308c7ca047b00f, type: 2}
     - target: {fileID: 7282275568332368294, guid: 805e81e4b1c9aac48868bd9ddc7e9cfa, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3443701304
