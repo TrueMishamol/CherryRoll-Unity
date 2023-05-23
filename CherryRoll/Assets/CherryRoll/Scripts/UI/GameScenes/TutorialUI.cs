@@ -7,7 +7,9 @@ public class TutorialUI : MonoBehaviour {
 
         UpdateVisual();
 
-        Show();
+        if (!GameStateAndTimerManager.Instance.IsWaitingToStart()) {
+            Hide();
+        }
     }
 
     private void GameStateAndTimerManager_OnLocalPlayerReadyChanged(object sender, System.EventArgs e) {

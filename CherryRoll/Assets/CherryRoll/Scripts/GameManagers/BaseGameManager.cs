@@ -22,6 +22,16 @@ public class BaseGameManager : NetworkBehaviour {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             playersScoresDictionary[clientId] = 0;
         }
+
+        Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
+    }
+
+    private void Player_OnAnyPlayerSpawned(object sender, System.EventArgs e) {
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
+            if (!playersScoresDictionary.ContainsKey(clientId)) {
+                playersScoresDictionary[clientId] = 0;
+            }
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -47,4 +47,8 @@ public class FollowTransform : NetworkBehaviour {
         targetNetworkObjectReference.TryGet(out NetworkObject targetNetworkObject);
         targetIItemParent = targetNetworkObject.GetComponent<IItemParent>();
     }
+
+    public override void OnNetworkDespawn() {
+        NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
+    }
 }
