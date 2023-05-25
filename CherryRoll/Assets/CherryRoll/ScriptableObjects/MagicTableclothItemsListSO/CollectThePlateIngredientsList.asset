@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b429d1dcecb37d4e8509ff86becb5d6, type: 3}
-  m_Name: Cookie
+  m_Script: {fileID: 11500000, guid: 03e2fb860ffbb8248912a00b2ec4a625, type: 3}
+  m_Name: CollectThePlateIngredientsList
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3555643999050607113, guid: 5841e2b47c26b25448c78e710a4129a8, type: 3}
-  sprite: {fileID: 0}
-  itemName: Cookie
+  magicTableclothItemsList: []
