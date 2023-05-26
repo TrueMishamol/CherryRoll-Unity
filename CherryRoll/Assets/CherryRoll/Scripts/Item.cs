@@ -86,4 +86,8 @@ public class Item : NetworkBehaviour {
         itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
         itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
     }
+
+    public int GetItemCost() {
+        return itemSO.itemCost;
+    }
 }

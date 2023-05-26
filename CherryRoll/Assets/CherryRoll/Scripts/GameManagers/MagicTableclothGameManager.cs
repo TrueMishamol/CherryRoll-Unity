@@ -41,8 +41,8 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void IncreasePlayerScoreByOneServerRpc(ServerRpcParams serverRpcParams = default) {
-        playersScoresDictionary[serverRpcParams.Receive.SenderClientId]++;
+    public void IncreasePlayerScoreServerRpc(int itemCost = 1, ServerRpcParams serverRpcParams = default) {
+        playersScoresDictionary[serverRpcParams.Receive.SenderClientId] += itemCost;
     }
 
     public virtual void GetPlayersScores() {
