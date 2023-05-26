@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 1252875478942423302, guid: 17d98825e7e452c4b969d50ca248c99e, type: 3}
   sprite: {fileID: 0}
   itemName: Bucket
+  itemCost: 0

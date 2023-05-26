@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 842227243857573607, guid: 2096b337eafa7234dbc71a954a21f220, type: 3}
   sprite: {fileID: 0}
   itemName: Red Velvet Cake
+  itemCost: 1

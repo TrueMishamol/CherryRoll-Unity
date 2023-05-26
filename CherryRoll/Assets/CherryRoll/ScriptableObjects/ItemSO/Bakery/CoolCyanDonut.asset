@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 713386578599790382, guid: 4f14fb1b17a0c8a47ab3a7efef11792f, type: 3}
   sprite: {fileID: 0}
   itemName: Cool Cyan Donut
+  itemCost: 3

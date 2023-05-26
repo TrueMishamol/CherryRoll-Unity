@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 6238363730382652176, guid: 39f1b830e357918478c5f92cd3acd386, type: 3}
   sprite: {fileID: 0}
   itemName: Salt
+  itemCost: 1

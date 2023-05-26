@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 2293065898982869379, guid: a08219318ef5d6641a944290bca1d928, type: 3}
   sprite: {fileID: 0}
   itemName: Egg
+  itemCost: 1

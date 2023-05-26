@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 6505818225496570216, guid: 14fea857622e24648a57dd5b72024fa2, type: 3}
   sprite: {fileID: 0}
   itemName: Baking Soda
+  itemCost: 1

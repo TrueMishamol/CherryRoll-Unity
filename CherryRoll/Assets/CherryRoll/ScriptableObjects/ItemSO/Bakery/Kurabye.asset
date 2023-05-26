@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 1250168458557734554, guid: 371e026e446d4164388eca134998535b, type: 3}
   sprite: {fileID: 0}
   itemName: Kurabye
+  itemCost: 1

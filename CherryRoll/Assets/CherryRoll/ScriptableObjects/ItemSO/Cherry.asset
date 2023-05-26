@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 6283634828471931446, guid: 70541bbc1b5c68a4a8af83454dabacda, type: 3}
   sprite: {fileID: 0}
   itemName: Cherry
+  itemCost: 1

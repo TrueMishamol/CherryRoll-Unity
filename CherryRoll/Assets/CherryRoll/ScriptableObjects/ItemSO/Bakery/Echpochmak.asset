@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 7031214729260484696, guid: 6955de210af2e5540a9905d6e631182a, type: 3}
   sprite: {fileID: 0}
   itemName: Echpochmak
+  itemCost: 1

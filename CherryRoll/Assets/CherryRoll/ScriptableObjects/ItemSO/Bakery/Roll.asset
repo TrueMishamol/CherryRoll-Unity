@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 6387197422668590952, guid: 86968ada38546b243b44d916745599b7, type: 3}
   sprite: {fileID: 0}
   itemName: Roll
+  itemCost: 1

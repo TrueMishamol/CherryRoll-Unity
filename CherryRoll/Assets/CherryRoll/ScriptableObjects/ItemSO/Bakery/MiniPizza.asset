@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 1712019797509341907, guid: cffdcfed24cd51f4dbbb238deae3c866, type: 3}
   sprite: {fileID: 0}
   itemName: Mini Pizza
+  itemCost: 1

@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 4250661640278992437, guid: c12cf950ef926be40bd52e175507f4c5, type: 3}
   sprite: {fileID: 0}
   itemName: Cake
+  itemCost: 2

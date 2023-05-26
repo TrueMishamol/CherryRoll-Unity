@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 4332376648390781129, guid: 8cfec914d89791c459c8bf6bc41c0a07, type: 3}
   sprite: {fileID: 0}
   itemName: Muffin
+  itemCost: 1

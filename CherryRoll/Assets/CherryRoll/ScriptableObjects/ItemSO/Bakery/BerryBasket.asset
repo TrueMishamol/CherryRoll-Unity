@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 9129008494631907876, guid: ec5b1a4ae105d6c4190cd41a1e9190de, type: 3}
   sprite: {fileID: 0}
   itemName: Berry Basket
+  itemCost: 1

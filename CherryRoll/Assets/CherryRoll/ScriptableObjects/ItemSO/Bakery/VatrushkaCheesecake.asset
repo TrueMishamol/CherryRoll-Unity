@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 7315965016574678306, guid: 2cb00d4fac6e6c443a1958d77e068d0d, type: 3}
   sprite: {fileID: 0}
   itemName: Vatrushka Cheesecake
+  itemCost: 1

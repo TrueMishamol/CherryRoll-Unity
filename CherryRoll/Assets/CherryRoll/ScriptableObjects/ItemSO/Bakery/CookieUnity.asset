@@ -15,3 +15,4 @@ MonoBehaviour:
   prefab: {fileID: 3555643999050607113, guid: 5841e2b47c26b25448c78e710a4129a8, type: 3}
   sprite: {fileID: 0}
   itemName: Cookie
+  itemCost: 1
