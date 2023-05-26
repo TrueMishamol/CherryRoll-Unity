@@ -4,7 +4,7 @@ using UnityEngine;
 public class RandomSpawnCounter : BaseCounter {
 
 
-    [SerializeField] private MagicTableclothItemsListSO itemList;
+    [SerializeField] private RandomItemSpawnListSO itemList;
 
     private float spawnCountdown;
     private float spawnCountdownMin = 5f;
@@ -30,11 +30,11 @@ public class RandomSpawnCounter : BaseCounter {
     }
 
     private ItemSO GetRandomItem() {
-        List<MagicTableclothItemsListSO.MagicTableclothItem> itemsList = itemList.magicTableclothItemsList;
+        List<RandomItemSpawnListSO.RandomItem> itemsList = itemList.RandomItemSpawnList;
 
         // Суммируем общую редкость всех предметов
         int totalRarity = 0;
-        foreach (MagicTableclothItemsListSO.MagicTableclothItem item in itemsList) {
+        foreach (RandomItemSpawnListSO.RandomItem item in itemsList) {
             totalRarity += item.rarity;
         }
 
@@ -42,7 +42,7 @@ public class RandomSpawnCounter : BaseCounter {
         int randomRarity = Random.Range(0, totalRarity);
 
         // Ищем предмет соответствующий сгенерированному числу
-        foreach (MagicTableclothItemsListSO.MagicTableclothItem item in itemsList) {
+        foreach (RandomItemSpawnListSO.RandomItem item in itemsList) {
             if (randomRarity < item.rarity) {
                 return item.itemSO;
             }
@@ -50,7 +50,7 @@ public class RandomSpawnCounter : BaseCounter {
         }
 
         // Если ни один предмет не соответствует сгенерированному числу, возвращаем первый предмет в списке
-        return itemList.magicTableclothItemsList[0].itemSO;
+        return itemList.RandomItemSpawnList[0].itemSO;
     }
 
     private void SpawnItemOnCounter() {
