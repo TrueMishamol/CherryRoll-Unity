@@ -68,7 +68,6 @@ public class MultiplayerPlayersCount : NetworkBehaviour {
 
     [ServerRpc(RequireOwnership = false)]
     private void UpdatePlayerCountServerRpc() {
-        //if (!IsServer) return;
         try {
             playersCount.Value = NetworkManager.Singleton.ConnectedClients.Count;
         } catch (NotServerException) {
