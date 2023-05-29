@@ -48,7 +48,8 @@ public class FollowTransform : NetworkBehaviour {
         targetIItemParent = targetNetworkObject.GetComponent<IItemParent>();
     }
 
-    public override void OnNetworkDespawn() {
+    public override void OnDestroy() {
         NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
+        Debug.Log("FollowTransform OnDestroy");
     }
 }

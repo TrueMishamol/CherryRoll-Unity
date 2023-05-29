@@ -23,8 +23,6 @@ public class PlayersScoresUI : MonoBehaviour {
     }
 
     private void UpdateVisual() {
-        Debug.Log("UpdateVisual");
-
         foreach (Transform child in container) {
             if (child == playerScoreTemplate) continue;
             Destroy(child.gameObject);

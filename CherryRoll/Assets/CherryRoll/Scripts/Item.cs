@@ -63,7 +63,7 @@ public class Item : NetworkBehaviour {
     }
 
     public void DestroySelf() {
-        Destroy(gameObject);
+        Destroy(gameObject);      
     }
 
     public void ClearItemOnParent() {
