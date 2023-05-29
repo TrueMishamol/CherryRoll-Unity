@@ -9,6 +9,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     public static MagicTableclothGameManager Instance { get; private set; }
 
     public event EventHandler OnItemDelivered;
+    public event EventHandler OnPlayersScoresDictionaryUpdated;
 
     private Dictionary<ulong, int> allPlayersScoresDictionary = new Dictionary<ulong, int>(); // Server side only
     public Dictionary<ulong, int> connectedPlayersScoresDictionary = new Dictionary<ulong, int>();
@@ -17,10 +18,9 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     private void Awake() {
         Instance = this;
 
-        if (!IsServer) return; //! Не работает должным образом и возвращает даже если сервер
+        if (!IsServer) return;
 
         allPlayersScoresDictionary = new Dictionary<ulong, int>();
-        Debug.Log("Create new Dictionary");
     }
 
     private void Start() {
@@ -31,6 +31,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
         }
 
         NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
 
         // Присваивание значения 0 для всех клиентов, уже подключенных на сервере
@@ -38,6 +39,11 @@ public class MagicTableclothGameManager : NetworkBehaviour {
             allPlayersScoresDictionary[clientId] = 0;
         }
 
+        UpdatePlayersScoresDictionaryServerRpc();
+    }
+
+    private void NetworkManager_OnClientDisconnectCallback(ulong obj) {
+        //! Срабатывает, но UI не обновляется
         UpdatePlayersScoresDictionaryServerRpc();
     }
 
@@ -55,10 +61,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
             }
         }
 
-        //! В чём разница вызова данного метода на NetworkManager_OnClientConnectedCallback и здесь. Столит ли их дублировать
-        //UpdatePlayersScoresDictionaryServerRpc();
-        //! Ошибка InvalidOperationException: An RPC called on a NetworkObject that is not in the spawned objects list. Please make sure the NetworkObject is spawned before calling RPCs.
-        //! Нужно убрать прослушку ивента после удаления gameObject
+        UpdatePlayersScoresDictionaryServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -71,7 +74,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
 
     [ClientRpc]
     public void OnItemDeliveredClientRpc() {
-        OnItemDelivered?.Invoke(this, EventArgs.Empty); //! Это так неправильно что-ли для этого создавать отдельную функцию
+        OnItemDelivered?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -79,17 +82,15 @@ public class MagicTableclothGameManager : NetworkBehaviour {
         CreatePlayersScoresDictionaryClientRpc();
 
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
-            //!Unnecessary check?
-            //if (allPlayersScoresDictionary.ContainsKey(clientId)) {
-                //connectedPlayersScoresDictionary[clientId] = allPlayersScoresDictionary[clientId];
-                UpdatePlayersScoresDictionaryClientRpc(clientId, allPlayersScoresDictionary[clientId]);
-            //}
+            UpdatePlayersScoresDictionaryClientRpc(clientId, allPlayersScoresDictionary[clientId]);
         }
+
+        OnPlayersScoresDictionaryUpdatedClientRpc();
     }
 
     [ClientRpc]
     public void CreatePlayersScoresDictionaryClientRpc() {
-        connectedPlayersScoresDictionary = new Dictionary<ulong, int>(); //! Вызвать это уже на клиенте
+        connectedPlayersScoresDictionary = new Dictionary<ulong, int>();
     }
 
     [ClientRpc]
@@ -97,9 +98,14 @@ public class MagicTableclothGameManager : NetworkBehaviour {
         connectedPlayersScoresDictionary[clientId] = score;
     }
 
-    //! Не вызывается после смены сцены (
-    //public override void OnNetworkDespawn() {
-    //    Player.OnAnyPlayerSpawned -= Player_OnAnyPlayerSpawned;
-    //    Debug.Log("Despawned");
-    //}
+    [ClientRpc]
+    public void OnPlayersScoresDictionaryUpdatedClientRpc() {
+        OnPlayersScoresDictionaryUpdated?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
+    }
+
+    public override void OnDestroy() {
+        NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
+        NetworkManager.Singleton.OnClientDisconnectCallback -= NetworkManager_OnClientDisconnectCallback;
+        Player.OnAnyPlayerSpawned -= Player_OnAnyPlayerSpawned;
+    }
 }
