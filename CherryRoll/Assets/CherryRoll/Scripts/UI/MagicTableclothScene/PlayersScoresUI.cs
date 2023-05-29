@@ -23,14 +23,14 @@ public class PlayersScoresUI : MonoBehaviour {
     }
 
     private void UpdateVisual() {
+        Debug.Log("UpdateVisual");
+
         foreach (Transform child in container) {
             if (child == playerScoreTemplate) continue;
             Destroy(child.gameObject);
         }
-
-        Dictionary<ulong, int> playersScoresDictionary = MagicTableclothGameManager.Instance.playersScoresDictionary.Value;
-        
-        foreach (KeyValuePair<ulong, int> clientScore in playersScoresDictionary) {
+    
+        foreach (KeyValuePair<ulong, int> clientScore in MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary) {
             Transform playerScoreSingleUITransform = Instantiate(playerScoreTemplate, container);
             playerScoreSingleUITransform.gameObject.SetActive(true);
             playerScoreSingleUITransform.GetComponent<PlayersScoresSingleUI>().SetPlayerScore(clientScore);
