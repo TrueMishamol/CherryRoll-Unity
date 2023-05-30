@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -12,6 +11,7 @@ public static class PlayersStaticData {
     private static Dictionary<ulong, string> playerNameDictionary = new Dictionary<ulong, string>();
 
     public static event EventHandler OnPlayerNameChanged;
+
 
 
     public static void ChangePlayerName(string newPlayerName, ulong clientId) {
@@ -58,8 +58,4 @@ public static class PlayersStaticData {
     public static Player GetPlayerById(ulong clientId) {
         return playerDictionary[clientId];
     }
-
-    //public static ulong GetClientIdByPlayer(Player player) {
-    //    return 
-    //}
 }

@@ -43,6 +43,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
         //! Срабатывает, но UI не обновляется
+        //! Сделать типа Player.onDestroy
         UpdatePlayersScoresDictionaryServerRpc();
     }
 
@@ -59,8 +60,6 @@ public class MagicTableclothGameManager : NetworkBehaviour {
                 allPlayersScoresDictionary[clientId] = 0;
             }
         }
-
-        UpdatePlayersScoresDictionaryServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
