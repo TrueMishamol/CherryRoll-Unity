@@ -13,10 +13,6 @@ public class Player : NetworkBehaviour, IItemParent {
         OnAnyPlayerSpawned = null;
     }
 
-    // Player Color
-    [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-    private SkinnedMeshRenderer meshRenderer;
-
     // Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
     public event EventHandler OnInteract;
@@ -36,11 +32,6 @@ public class Player : NetworkBehaviour, IItemParent {
     private GameObject cameraFollow;
     private string cameraName = "CameraFollow";
 
-
-
-    private void Awake() {
-        meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-    }
 
     private void Start() {
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
@@ -67,7 +58,7 @@ public class Player : NetworkBehaviour, IItemParent {
     }
 
     public void ChangePlayerColor(Color playerColor) {
-        this.playerColor.Value = playerColor;
+        GetComponent<PlayerColor>().ChangePlayerColor(playerColor);
     }
 
     public override void OnNetworkSpawn() {
@@ -76,15 +67,6 @@ public class Player : NetworkBehaviour, IItemParent {
         }
 
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
-
-        // Update Player Color
-        playerColor.OnValueChanged += (Color previousValue, Color newValue) => {
-            meshRenderer.material.color = newValue;
-            Debug.Log("Player " + OwnerClientId + " change color from " + previousValue + " to " + newValue);
-        };
-
-        // See others' Players Colors on Server Join
-        meshRenderer.material.color = playerColor.Value;
 
         // Handle Disconnect
         if (IsServer) {
@@ -176,10 +158,6 @@ public class Player : NetworkBehaviour, IItemParent {
 
     public NetworkObject GetNetworkObject() {
         return NetworkObject;
-    }
-
-    public Color GetColor() {
-        return playerColor.Value;
     }
 }
 

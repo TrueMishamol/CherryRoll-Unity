@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1b23fcd2c118f4294e989b695cdffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: 6099486283320409041, guid: 608b2c7675958c64e85bf534dc354a2b, type: 3}
+  playerPrefab: {fileID: 2075989092804482226, guid: 608b2c7675958c64e85bf534dc354a2b, type: 3}
   spawnRadius: 5
 --- !u!114 &1990475654498181827
 MonoBehaviour:
@@ -796,7 +796,7 @@ Transform:
   - {fileID: 7339690281582702356}
   - {fileID: 2020690629702783560}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8898325684562100816
 GameObject:

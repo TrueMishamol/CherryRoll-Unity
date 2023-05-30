@@ -15,12 +15,12 @@ public class PlayerName : NetworkBehaviour {
     }
 
     private void PlayersStaticData_OnPlayerNameChanged(object sender, System.EventArgs e) {
-        playerDisplayName.text = PlayersStaticData.GetPlayerNameById(OwnerClientId).ToString();
+        UpdatePlayerName();
     }
 
     public void ChangePlayerName(string newPlayerName) {
         PlayersStaticData.ChangePlayerName(newPlayerName, OwnerClientId);
-        playerDisplayName.text = PlayersStaticData.GetPlayerNameById(OwnerClientId).ToString();
+        UpdatePlayerName(); //! Do I need this? Maybe extra
     }
 
     public void UpdatePlayerName() {
