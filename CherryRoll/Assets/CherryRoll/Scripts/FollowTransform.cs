@@ -50,6 +50,5 @@ public class FollowTransform : NetworkBehaviour {
 
     public override void OnDestroy() {
         NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
-        Debug.Log("FollowTransform OnDestroy");
     }
 }

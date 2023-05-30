@@ -178,5 +178,9 @@ public class Player : NetworkBehaviour, IItemParent {
     public NetworkObject GetNetworkObject() {
         return NetworkObject;
     }
+
+    public Color GetColor() {
+        return playerColor.Value;
+    }
 }
 

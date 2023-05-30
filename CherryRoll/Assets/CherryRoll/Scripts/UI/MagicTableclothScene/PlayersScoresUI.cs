@@ -13,17 +13,12 @@ public class PlayersScoresUI : MonoBehaviour {
     }
 
     private void Start() {
-        MagicTableclothGameManager.Instance.OnItemDelivered += MagicTableclothGameManager_OnItemDelivered;
         MagicTableclothGameManager.Instance.OnPlayersScoresDictionaryUpdated += MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated;
 
-        UpdateVisual(); //! Возможно раньше
-    }
-
-    private void MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated(object sender, System.EventArgs e) {
         UpdateVisual();
     }
 
-    private void MagicTableclothGameManager_OnItemDelivered(object sender, System.EventArgs e) {
+    private void MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated(object sender, System.EventArgs e) {
         UpdateVisual();
     }
 

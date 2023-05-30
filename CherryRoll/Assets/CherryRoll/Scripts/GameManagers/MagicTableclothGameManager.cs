@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Unity.Netcode;
-using UnityEngine;
 
 public class MagicTableclothGameManager : NetworkBehaviour {
 
@@ -42,7 +41,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
         UpdatePlayersScoresDictionaryServerRpc();
     }
 
-    private void NetworkManager_OnClientDisconnectCallback(ulong obj) {
+    private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
         //! Срабатывает, но UI не обновляется
         UpdatePlayersScoresDictionaryServerRpc();
     }
