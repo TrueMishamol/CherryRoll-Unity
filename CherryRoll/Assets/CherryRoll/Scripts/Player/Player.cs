@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,9 @@ public class Player : NetworkBehaviour, IItemParent {
         OnAnyPlayerSpawned = null;
     }
 
+
+    //private static Dictionary<ulong, Player> serverSideIdPlayerDictionary = new Dictionary<ulong, Player>();
+    private static Dictionary<ulong, Player> clientSideIdPlayerDictionary = new Dictionary<ulong, Player>();
 
     // Player Color
     [SerializeField] private NetworkVariable<Color> playerColor = new NetworkVariable<Color>(new Color(1, 1, 1), NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -53,6 +57,35 @@ public class Player : NetworkBehaviour, IItemParent {
             cameraFollow.TryGetComponent<PlayerCameraFollow>(out playerCameraFollow);
             playerCameraFollow.FollowPlayer(transform);
         }
+
+        //if (IsServer) {
+        //    UpdateIdPlayerDictionaryServerRpc();
+        //}
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateIdPlayerDictionaryServerRpc() {
+        foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
+            //serverSideIdPlayerDictionary[clientId] = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.GetComponent<Player>();
+
+            Debug.Log(NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject);
+
+            NetworkObject playerNetworkObject = NetworkManager.Singleton.ConnectedClients[clientId].PlayerObject.GetComponent<Player>().GetNetworkObject();
+
+            UpdateIdPlayerDictionaryClientRpc(clientId, playerNetworkObject);
+        }
+
+    }
+
+    [ClientRpc]
+    private void UpdateIdPlayerDictionaryClientRpc(ulong clientId, NetworkObjectReference playerNetworkObjectReference) {
+        playerNetworkObjectReference.TryGet(out NetworkObject playerNetworkObject);
+        Player player = playerNetworkObject.GetComponent<Player>();
+        clientSideIdPlayerDictionary[clientId] = player;
+    }
+
+    public static Player GetPlayerById(ulong clientId) {
+        return clientSideIdPlayerDictionary[clientId];
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
@@ -90,8 +123,15 @@ public class Player : NetworkBehaviour, IItemParent {
         // Handle Disconnect
         if (IsServer) {
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
+            //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback;
         }
+
+        UpdateIdPlayerDictionaryServerRpc();
     }
+
+    //private void NetworkManager_OnClientConnectedCallback(ulong obj) {
+    //    UpdateIdPlayerDictionaryServerRpc();
+    //}
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
         if (clientId == OwnerClientId && HasItem()) {
