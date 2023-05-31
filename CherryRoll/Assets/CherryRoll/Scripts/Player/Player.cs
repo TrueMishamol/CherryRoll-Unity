@@ -57,10 +57,6 @@ public class Player : NetworkBehaviour, IItemParent {
         }
     }
 
-    public void ChangePlayerColor(Color playerColor) {
-        GetComponent<PlayerColor>().ChangePlayerColor(playerColor);
-    }
-
     public override void OnNetworkSpawn() {
         if (IsOwner) {
             LocalInstance = this;

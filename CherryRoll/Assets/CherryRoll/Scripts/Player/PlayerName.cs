@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ public class PlayerName : NetworkBehaviour {
 
 
     public override void OnNetworkSpawn() {
-        ChangePlayerName("");
+        UpdatePlayerName();
 
         PlayersStaticData.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
     }
@@ -19,11 +20,32 @@ public class PlayerName : NetworkBehaviour {
     }
 
     public void ChangePlayerName(string newPlayerName) {
-        PlayersStaticData.ChangePlayerName(newPlayerName, OwnerClientId);
-        UpdatePlayerName(); //! Do I need this? Maybe extra
+        PlayersStaticData.SetPlayerNameById(newPlayerName, OwnerClientId);
     }
 
-    public void UpdatePlayerName() {
-        playerDisplayName.text = PlayersStaticData.GetPlayerNameById(OwnerClientId).ToString();
+    private void UpdatePlayerName() {
+        UpdatePlayerNameServerRpc();
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdatePlayerNameServerRpc() {
+        UpdatePlayerNameClientRpc();
+    }
+
+    [ClientRpc]
+    private void UpdatePlayerNameClientRpc() {
+        Debug.Log("N UpdatePlayerNameClientRpc");
+
+        string playerName;
+
+        try {
+            playerName = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+        } catch (KeyNotFoundException) {
+            PlayersStaticData.SetPlayerNameById("", OwnerClientId);
+            playerName = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+        }
+
+        playerDisplayName.text = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+    }
+
 }
