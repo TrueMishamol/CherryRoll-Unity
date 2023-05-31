@@ -10,7 +10,7 @@ public class PlayersScoresSingleUI : MonoBehaviour {
 
 
     public void SetPlayerScore (KeyValuePair<ulong, int> clientScore) {
-        playerNameText.text = PlayersStaticData.GetPlayerNameById(clientScore.Key);
+        playerNameText.text = PlayersStaticData.Instance.GetPlayerNameById(clientScore.Key);
         plaerScoreText.text = clientScore.Value.ToString();
     }
 }

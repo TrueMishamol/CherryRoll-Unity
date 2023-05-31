@@ -9,22 +9,27 @@ public class PlayersStaticData : NetworkBehaviour {
     public static PlayersStaticData Instance { get; private set; }
 
 
-    private static Dictionary<ulong, Player> playerDictionary = new Dictionary<ulong, Player>();
-    public static Dictionary<ulong, Color> playerColorDictionary = new Dictionary<ulong, Color>();
-    private static Dictionary<ulong, string> playerNameDictionary = new Dictionary<ulong, string>();
+    private Dictionary<ulong, Player> playerDictionary = new Dictionary<ulong, Player>();
+    private Dictionary<ulong, Color> playerColorDictionary = new Dictionary<ulong, Color>();
+    private Dictionary<ulong, string> playerNameDictionary = new Dictionary<ulong, string>();
 
-    public static event EventHandler OnPlayerNameChanged;
-    public static event EventHandler OnPlayerColorChanged;
+    public event EventHandler OnPlayerNameChanged;
+    public event EventHandler OnPlayerColorChanged;
 
 
     private void Awake() {
         Instance = this;
     }
 
+    //public override void OnNetworkSpawn() {
+    //    Debug.Log("PlayersStaticData OnNetworkSpawn");
+    //    UpdatePlayerColorDictionaryServerRpc();
+    //}
+
     // Set Player Name
 
-    public static void SetPlayerNameById(string newPlayerName, ulong clientId) {
-        Instance.SetPlayerNameByIdServerRpc(newPlayerName, clientId);
+    public void SetPlayerNameById(string newPlayerName, ulong clientId) {
+        SetPlayerNameByIdServerRpc(newPlayerName, clientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -49,8 +54,8 @@ public class PlayersStaticData : NetworkBehaviour {
 
     // Set Player Color
 
-    public static void SetPlayerColorById(Color newPlayerColor, ulong clientId) {
-        Instance.SetPlayerColorByIdServerRpc(newPlayerColor, clientId);
+    public void SetPlayerColorById(Color newPlayerColor, ulong clientId) {
+        SetPlayerColorByIdServerRpc(newPlayerColor, clientId);
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -65,23 +70,47 @@ public class PlayersStaticData : NetworkBehaviour {
         OnPlayerColorChanged?.Invoke(null, EventArgs.Empty);
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void UpdatePlayerColorDictionaryServerRpc(ulong clientId) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { clientId }
+            }
+        };
+
+        //Dictionary<ulong, Color> playerColorDictionaryCopy = new Dictionary<ulong, Color>();
+        //playerColorDictionaryCopy = playerColorDictionary;
+
+        foreach (KeyValuePair<ulong, Color> playerColor in playerColorDictionary) {
+            UpdatePlayerColorDictionaryClientRpc(playerColor.Value, playerColor.Key, clientRpcParams);
+        }
+        //! finish update - Update mesh
+    }
+
+    [ClientRpc]
+    private void UpdatePlayerColorDictionaryClientRpc(Color color, ulong clientId, ClientRpcParams clientRpcParams = default) {
+        if (IsServer) return;
+        playerColorDictionary[clientId] = color;
+        Debug.Log("UpdatePlayerColorDictionaryClientRpc " + OwnerClientId);
+    }
+
     // SetPlayerById
 
-    private static void SetPlayerById(Player player, ulong clientId) {
+    private void SetPlayerById(Player player, ulong clientId) {
         playerDictionary[clientId] = player;
     }
 
     // Get
 
-    public static string GetPlayerNameById(ulong clientId) {
+    public string GetPlayerNameById(ulong clientId) {
         return playerNameDictionary[clientId];
     }
 
-    public static Color GetPlayerColorById(ulong clientId) {
+    public Color GetPlayerColorById(ulong clientId) {
         return playerColorDictionary[clientId];
     }
 
-    public static Player GetPlayerById(ulong clientId) {
+    public Player GetPlayerById(ulong clientId) {
         return playerDictionary[clientId];
     }
 }

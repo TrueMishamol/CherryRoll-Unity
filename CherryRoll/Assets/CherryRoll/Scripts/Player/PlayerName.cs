@@ -12,7 +12,7 @@ public class PlayerName : NetworkBehaviour {
     public override void OnNetworkSpawn() {
         UpdatePlayerName();
 
-        PlayersStaticData.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
+        PlayersStaticData.Instance.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
     }
 
     private void PlayersStaticData_OnPlayerNameChanged(object sender, System.EventArgs e) {
@@ -20,7 +20,7 @@ public class PlayerName : NetworkBehaviour {
     }
 
     public void ChangePlayerName(string newPlayerName) {
-        PlayersStaticData.SetPlayerNameById(newPlayerName, OwnerClientId);
+        PlayersStaticData.Instance.SetPlayerNameById(newPlayerName, OwnerClientId);
     }
 
     private void UpdatePlayerName() {
@@ -39,13 +39,13 @@ public class PlayerName : NetworkBehaviour {
         string playerName;
 
         try {
-            playerName = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+            playerName = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
         } catch (KeyNotFoundException) {
-            PlayersStaticData.SetPlayerNameById("", OwnerClientId);
-            playerName = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+            PlayersStaticData.Instance.SetPlayerNameById("", OwnerClientId);
+            playerName = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
         }
 
-        playerDisplayName.text = PlayersStaticData.GetPlayerNameById(OwnerClientId);
+        playerDisplayName.text = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
     }
 
 }

@@ -71,12 +71,12 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void OnItemDeliveredClientRpc() {
+    private void OnItemDeliveredClientRpc() {
         OnItemDelivered?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void UpdatePlayersScoresDictionaryServerRpc() {
+    private void UpdatePlayersScoresDictionaryServerRpc() {
         CreatePlayersScoresDictionaryClientRpc();
 
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
@@ -87,17 +87,17 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    public void CreatePlayersScoresDictionaryClientRpc() {
+    private void CreatePlayersScoresDictionaryClientRpc() {
         connectedPlayersScoresDictionary = new Dictionary<ulong, int>();
     }
 
     [ClientRpc]
-    public void UpdatePlayersScoresDictionaryClientRpc(ulong clientId, int score) {
+    private void UpdatePlayersScoresDictionaryClientRpc(ulong clientId, int score) {
         connectedPlayersScoresDictionary[clientId] = score;
     }
 
     [ClientRpc]
-    public void OnPlayersScoresDictionaryUpdatedClientRpc() {
+    private void OnPlayersScoresDictionaryUpdatedClientRpc() {
         OnPlayersScoresDictionaryUpdated?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
     }
 
