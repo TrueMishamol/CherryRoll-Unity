@@ -10,42 +10,52 @@ public class PlayerName : NetworkBehaviour {
 
 
     public override void OnNetworkSpawn() {
-        UpdatePlayerName();
+        Debug.Log(OwnerClientId + " PlayerName spawned");
 
         PlayersStaticData.Instance.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
+
+        PlayersStaticData.Instance.UpdatePlayerNameDictionaryServerRpc(OwnerClientId);
+        UpdateLocalPlayerName();
     }
 
     private void PlayersStaticData_OnPlayerNameChanged(object sender, System.EventArgs e) {
-        UpdatePlayerName();
+        UpdateLocalPlayerName();
     }
 
     public void ChangePlayerName(string newPlayerName) {
         PlayersStaticData.Instance.SetPlayerNameById(newPlayerName, OwnerClientId);
     }
 
-    private void UpdatePlayerName() {
-        UpdatePlayerNameServerRpc();
-    }
-
-    [ServerRpc(RequireOwnership = false)]
-    private void UpdatePlayerNameServerRpc() {
-        UpdatePlayerNameClientRpc();
-    }
-
-    [ClientRpc]
-    private void UpdatePlayerNameClientRpc() {
-        Debug.Log("N UpdatePlayerNameClientRpc");
+    private void UpdateLocalPlayerName() {
+        Debug.Log("N UpdatePlayerNameClientRpc " + OwnerClientId);
 
         string playerName;
 
         try {
             playerName = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
         } catch (KeyNotFoundException) {
-            PlayersStaticData.Instance.SetPlayerNameById("", OwnerClientId);
-            playerName = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
+            if (IsOwner) {
+                PlayersStaticData.Instance.SetPlayerNameById(GenerateDefaultPlayerName(), OwnerClientId);
+            }
+            playerName = GenerateDefaultPlayerName(); //! In case no update
         }
 
-        playerDisplayName.text = PlayersStaticData.Instance.GetPlayerNameById(OwnerClientId);
+        playerDisplayName.text = playerName;
     }
 
+    public override void OnDestroy() {
+        PlayersStaticData.Instance.OnPlayerNameChanged -= PlayersStaticData_OnPlayerNameChanged;
+    }
+
+    public string GenerateDefaultPlayerName() {
+        string name;
+
+        if (OwnerClientId == 0) {
+            name = "Baker";
+        } else {
+            name = "Bun " + OwnerClientId;
+        }
+
+        return name;
+    }
 }

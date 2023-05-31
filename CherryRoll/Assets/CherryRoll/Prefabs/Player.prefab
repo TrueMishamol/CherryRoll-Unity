@@ -165,6 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   paintableMeshesList:
   - {fileID: 5725610555115037992}
+  defaultPlayerColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &3162649181680889309
 GameObject:
   m_ObjectHideFlags: 0

@@ -8,21 +8,16 @@ public class PlayerColor : NetworkBehaviour {
 
     [SerializeField] private List<SkinnedMeshRenderer> paintableMeshesList;
 
-    //private event EventHandler On
+    [SerializeField] private Color defaultPlayerColor;
 
 
     public override void OnNetworkSpawn() {
-        //if (IsOwner) {
-        //    UpdateLocalPlayersColor();
-        //}
-
-        Debug.Log(OwnerClientId + " spawned");
+        Debug.Log(OwnerClientId + " PlayerColor spawned");
 
         PlayersStaticData.Instance.OnPlayerColorChanged += PlayersStaticData_OnPlayerColorChanged;
 
         PlayersStaticData.Instance.UpdatePlayerColorDictionaryServerRpc(OwnerClientId);
         UpdateLocalPlayersColor();
-
     }
 
     private void PlayersStaticData_OnPlayerColorChanged(object sender, EventArgs e) {
@@ -34,17 +29,6 @@ public class PlayerColor : NetworkBehaviour {
     }
 
     private void UpdateLocalPlayersColor() {
-        //    UpdatePlayerColorServerRpc();
-        //}
-
-        //[ServerRpc(RequireOwnership = false)]
-        //private void UpdatePlayerColorServerRpc() {
-        //    UpdatePlayerColorClientRpc();
-        //}
-
-        //[ClientRpc]
-        //private void UpdatePlayerColorClientRpc() {
-
         Debug.Log("C UpdateLocalPlayerColor " + OwnerClientId);
 
         Color color;
@@ -53,27 +37,15 @@ public class PlayerColor : NetworkBehaviour {
             color = PlayersStaticData.Instance.GetPlayerColorById(OwnerClientId);
         } catch (KeyNotFoundException) {
             if (IsOwner) {
-                PlayersStaticData.Instance.SetPlayerColorById(new Color(1, 1, 1), OwnerClientId); //! Триггерит OnPlayerColorChanged => повторное UpdateLocalPlayersColor
+                PlayersStaticData.Instance.SetPlayerColorById(defaultPlayerColor, OwnerClientId); //! Триггерит OnPlayerColorChanged => повторное UpdateLocalPlayersColor
             }
-            color = new Color(1, 1, 1);
+            color = defaultPlayerColor;
         }
 
         foreach (SkinnedMeshRenderer paintableMeshes in paintableMeshesList) {
             paintableMeshes.material.color = color;
         }
     }
-
-    //private static void UpdateLocalPlayersColor() {
-    //    foreach (KeyValuePair<ulong, Color> playerColor in PlayersStaticData.playerColorDictionary) {
-    //        Debug.Log("C UpdateLocalPlayerColor " + playerColor.Key);
-
-    //        Color color = playerColor.Value;
-
-    //        foreach (SkinnedMeshRenderer paintableMeshes in PlayersStaticData.GetPlayerById(playerColor.Key).GetComponent<PlayerColor>().paintableMeshesList) {
-    //            paintableMeshes.material.color = color;
-    //        }
-    //    }
-    //}
 
     public override void OnDestroy() {
         PlayersStaticData.Instance.OnPlayerColorChanged -= PlayersStaticData_OnPlayerColorChanged;
