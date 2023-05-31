@@ -9,40 +9,47 @@ public class PlayerColor : NetworkBehaviour {
 
 
     public override void OnNetworkSpawn() {
-        if (IsOwner) {
-            UpdateLocalPlayerColor();
-        }
+        //if (IsOwner) {
+        //    UpdateLocalPlayersColor();
+        //}
+
+        Debug.Log(OwnerClientId + " spawned");
 
         PlayersStaticData.OnPlayerColorChanged += PlayersStaticData_OnPlayerColorChanged;
+
+        UpdateLocalPlayersColor();
     }
 
     private void PlayersStaticData_OnPlayerColorChanged(object sender, System.EventArgs e) {
-        UpdateLocalPlayerColor();
+        UpdateLocalPlayersColor();
     }
 
     public void ChangePlayerColor(Color newPlayerColor) {
         PlayersStaticData.SetPlayerColorById(newPlayerColor, OwnerClientId);
     }
 
-    public static void UpdateLocalPlayerColor() {
-        UpdatePlayerColorServerRpc();
-    }
+    private void UpdateLocalPlayersColor() {
+        //    UpdatePlayerColorServerRpc();
+        //}
 
-    [ServerRpc(RequireOwnership = false)]
-    private void UpdatePlayerColorServerRpc() {
-        UpdatePlayerColorClientRpc();
-    }
+        //[ServerRpc(RequireOwnership = false)]
+        //private void UpdatePlayerColorServerRpc() {
+        //    UpdatePlayerColorClientRpc();
+        //}
 
-    [ClientRpc]
-    private void UpdatePlayerColorClientRpc() {
-        Debug.Log("C UpdatePlayerColorClientRpc " + OwnerClientId);
+        //[ClientRpc]
+        //private void UpdatePlayerColorClientRpc() {
+
+        Debug.Log("C UpdateLocalPlayerColor " + OwnerClientId);
 
         Color color;
 
         try {
             color = PlayersStaticData.GetPlayerColorById(OwnerClientId);
         } catch (KeyNotFoundException) {
-            PlayersStaticData.SetPlayerColorById(new Color(1, 1, 1), OwnerClientId);
+            if (IsOwner) {
+                PlayersStaticData.SetPlayerColorById(new Color(1, 1, 1), OwnerClientId); //! Триггерит OnPlayerColorChanged => повторное UpdateLocalPlayersColor
+            }
             color = new Color(1, 1, 1);
         }
 
@@ -50,6 +57,18 @@ public class PlayerColor : NetworkBehaviour {
             paintableMeshes.material.color = color;
         }
     }
+
+    //private static void UpdateLocalPlayersColor() {
+    //    foreach (KeyValuePair<ulong, Color> playerColor in PlayersStaticData.playerColorDictionary) {
+    //        Debug.Log("C UpdateLocalPlayerColor " + playerColor.Key);
+
+    //        Color color = playerColor.Value;
+
+    //        foreach (SkinnedMeshRenderer paintableMeshes in PlayersStaticData.GetPlayerById(playerColor.Key).GetComponent<PlayerColor>().paintableMeshesList) {
+    //            paintableMeshes.material.color = color;
+    //        }
+    //    }
+    //}
 
     public override void OnDestroy() {
         PlayersStaticData.OnPlayerColorChanged -= PlayersStaticData_OnPlayerColorChanged;
