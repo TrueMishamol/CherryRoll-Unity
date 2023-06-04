@@ -47,4 +47,5 @@ MonoBehaviour:
   - Documentation
   - Resources
   - Sprites
-  - MagicTableclothScene
+  - MagicTableclothGameScene
+  - CollectThePlateGameScene
