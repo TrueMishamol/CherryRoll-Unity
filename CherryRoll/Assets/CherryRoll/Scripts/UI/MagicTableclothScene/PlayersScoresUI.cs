@@ -14,12 +14,21 @@ public class PlayersScoresUI : MonoBehaviour {
 
     private void Start() {
         MagicTableclothGameManager.Instance.OnPlayersScoresDictionaryUpdated += MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated;
+        PlayersStaticData.Instance.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
 
         UpdateVisual();
     }
 
-    private void MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated(object sender, System.EventArgs e) {
+    private void PlayersStaticData_OnPlayerNameChanged(object sender, System.EventArgs e) {
         UpdateVisual();
+    }
+
+    private void MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated(object sender, System.EventArgs e) {
+        try {
+            UpdateVisual();
+        } catch (KeyNotFoundException) {
+            // It means that player just joined & playername dictionary is not updated yet. 
+        }
     }
 
     private void UpdateVisual() {
@@ -27,7 +36,7 @@ public class PlayersScoresUI : MonoBehaviour {
             if (child == playerScoreTemplate) continue;
             Destroy(child.gameObject);
         }
-    
+
         foreach (KeyValuePair<ulong, int> clientScore in MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary) {
             Transform playerScoreSingleUITransform = Instantiate(playerScoreTemplate, container);
             playerScoreSingleUITransform.gameObject.SetActive(true);
