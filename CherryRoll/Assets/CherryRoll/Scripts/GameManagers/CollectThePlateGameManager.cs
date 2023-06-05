@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -11,64 +12,107 @@ public class CollectThePlateGameManager : NetworkBehaviour {
     public event EventHandler OnItemDelivered;
     public event EventHandler OnItemDeliveredSuccess;
     public event EventHandler OnItemDeliveredFailed;
+    public event EventHandler OnIngredientsRecipeDictionaryUpdated;
 
     [SerializeField] private IngredientsRecipeSO ingredientsRecipeSO;
 
-    public Dictionary<ItemSO, int> requiredIngredientsRecipeDictionary;
-    public Dictionary<ItemSO, int> currentIngredientsRecipeDictionary;
-    private int failedItemDeliveredAmount;
+    public Dictionary<ItemSO, int> requiredIngredientsDictionary;
+    private Dictionary<ItemSO, int> collectedIngredientsDictionary;
+    public Dictionary<ItemSO, int> localCollectedIngredientsDictionary;
+    private int failedItemDeliveredAmount = 0;
 
 
     private void Awake() {
         Instance = this;
 
-    //    currentIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
-    //}
+        //! Optimize
 
-    //private void Start() {
-        requiredIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
-        currentIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
-
-        foreach (IngredientsRecipeSO.Recipe recipe in ingredientsRecipeSO.recipe) {
-            requiredIngredientsRecipeDictionary[recipe.itemSO] = recipe.amount;
-        }
+        requiredIngredientsDictionary = new Dictionary<ItemSO, int>();
+        collectedIngredientsDictionary = new Dictionary<ItemSO, int>();
+        localCollectedIngredientsDictionary = new Dictionary<ItemSO, int>();
 
         foreach (IngredientsRecipeSO.Recipe recipe in ingredientsRecipeSO.recipe) {
-            currentIngredientsRecipeDictionary[recipe.itemSO] = 0;
+            requiredIngredientsDictionary[recipe.itemSO] = recipe.amount;
+            collectedIngredientsDictionary[recipe.itemSO] = 0;
+            localCollectedIngredientsDictionary[recipe.itemSO] = 0;
         }
 
-        Debug.Log(requiredIngredientsRecipeDictionary);
-        Debug.Log(currentIngredientsRecipeDictionary);
+        //if (!IsServer) return;
+
+        //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback; ;
+
+        //UpdateIngredientsRecipeDictionaryServerRpc();
     }
 
-    public void DeliverItem(Item item) {
+    private void Start() {
+        UpdateIngredientsRecipeDictionaryServerRpc();
+        RecipeListUI.Instance.UpdateVisual(); //! Refactor?
+    }
 
+    //private void NetworkManager_OnClientConnectedCallback(ulong obj) {
+    //    UpdateIngredientsRecipeDictionaryServerRpc();
+    //}
+
+    public void DeliverItem(Item item) {
+        DeliverItemServerRpc(item.GetNetworkObject());
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void DeliverItemServerRpc(NetworkObjectReference itemNetworkObjectReference) {
+        itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
+        Item item = itemNetworkObject.GetComponent<Item>();
         ItemSO itemSO = item.GetItemSO();
 
-        if (requiredIngredientsRecipeDictionary.ContainsKey(itemSO)) {
-            if (requiredIngredientsRecipeDictionary[itemSO] > currentIngredientsRecipeDictionary[itemSO]) {
+        if (requiredIngredientsDictionary.ContainsKey(itemSO)) {
+            if (requiredIngredientsDictionary[itemSO] > collectedIngredientsDictionary[itemSO]) {
                 // Correct item
-                currentIngredientsRecipeDictionary[itemSO]++;
-                Debug.Log("Correct item");
+                collectedIngredientsDictionary[itemSO]++;
             } else {
                 // Extra item
-                currentIngredientsRecipeDictionary[itemSO]--;
-                Debug.Log("Extra item");
+                collectedIngredientsDictionary[itemSO]--;
+                failedItemDeliveredAmount++;
             }
         } else {
             // Wrong item
-            Debug.Log("Wrong item");
+            //! Add wrong item randomization
+            failedItemDeliveredAmount++;
         }
 
-        Debug.Log(requiredIngredientsRecipeDictionary);
-        Debug.Log(currentIngredientsRecipeDictionary);
+        UpdateIngredientsRecipeDictionaryServerRpc();
 
-        //foreach (KeyValuePair<ItemSO, int> ingredient in currentIngredientsRecipeDictionary) {
-        //    if (ingredient == currentIngredientsRecipeDictionary[]) {
+        OnItemDeliveredClientRpc();
+    }
 
-        //    }
-        //}
-
+    [ClientRpc]
+    private void OnItemDeliveredClientRpc() {
         OnItemDelivered?.Invoke(this, EventArgs.Empty);
     }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateIngredientsRecipeDictionaryServerRpc() {
+        // copy currentIngredientsRecipeDictionary from server to clients
+        List<ItemSO> itemSOList = collectedIngredientsDictionary.Keys.ToList();
+        foreach (KeyValuePair<ItemSO, int> itemSOCount in collectedIngredientsDictionary) {
+            int itemIndex = itemSOList.IndexOf(itemSOCount.Key);
+            UpdateIngredientsRecipeDictionaryClientRpc(itemIndex, itemSOCount.Value);
+        }
+
+        OnIngredientsRecipeDictionaryUpdatedClientRpc();
+    }
+
+    [ClientRpc]
+    private void UpdateIngredientsRecipeDictionaryClientRpc(int itemIndex, int itemCount) {
+        ItemSO itemSO = localCollectedIngredientsDictionary.ElementAt(itemIndex).Key;
+
+        localCollectedIngredientsDictionary[itemSO] = itemCount;
+    }
+
+    [ClientRpc]
+    private void OnIngredientsRecipeDictionaryUpdatedClientRpc() {
+        OnIngredientsRecipeDictionaryUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    //public override void OnDestroy() {
+    //    NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
+    //}
 }
