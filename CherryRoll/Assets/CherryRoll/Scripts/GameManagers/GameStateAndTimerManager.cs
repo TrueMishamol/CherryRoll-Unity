@@ -23,13 +23,18 @@ public class GameStateAndTimerManager : NetworkBehaviour {
     private NetworkVariable<State> state = new NetworkVariable<State>(State.WaitingToStart);
     private bool isLocalPlayerReady;
     private NetworkVariable<float> countdownToStartTimer = new NetworkVariable<float>(3f);
-    private NetworkVariable<float> gamePlayingTimer = new NetworkVariable<float>(0f);
-    private float gamePlayingTimerMax = 3 * 60f;
+    private NetworkVariable<float> gamePlayingTimerCurrent = new NetworkVariable<float>(0f);
+
+    [SerializeField] private int minutesGamePlayingTimer = 3;
+    [SerializeField] private int secondsGamePlayingTimer = 0;
+    private float gamePlayingTimerMax;
     private Dictionary<ulong, bool> playerReadyDictionary;
 
 
     private void Awake() {
         Instance = this;
+
+        gamePlayingTimerMax = minutesGamePlayingTimer * 60 + secondsGamePlayingTimer;
 
         playerReadyDictionary = new Dictionary<ulong, bool>();
     }
@@ -84,12 +89,12 @@ public class GameStateAndTimerManager : NetworkBehaviour {
                 countdownToStartTimer.Value -= Time.deltaTime;
                 if (countdownToStartTimer.Value < 0f) {
                     state.Value = State.GamePlaying;
-                    gamePlayingTimer.Value = gamePlayingTimerMax;
+                    gamePlayingTimerCurrent.Value = gamePlayingTimerMax;
                 }
                 break;
             case State.GamePlaying:
-                gamePlayingTimer.Value -= Time.deltaTime;
-                if (gamePlayingTimer.Value < 0f) {
+                gamePlayingTimerCurrent.Value -= Time.deltaTime;
+                if (gamePlayingTimerCurrent.Value < 0f) {
                     state.Value = State.GameOver;
                 }
                 break;
@@ -119,7 +124,7 @@ public class GameStateAndTimerManager : NetworkBehaviour {
     }
 
     public float GetGamePlayingTimerNormalized() {
-        return 1 - (gamePlayingTimer.Value / gamePlayingTimerMax);
+        return 1 - (gamePlayingTimerCurrent.Value / gamePlayingTimerMax);
     }
 
     public bool IsGameOver() {
