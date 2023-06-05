@@ -20,6 +20,7 @@ public class CollectThePlateGameManager : NetworkBehaviour {
     private Dictionary<ItemSO, int> collectedIngredientsDictionary;
     public Dictionary<ItemSO, int> localCollectedIngredientsDictionary;
     private int failedItemDeliveredAmount = 0;
+    private int maxWrongItemPunishment = 3;
 
 
     private void Awake() {
@@ -36,22 +37,12 @@ public class CollectThePlateGameManager : NetworkBehaviour {
             collectedIngredientsDictionary[recipe.itemSO] = 0;
             localCollectedIngredientsDictionary[recipe.itemSO] = 0;
         }
-
-        //if (!IsServer) return;
-
-        //NetworkManager.Singleton.OnClientConnectedCallback += NetworkManager_OnClientConnectedCallback; ;
-
-        //UpdateIngredientsRecipeDictionaryServerRpc();
     }
 
     private void Start() {
         UpdateIngredientsRecipeDictionaryServerRpc();
         RecipeListUI.Instance.UpdateVisual(); //! Refactor?
     }
-
-    //private void NetworkManager_OnClientConnectedCallback(ulong obj) {
-    //    UpdateIngredientsRecipeDictionaryServerRpc();
-    //}
 
     public void DeliverItem(Item item) {
         DeliverItemServerRpc(item.GetNetworkObject());
@@ -69,18 +60,29 @@ public class CollectThePlateGameManager : NetworkBehaviour {
                 collectedIngredientsDictionary[itemSO]++;
             } else {
                 // Extra item
-                collectedIngredientsDictionary[itemSO]--;
-                failedItemDeliveredAmount++;
+                WrongItemDelivered();
             }
         } else {
             // Wrong item
-            //! Add wrong item randomization
-            failedItemDeliveredAmount++;
+            WrongItemDelivered();
         }
 
         UpdateIngredientsRecipeDictionaryServerRpc();
 
         OnItemDeliveredClientRpc();
+    }
+
+    private void WrongItemDelivered() {
+        int randomCount = UnityEngine.Random.Range(1, maxWrongItemPunishment);
+
+        for (int i = 4; i > 0; i--) {
+            ItemSO randomItemSO = collectedIngredientsDictionary.ElementAt(UnityEngine.Random.Range(0, collectedIngredientsDictionary.Count)).Key;
+
+            collectedIngredientsDictionary[randomItemSO]--;
+        }
+
+        failedItemDeliveredAmount++;
+        maxWrongItemPunishment++;
     }
 
     [ClientRpc]
@@ -111,8 +113,4 @@ public class CollectThePlateGameManager : NetworkBehaviour {
     private void OnIngredientsRecipeDictionaryUpdatedClientRpc() {
         OnIngredientsRecipeDictionaryUpdated?.Invoke(this, EventArgs.Empty);
     }
-
-    //public override void OnDestroy() {
-    //    NetworkManager.Singleton.OnClientConnectedCallback -= NetworkManager_OnClientConnectedCallback;
-    //}
 }
