@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayersScoresSingleUI : MonoBehaviour {
 
 
-    [SerializeField] private TextMeshProUGUI playerNameText;
-    [SerializeField] private TextMeshProUGUI plaerScoreText;
+    [SerializeField] private TextMeshProUGUI outputText;
 
 
     public void SetPlayerScore (KeyValuePair<ulong, int> clientScore) {
-        playerNameText.text = PlayersStaticData.Instance.GetPlayerNameById(clientScore.Key);
-        plaerScoreText.text = clientScore.Value.ToString();
+        string playerName = PlayersStaticData.Instance.GetPlayerNameById(clientScore.Key);
+
+        outputText.text = playerName + "  " + clientScore.Value;
+
+
     }
 }

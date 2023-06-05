@@ -14,18 +14,18 @@ public class CollectThePlateGameManager : NetworkBehaviour {
 
     [SerializeField] private IngredientsRecipeSO ingredientsRecipeSO;
 
-    private Dictionary<ItemSO, int> requiredIngredientsRecipeDictionary;
-    private Dictionary<ItemSO, int> currentIngredientsRecipeDictionary;
+    public Dictionary<ItemSO, int> requiredIngredientsRecipeDictionary;
+    public Dictionary<ItemSO, int> currentIngredientsRecipeDictionary;
     private int failedItemDeliveredAmount;
 
 
     private void Awake() {
         Instance = this;
 
-        currentIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
-    }
+    //    currentIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
+    //}
 
-    private void Start() {
+    //private void Start() {
         requiredIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
         currentIngredientsRecipeDictionary = new Dictionary<ItemSO, int>();
 
@@ -68,5 +68,7 @@ public class CollectThePlateGameManager : NetworkBehaviour {
 
         //    }
         //}
+
+        OnItemDelivered?.Invoke(this, EventArgs.Empty);
     }
 }
