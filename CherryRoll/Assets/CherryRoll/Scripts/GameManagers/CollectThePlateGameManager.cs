@@ -15,6 +15,7 @@ public class CollectThePlateGameManager : NetworkBehaviour {
     public event EventHandler OnIngredientsRecipeDictionaryUpdated;
 
     [SerializeField] private IngredientsRecipeSO ingredientsRecipeSO;
+    [SerializeField] private Transform knifePrefab;
 
     public Dictionary<ItemSO, int> requiredIngredientsDictionary;
     private Dictionary<ItemSO, int> collectedIngredientsDictionary;
@@ -83,6 +84,16 @@ public class CollectThePlateGameManager : NetworkBehaviour {
 
         failedItemDeliveredAmount++;
         maxWrongItemPunishment++;
+
+        SpawnKnifeServerRpc();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnKnifeServerRpc() {
+        Transform knifeTransform = Instantiate(knifePrefab);
+
+        NetworkObject knifeNetworkObject = knifeTransform.GetComponent<NetworkObject>();
+        knifeNetworkObject.Spawn(true);
     }
 
     [ClientRpc]
