@@ -2660,6 +2660,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ingredientsRecipeSO: {fileID: 11400000, guid: ed671a02875383b4199d424799daf7ba, type: 2}
+  knifePrefab: {fileID: 1832806565091026796, guid: 5bee125746c66c14d99db31376e27f02, type: 3}
 --- !u!4 &1456696485
 Transform:
   m_ObjectHideFlags: 0
