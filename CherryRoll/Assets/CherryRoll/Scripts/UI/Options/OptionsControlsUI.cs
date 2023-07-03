@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,9 +11,10 @@ public class OptionsControlsUI : MonoBehaviour {
 
     [SerializeField] private Transform container;
     [SerializeField] private Transform controlButtonTemplate;
-
     [SerializeField] private Button closeButton;
     [SerializeField] private Transform pressToRebindTransform;
+    [SerializeField] private Transform resetAllBindingsButtonTransform;
+    [SerializeField] private Button resetAllBindingsButton;
 
     public Dictionary<GameInput.Binding, string> bindingsNamesDictionary = new Dictionary<GameInput.Binding, string>() {
         { GameInput.Binding.Move_Up, "Move Up" },
@@ -33,6 +33,7 @@ public class OptionsControlsUI : MonoBehaviour {
         { GameInput.Binding.MenuOpenClose_Gamepad, "Menu Open Close Gamepad" },
     };
 
+
     private void Awake() {
         Instance = this;
 
@@ -40,6 +41,10 @@ public class OptionsControlsUI : MonoBehaviour {
 
         closeButton.onClick.AddListener(() => {
             Hide();
+        });
+
+        resetAllBindingsButton.onClick.AddListener(() => {
+            ResetBindings();
         });
     }
 
@@ -53,6 +58,7 @@ public class OptionsControlsUI : MonoBehaviour {
     public void UpdateVisual() {
         foreach (Transform child in container) {
             if (child == controlButtonTemplate) continue;
+            if (child == resetAllBindingsButtonTransform) continue;
             Destroy(child.gameObject);
         }
 
@@ -79,5 +85,9 @@ public class OptionsControlsUI : MonoBehaviour {
         pressToRebindTransform.gameObject.SetActive(false);
     }
 
+    private void ResetBindings() {
+        GameInput.Instance.ResetBindings();
 
+        UpdateVisual();
+    }
 }

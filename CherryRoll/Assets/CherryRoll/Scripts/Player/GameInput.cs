@@ -107,9 +107,9 @@ public class GameInput : MonoBehaviour {
                 return playerInputActions.Player.Movement.bindings[5].ToDisplayString();
 
             case Binding.Jump:
-                return playerInputActions.Player.Movement.bindings[0].ToDisplayString();
+                return playerInputActions.Player.Jump.bindings[0].ToDisplayString();
             case Binding.Jump_Gamepad:
-                return playerInputActions.Player.Movement.bindings[1].ToDisplayString();
+                return playerInputActions.Player.Jump.bindings[1].ToDisplayString();
 
             case Binding.Interact:
                 return playerInputActions.Player.Interact.bindings[0].ToDisplayString();
@@ -201,6 +201,10 @@ public class GameInput : MonoBehaviour {
                 OnBindingRebind?.Invoke(this, EventArgs.Empty);
             })
             .Start();
+    }
+
+    public void ResetBindings() {
+        playerInputActions.RemoveAllBindingOverrides();
     }
 
     private void OnDestroy() {

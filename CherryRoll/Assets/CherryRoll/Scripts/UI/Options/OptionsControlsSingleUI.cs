@@ -14,9 +14,7 @@ public class OptionsControlsSingleUI : MonoBehaviour {
     public void SetBindingToButton(GameInput.Binding binding) {
         button.onClick.AddListener(() => { RebindBinding(binding); });
 
-        //string bind = GameInput.Instance.GetBindingText(binding);
         buttonText.text = GameInput.Instance.GetBindingText(binding);
-        //buttonText.text = bind;
 
         try {
             bindingNameText.text = OptionsControlsUI.Instance.bindingsNamesDictionary[binding];
