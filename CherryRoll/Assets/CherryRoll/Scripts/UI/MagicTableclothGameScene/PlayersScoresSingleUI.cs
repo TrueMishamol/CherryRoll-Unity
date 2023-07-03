@@ -12,7 +12,5 @@ public class PlayersScoresSingleUI : MonoBehaviour {
         string playerName = PlayersStaticData.Instance.GetPlayerNameById(clientScore.Key);
 
         outputText.text = playerName + "  " + clientScore.Value;
-
-
     }
 }
