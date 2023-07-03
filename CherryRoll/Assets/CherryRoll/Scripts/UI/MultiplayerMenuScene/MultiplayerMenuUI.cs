@@ -13,6 +13,7 @@ public class MultiplayerMenuUI : MonoBehaviour {
     [SerializeField] private Button backButton;
     [SerializeField] private TextMeshProUGUI joinCodeInputField;
     [SerializeField] private TextMeshProUGUI nameInputField;
+    [SerializeField] private Button optionsButton;
     [SerializeField] private Button closeButton;
 
 
@@ -33,18 +34,13 @@ public class MultiplayerMenuUI : MonoBehaviour {
             MultiplayerConnection.Instance.JoinRelay();
         });
 
-        backButton.onClick.AddListener(() => {
-            Hide();
-            ChoosePlaymodeUI.Instance.Show();
+        optionsButton.onClick.AddListener(() => {
+            OptionsMainUI.Instance.Show();
         });
 
         closeButton.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.MainMenuScene);
         });
-    }
-
-    private void Start() {
-        //Hide();
     }
 
     public void Show() {

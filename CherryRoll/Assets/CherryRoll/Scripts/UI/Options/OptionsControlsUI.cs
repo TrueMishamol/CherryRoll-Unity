@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +40,12 @@ public class OptionsControlsUI : MonoBehaviour {
         controlButtonTemplate.gameObject.SetActive(false);
 
         closeButton.onClick.AddListener(() => {
-            Hide();
+            //! Refactor. Пусть при закрытии не переназначает клавиши
+            if (pressToRebindTransform.gameObject.activeSelf == false) {
+                Hide();
+            } else {
+                HidePressToRebindKey();
+            }
         });
 
         resetAllBindingsButton.onClick.AddListener(() => {

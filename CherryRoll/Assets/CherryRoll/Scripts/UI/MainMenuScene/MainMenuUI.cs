@@ -7,17 +7,12 @@ public class MainMenuUI : MonoBehaviour {
 
     [SerializeField] private TextMeshProUGUI gameVersionText;
     [SerializeField] private Button playButton;
-    [SerializeField] private Button optionsButton;
     [SerializeField] private Button quitButton;
 
 
     private void Awake() {
         playButton.onClick.AddListener(() => {
             Loader.Load(Loader.Scene.MultiplayerMenuScene);
-        });
-
-        optionsButton.onClick.AddListener(() => {
-            OptionsMainUI.Instance.Show();
         });
 
         quitButton.onClick.AddListener(() => {

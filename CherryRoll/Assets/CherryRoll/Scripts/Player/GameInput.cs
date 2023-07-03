@@ -41,13 +41,9 @@ public class GameInput : MonoBehaviour {
     public event EventHandler OnInteractAlternateAction;
     public event EventHandler OnMenuOpenCloseAction;
     public event EventHandler OnDebugOpenCloseAction;
-    public event EventHandler OnBindingRebind; //! Пока нигде не используется
 
 
     private void Awake() {
-        if (Instance != null & Instance != this) {
-            Destroy(Instance.gameObject); //! Не уверен что это ещё нужно
-        }
         Instance = this;
 
         // Initialize all the variables for Input System
@@ -197,22 +193,23 @@ public class GameInput : MonoBehaviour {
 
                 PlayerPrefs.SetString(PLAYER_PREFS_BINDINGS, playerInputActions.SaveBindingOverridesAsJson());
                 PlayerPrefs.Save();
-
-                OnBindingRebind?.Invoke(this, EventArgs.Empty);
             })
             .Start();
     }
 
     public void ResetBindings() {
         playerInputActions.RemoveAllBindingOverrides();
+
+        playerInputActions.Player.Enable();
+
+        PlayerPrefs.SetString(PLAYER_PREFS_BINDINGS, playerInputActions.SaveBindingOverridesAsJson());
+        PlayerPrefs.Save();
     }
 
     private void OnDestroy() {
-        if (Instance == this) { //! И не уверен нужна ли эта проверка
-            playerInputActions.Player.Interact.performed -= Interact_performed;
-            playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
-            playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
-        }
+        playerInputActions.Player.Interact.performed -= Interact_performed;
+        playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
+        playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
 
         playerInputActions.Dispose();
     }
