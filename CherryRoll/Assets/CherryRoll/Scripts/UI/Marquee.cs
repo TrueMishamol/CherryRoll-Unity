@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Marquee : MonoBehaviour {
@@ -28,7 +26,7 @@ public class Marquee : MonoBehaviour {
         width = GetComponent<RectTransform>().rect.width;
     }
 
-    private void Update() {
+    private void FixedUpdate() {
         switch (direction) {
             case Direction.up:
                 directionVector = Vector3.up;
@@ -44,7 +42,7 @@ public class Marquee : MonoBehaviour {
                 break;
         }
 
-        transform.Translate(directionVector * speed * Time.unscaledTime);
+        transform.Translate(directionVector * speed * Time.unscaledDeltaTime);
 
         currentPosition = transform.localPosition;
 

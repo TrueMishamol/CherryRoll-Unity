@@ -8,6 +8,8 @@ public class MainMenuUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI gameVersionText;
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private Button mishamolLogoButton;
+    [SerializeField] private Button debugButton;
 
 
     private void Awake() {
@@ -21,6 +23,16 @@ public class MainMenuUI : MonoBehaviour {
         });
 
         Time.timeScale = 1f;
+
+        mishamolLogoButton.onClick.AddListener(() =>
+        {
+            Application.OpenURL("https://mishamol.ru/");
+        });
+
+        debugButton.onClick.AddListener(() =>
+        {
+            DebugUI.Instance.SwitchOpenClose();
+        });
     }
 
     private void Start() {
