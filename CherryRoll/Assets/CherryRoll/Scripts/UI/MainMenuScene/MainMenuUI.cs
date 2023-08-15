@@ -31,7 +31,8 @@ public class MainMenuUI : MonoBehaviour {
 
         debugButton.onClick.AddListener(() =>
         {
-            DebugUI.Instance.SwitchOpenClose();
+            //DebugUI.Instance.SwitchOpenClose();
+            DebugConsoleSwitcher.Instance.SwitchOpenClose();
         });
     }
 

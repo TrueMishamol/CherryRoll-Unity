@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ResetStaticDataManager : MonoBehaviour {
+public class ResetStaticData : MonoBehaviour {
 
     private void Awake() {
         Player.ResetStaticData();

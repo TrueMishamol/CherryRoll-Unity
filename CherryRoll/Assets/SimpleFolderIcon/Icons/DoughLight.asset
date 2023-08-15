@@ -16,3 +16,4 @@ MonoBehaviour:
   folderNames:
   - Scenes
   - ScriptableObjects
+  - Temp
