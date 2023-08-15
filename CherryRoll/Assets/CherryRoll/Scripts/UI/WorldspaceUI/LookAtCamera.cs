@@ -3,7 +3,7 @@ using UnityEngine;
 public class LookAtCamera : MonoBehaviour {
 
 
-    // Enum - is a fixed number of something
+    //^ Enum - is a fixed number of something
     private enum Mode {
         LookAt,
         LookAtInverted,

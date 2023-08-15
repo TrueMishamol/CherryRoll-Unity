@@ -32,16 +32,16 @@ public class RandomSpawnCounter : BaseCounter {
     private ItemSO GetRandomItem() {
         List<RandomItemSpawnListSO.RandomItem> itemsList = itemList.RandomItemSpawnList;
 
-        // Суммируем общую редкость всех предметов
+        //^ Суммируем общую редкость всех предметов
         int totalRarity = 0;
         foreach (RandomItemSpawnListSO.RandomItem item in itemsList) {
             totalRarity += item.rarity;
         }
 
-        // Генерируем случайное число от 0 до общей редкости
+        //^ Генерируем случайное число от 0 до общей редкости
         int randomRarity = Random.Range(0, totalRarity);
 
-        // Ищем предмет соответствующий сгенерированному числу
+        //^ Ищем предмет соответствующий сгенерированному числу
         foreach (RandomItemSpawnListSO.RandomItem item in itemsList) {
             if (randomRarity < item.rarity) {
                 return item.itemSO;
@@ -49,13 +49,13 @@ public class RandomSpawnCounter : BaseCounter {
             randomRarity -= item.rarity;
         }
 
-        // Если ни один предмет не соответствует сгенерированному числу, возвращаем первый предмет в списке
+        //^ Если ни один предмет не соответствует сгенерированному числу, возвращаем первый предмет в списке
         return itemList.RandomItemSpawnList[0].itemSO;
     }
 
     private void SpawnItemOnCounter() {
         if (!HasItem()) {
-            // There is no Item on Counter
+            //^ There is no Item on Counter
             Item.SpawnItem(GetRandomItem(), this);
         }
     }

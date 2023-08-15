@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class MagicTableclothGameOverSingleUI : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //^ Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+    //^ Update is called once per frame
     void Update()
     {
         

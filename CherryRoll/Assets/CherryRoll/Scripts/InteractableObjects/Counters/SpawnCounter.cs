@@ -30,7 +30,7 @@ public class SpawnCounter : BaseCounter {
 
     private void SpawnItemOnCounter() {
         if (!HasItem()) {
-            // There is no Item on Counter
+            //^ There is no Item on Counter
             Item.SpawnItem(itemSO, this);
         }
     }

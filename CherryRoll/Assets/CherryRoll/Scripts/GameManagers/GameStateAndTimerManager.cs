@@ -63,7 +63,7 @@ public class GameStateAndTimerManager : NetworkBehaviour {
         bool allClientsReady = true;
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             if (!playerReadyDictionary.ContainsKey(clientId) || !playerReadyDictionary[clientId]) {
-                // This player is NOT ready
+                //^ This player is NOT ready
                 allClientsReady = false;
                 break;
             }

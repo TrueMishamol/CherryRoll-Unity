@@ -62,12 +62,12 @@ public class GamePause : NetworkBehaviour {
     private void TestMultiplayerGamePausedState() {
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             if (playerPausedDictionary.ContainsKey(clientId) && playerPausedDictionary[clientId]) {
-                // This player is paused
+                //^ This player is paused
                 isMultiplayerGamePaused.Value = true;
                 return;
             }
         }
-        // All players are unpaused
+        //^ All players are unpaused
         isMultiplayerGamePaused.Value = false;
     }
 

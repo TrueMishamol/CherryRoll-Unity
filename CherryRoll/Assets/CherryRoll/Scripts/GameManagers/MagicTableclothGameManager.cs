@@ -10,7 +10,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     public event EventHandler OnItemDelivered;
     public event EventHandler OnPlayersScoresDictionaryUpdated;
 
-    private Dictionary<ulong, int> allPlayersScoresDictionary = new Dictionary<ulong, int>(); // Server side only
+    private Dictionary<ulong, int> allPlayersScoresDictionary = new Dictionary<ulong, int>(); //^ Server side only
     public Dictionary<ulong, int> connectedPlayersScoresDictionary = new Dictionary<ulong, int>();
 
 
@@ -33,7 +33,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
         NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         Player.OnAnyPlayerSpawned += Player_OnAnyPlayerSpawned;
 
-        // Присваивание значения 0 для всех клиентов, уже подключенных на сервере
+        //^ Присваивание значения 0 для всех клиентов, уже подключенных на сервере
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
             allPlayersScoresDictionary[clientId] = 0;
         }
@@ -48,7 +48,7 @@ public class MagicTableclothGameManager : NetworkBehaviour {
     }
 
     private void NetworkManager_OnClientConnectedCallback(ulong clientId) {
-        // Добавление новой строки в словарь с новым подключенным клиентом
+        //^ Добавление новой строки в словарь с новым подключенным клиентом
         allPlayersScoresDictionary[clientId] = 0;
 
         UpdatePlayersScoresDictionaryServerRpc();

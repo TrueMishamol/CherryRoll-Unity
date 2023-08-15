@@ -21,7 +21,7 @@ public class PlayersStaticData : NetworkBehaviour {
         Instance = this;
     }
 
-    // Set Player Name
+    //^ Set Player Name
 
     public void SetPlayerNameById(string newPlayerName, ulong clientId) {
         if (newPlayerName == "") {
@@ -63,7 +63,7 @@ public class PlayersStaticData : NetworkBehaviour {
         Debug.Log("UpdatePlayerNameDictionaryClientRpc " + OwnerClientId);
     }
 
-    // Set Player Color
+    //^ Set Player Color
 
     public void SetPlayerColorById(Color newPlayerColor, ulong clientId) {
         SetPlayerColorByIdServerRpc(newPlayerColor, clientId);
@@ -102,13 +102,13 @@ public class PlayersStaticData : NetworkBehaviour {
         Debug.Log("UpdatePlayerColorDictionaryClientRpc " + OwnerClientId);
     }
 
-    // SetPlayerById
+    //^ SetPlayerById
 
     private void SetPlayerById(Player player, ulong clientId) {
         playerDictionary[clientId] = player;
     }
 
-    // Get
+    //^ Get
 
     public string GetPlayerNameById(ulong clientId) {
         return playerNameDictionary[clientId];

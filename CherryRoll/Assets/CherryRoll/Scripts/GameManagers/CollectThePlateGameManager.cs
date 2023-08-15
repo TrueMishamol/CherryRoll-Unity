@@ -57,14 +57,14 @@ public class CollectThePlateGameManager : NetworkBehaviour {
 
         if (requiredIngredientsDictionary.ContainsKey(itemSO)) {
             if (requiredIngredientsDictionary[itemSO] > collectedIngredientsDictionary[itemSO]) {
-                // Correct item
+                //^ Correct item
                 collectedIngredientsDictionary[itemSO]++;
             } else {
-                // Extra item
+                //^ Extra item
                 WrongItemDelivered();
             }
         } else {
-            // Wrong item
+            //^ Wrong item
             WrongItemDelivered();
         }
 
@@ -103,7 +103,7 @@ public class CollectThePlateGameManager : NetworkBehaviour {
 
     [ServerRpc(RequireOwnership = false)]
     private void UpdateIngredientsRecipeDictionaryServerRpc() {
-        // copy currentIngredientsRecipeDictionary from server to clients
+        //^ copy currentIngredientsRecipeDictionary from server to clients
         List<ItemSO> itemSOList = collectedIngredientsDictionary.Keys.ToList();
         foreach (KeyValuePair<ItemSO, int> itemSOCount in collectedIngredientsDictionary) {
             int itemIndex = itemSOList.IndexOf(itemSOCount.Key);

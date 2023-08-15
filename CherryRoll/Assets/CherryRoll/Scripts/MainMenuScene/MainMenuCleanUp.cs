@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MainMenuCleanUp : MonoBehaviour {
 
-    // Cleans up all objects with DontDestroyOnLoad(gameObject);
+    //^ Cleans up all objects with DontDestroyOnLoad(gameObject);
 
     private void Awake() {
         if (NetworkManager.Singleton != null) {

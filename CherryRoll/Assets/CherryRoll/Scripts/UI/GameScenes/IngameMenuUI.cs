@@ -35,17 +35,17 @@ public class IngameMenuUI : BaseMenuUI {
 
         quitButton.onClick.AddListener(() => {
             if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
-                // Is Host
+                //^ Is Host
                 if (SceneManager.GetActiveScene().name.ToString() != Loader.Scene.LobbyScene.ToString()) {
-                    // Active scene is NOT Lobby
+                    //^ Active scene is NOT Lobby
                     Loader.LoadNetwork(Loader.Scene.LobbyScene);
                 } else {
-                    // Active scene is Lobby
+                    //^ Active scene is Lobby
                     NetworkManager.Singleton.Shutdown();
                     Loader.Load(Loader.Scene.MainMenuScene);
                 }
             } else {
-                // Is Client
+                //^ Is Client
                 NetworkManager.Singleton.Shutdown();
                 Loader.Load(Loader.Scene.MainMenuScene);
             }

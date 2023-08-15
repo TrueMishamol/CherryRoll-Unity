@@ -35,7 +35,7 @@ public class Item : NetworkBehaviour {
         //Debug.Log("Cleat Item");
 
         if (this.itemParent != null) {
-            // Clear Current Item Parent (to re-Parent)
+            //^ Clear Current Item Parent (to re-Parent)
             this.itemParent.ClearItem();
         }
 

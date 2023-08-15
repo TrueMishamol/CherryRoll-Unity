@@ -32,8 +32,8 @@ public class MultiplayerConnection : NetworkBehaviour {
     }
 
     private async void Start() {
-        // Sends a request to Unity Services to initialize the API
-        // With Async, the game does not freeze until response
+        //^ Sends a request to Unity Services to initialize the API
+        //^ With Async, the game does not freeze until response
         if (UnityServices.State == 0) {
             await UnityServices.InitializeAsync();
 
@@ -66,10 +66,10 @@ public class MultiplayerConnection : NetworkBehaviour {
         NetworkManager.Singleton.ConnectionApprovalCallback += NetworkManager_ConnectionApprovalCallback;
 
         try {
-            // Creating Allocation on Relay
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(49); // 50 players
+            //^ Creating Allocation on Relay
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(49); //^ 50 players
 
-            // Getting the joinCode to join Allocation. joinCode is for Friends
+            //^ Getting the joinCode to join Allocation. joinCode is for Friends
             string joinCode;
             joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 

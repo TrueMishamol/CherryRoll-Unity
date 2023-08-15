@@ -10,13 +10,13 @@ public class OnMenuOpenClose : MonoBehaviour {
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        // FindAllOppenedMenus
+        //^ FindAllOppenedMenus
         BaseMenuUI[] baseMenuUIs = FindObjectsOfType(typeof(BaseMenuUI)) as BaseMenuUI[];
 
-        // CloseMenuOnTop
+        //^ CloseMenuOnTop
         foreach (BaseMenuUI baseMenuUI in baseMenuUIs) {
             if (baseMenuUI.IsOppened()) {
-                // Закрыть то что сверху и выйти из метода
+                //^ Закрыть то что сверху и выйти из метода
                 baseMenuUI.SwitchOpenClose();
                 return;
             }
@@ -24,21 +24,21 @@ public class OnMenuOpenClose : MonoBehaviour {
     }
 
     private void GameInput_OnMenuOpenCloseAction(object sender, EventArgs e) {
-        // FindAllOppenedMenus
+        //^ FindAllOppenedMenus
         BaseMenuUI[] baseMenuUIs = FindObjectsOfType(typeof(BaseMenuUI)) as BaseMenuUI[];
 
-        // CloseMenuOnTop
+        //^ CloseMenuOnTop
         foreach (BaseMenuUI baseMenuUI in baseMenuUIs) {
             if (baseMenuUI.IsOppened()) {
-                // Закрыть то что сверху и выйти из метода
+                //^ Закрыть то что сверху и выйти из метода
                 baseMenuUI.SwitchOpenClose();
                 return;
             }
         }
 
-        // Если не найден ни один открытый baseMenuUI
+        //^ Если не найден ни один открытый baseMenuUI
 
-        // OpenIngameMenu
+        //^ OpenIngameMenu
         IngameMenuUI.Instance.SwitchOpenClose();
     }
 }

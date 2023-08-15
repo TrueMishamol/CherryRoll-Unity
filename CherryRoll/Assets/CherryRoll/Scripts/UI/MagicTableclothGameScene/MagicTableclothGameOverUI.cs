@@ -13,7 +13,7 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
         quitButton.onClick.AddListener(() => {
             //! Also display this button only on Host & on Client display Main Menu button
             if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
-                // Is Host
+                //^ Is Host
                 Loader.LoadNetwork(Loader.Scene.LobbyScene);
             }
         });

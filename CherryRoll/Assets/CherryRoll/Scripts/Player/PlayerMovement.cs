@@ -9,18 +9,18 @@ public class PlayerMovement : NetworkBehaviour {
 
     [SerializeField] private CharacterController characterController;
 
-    // Walk
+    //^ Walk
     private int walkSpeed = 3;
     private Vector3 walkDir;
     float playerRotationSpeed = 300f;
     private bool isWalking;
 
-    // Gravity
+    //^ Gravity
     private Vector3 fallingVelocityVector;
     private float standingVelocityValue = 0;
     private float gravity = -20f;
 
-    // Jump and Gravity
+    //^ Jump and Gravity
     private float jumpHeight = 0.1f;
     public event EventHandler OnJump;
 
@@ -41,12 +41,12 @@ public class PlayerMovement : NetworkBehaviour {
     }
 
     private void ApplyFinalMovements() {
-        // Walk
+        //^ Walk
         if (walkDir != Vector3.zero) {
             characterController.Move(walkDir * walkSpeed * Time.fixedDeltaTime);
         }
 
-        // Jump
+        //^ Jump
         characterController.Move(fallingVelocityVector);
     }
 
@@ -56,7 +56,7 @@ public class PlayerMovement : NetworkBehaviour {
 
         isWalking = walkDir != Vector3.zero;
 
-        // Rotates Player to face walkDir
+        //^ Rotates Player to face walkDir
         if (isWalking) {
             Quaternion toRotation = Quaternion.LookRotation(walkDir, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, playerRotationSpeed * Time.fixedDeltaTime);
@@ -69,7 +69,7 @@ public class PlayerMovement : NetworkBehaviour {
         }
 
         if (!characterController.isGrounded) {
-            fallingVelocityVector.y += gravity * Time.fixedDeltaTime * Time.fixedDeltaTime; // sqare of time
+            fallingVelocityVector.y += gravity * Time.fixedDeltaTime * Time.fixedDeltaTime; //^ sqare of time
         }
 
         if (gameInput.IsJumping() && characterController.isGrounded) {

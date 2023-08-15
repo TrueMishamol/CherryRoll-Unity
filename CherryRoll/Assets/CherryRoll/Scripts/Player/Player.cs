@@ -13,7 +13,7 @@ public class Player : NetworkBehaviour, IItemParent {
         OnAnyPlayerSpawned = null;
     }
 
-    // Interaction
+    //^ Interaction
     public event EventHandler<OnSelectedInteractableObjectChangedEventArgs> OnSelectedInteractableObjectChanged;
     public event EventHandler OnInteract;
     public class OnSelectedInteractableObjectChangedEventArgs : EventArgs {
@@ -27,7 +27,7 @@ public class Player : NetworkBehaviour, IItemParent {
     [SerializeField] private Transform itemHolder;
     private Item item;
 
-    // Cinemachine
+    //^ Cinemachine
     private PlayerCameraFollow playerCameraFollow;
     private GameObject cameraFollow;
     private string cameraName = "CameraFollow";
@@ -38,7 +38,7 @@ public class Player : NetworkBehaviour, IItemParent {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
 
         if (IsClient && IsOwner) {
-            // Cinemachine
+            //^ Cinemachine
             cameraFollow = GameObject.Find(cameraName);
             cameraFollow.TryGetComponent<PlayerCameraFollow>(out playerCameraFollow);
             playerCameraFollow.FollowPlayer(transform);
@@ -64,7 +64,7 @@ public class Player : NetworkBehaviour, IItemParent {
 
         OnAnyPlayerSpawned?.Invoke(this, EventArgs.Empty);
 
-        // Handle Disconnect
+        //^ Handle Disconnect
         if (IsServer) {
             NetworkManager.Singleton.OnClientDisconnectCallback += NetworkManager_OnClientDisconnectCallback;
         }
@@ -94,18 +94,18 @@ public class Player : NetworkBehaviour, IItemParent {
         float interactDistance = .55f;
         if (Physics.Raycast(transform.position, lastInteractDir, out RaycastHit raycastHit, interactDistance, interactLayerMask)) {
             if (raycastHit.transform.TryGetComponent(out IInteractableObject interactableObject)) {
-                // Has BaseInteractableObject
+                //^ Has BaseInteractableObject
                 if (interactableObject != selectedInteractableObject) {
                     SetSelectedInteractableObject(interactableObject);
                 }
             } else {
-                // Has no BaseInteractableObject
+                //^ Has no BaseInteractableObject
                 if (selectedInteractableObject != null) {
                     SetSelectedInteractableObject(null);
                 }
             }
         } else {
-            // Raycast do not hit interactLayerMask
+            //^ Raycast do not hit interactLayerMask
             if (selectedInteractableObject != null) {
                 SetSelectedInteractableObject(null);
             }

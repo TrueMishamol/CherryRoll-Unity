@@ -22,7 +22,7 @@ public class HostHasDisconnectedUI : MonoBehaviour {
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
         if (clientId == NetworkManager.ServerClientId) {
-            // Server is shutting down
+            //^ Server is shutting down
             Show();
         }
     }

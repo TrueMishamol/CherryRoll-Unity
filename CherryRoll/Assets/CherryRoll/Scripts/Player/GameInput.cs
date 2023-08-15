@@ -32,7 +32,7 @@ public class GameInput : MonoBehaviour {
         MenuOpenClose_Gamepad,
     }
 
-    // Smooth Moove Vector
+    //^ Smooth Moove Vector
     private Vector2 currentInputVector;
     private Vector2 smoothInputVelocity;
     [SerializeField] private float smoothInputSpeed = .4f;
@@ -45,7 +45,7 @@ public class GameInput : MonoBehaviour {
     private void Awake() {
         Instance = this;
 
-        // Initialize all the variables for Input System
+        //^ Initialize all the variables for Input System
         playerInputActions = new PlayerInputActions();
 
         if (PlayerPrefs.HasKey(PLAYER_PREFS_BINDINGS)) {

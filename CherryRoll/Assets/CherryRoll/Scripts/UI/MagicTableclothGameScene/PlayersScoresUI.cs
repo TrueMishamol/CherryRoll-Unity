@@ -27,7 +27,7 @@ public class PlayersScoresUI : MonoBehaviour {
         try {
             UpdateVisual();
         } catch (KeyNotFoundException) {
-            // It means that player just joined & playername dictionary is not updated yet. 
+            //^ It means that player just joined & playername dictionary is not updated yet. 
         }
     }
 

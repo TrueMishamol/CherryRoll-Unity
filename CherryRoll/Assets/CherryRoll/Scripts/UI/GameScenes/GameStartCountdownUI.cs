@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameStartCountdownUI : MonoBehaviour {
 
 
-    // Animation
+    //^ Animation
     //private const string NUMBER_POPUP = "NumberPopup";
 
     [SerializeField] private TextMeshProUGUI countdownText;
