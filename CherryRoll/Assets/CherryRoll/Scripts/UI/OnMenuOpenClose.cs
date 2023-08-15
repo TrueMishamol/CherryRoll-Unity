@@ -1,35 +1,44 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class OnMenuOpenClose : MonoBehaviour {
 
+
     private void Start() {
         GameInput.Instance.OnMenuOpenCloseAction += GameInput_OnMenuOpenCloseAction;
         GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
-
-        IngameMenuUI.Instance.OnMenuClosed += IngameMenuUI_OnMenuClosed;
-        IngameMenuUI.Instance.OnMenuOpened += IngameMenuUI_OnMenuOpened;
-    }
-
-
-
-    private void IngameMenuUI_OnMenuOpened(object sender, EventArgs e) {
-        GamePause.Instance.SetLocalGamePaused(IngameMenuUI.Instance.IsIngameMenuOppened());
-    }
-
-    private void IngameMenuUI_OnMenuClosed(object sender, EventArgs e) {
-        GamePause.Instance.SetLocalGamePaused(IngameMenuUI.Instance.IsIngameMenuOppened());
     }
 
     private void GameInput_OnInteractAction(object sender, EventArgs e) {
-        //! Close Game Choose UI
-        //! Close WaitingToStart UI
+        // FindAllOppenedMenus
+        BaseMenuUI[] baseMenuUIs = FindObjectsOfType(typeof(BaseMenuUI)) as BaseMenuUI[];
+
+        // CloseMenuOnTop
+        foreach (BaseMenuUI baseMenuUI in baseMenuUIs) {
+            if (baseMenuUI.IsOppened()) {
+                // Закрыть то что сверху и выйти из метода
+                baseMenuUI.SwitchOpenClose();
+                return;
+            }
+        }
     }
 
     private void GameInput_OnMenuOpenCloseAction(object sender, EventArgs e) {
-        IngameMenuUI.Instance.SwitchOpenClose();
+        // FindAllOppenedMenus
+        BaseMenuUI[] baseMenuUIs = FindObjectsOfType(typeof(BaseMenuUI)) as BaseMenuUI[];
 
-        //! Close Game Choose UI
-        //! Close WaitingToStart UI
+        // CloseMenuOnTop
+        foreach (BaseMenuUI baseMenuUI in baseMenuUIs) {
+            if (baseMenuUI.IsOppened()) {
+                // Закрыть то что сверху и выйти из метода
+                baseMenuUI.SwitchOpenClose();
+                return;
+            }
+        }
+
+        // Если не найден ни один открытый baseMenuUI
+
+        // OpenIngameMenu
+        IngameMenuUI.Instance.SwitchOpenClose();
     }
 }

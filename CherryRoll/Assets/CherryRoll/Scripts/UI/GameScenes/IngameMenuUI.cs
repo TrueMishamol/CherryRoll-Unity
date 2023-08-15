@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class IngameMenuUI : MonoBehaviour {
+public class IngameMenuUI : BaseMenuUI {
 
 
     public static IngameMenuUI Instance;
@@ -20,8 +20,6 @@ public class IngameMenuUI : MonoBehaviour {
     [SerializeField] private Button quitButton;
     [SerializeField] private TextMeshProUGUI playersCountNumberText;
     [SerializeField] private Button closeButton;
-
-    private bool isIngameMenuOppened = false;
 
 
     private void Awake() {
@@ -52,7 +50,7 @@ public class IngameMenuUI : MonoBehaviour {
                 Loader.Load(Loader.Scene.MainMenuScene);
             }
 
-            Hide();
+            Close();
         });
 
         closeButton.onClick.AddListener(() => {
@@ -67,7 +65,7 @@ public class IngameMenuUI : MonoBehaviour {
         UpdateJoinCodeOutputText();
         UpdatePlayersCountOutputTextServerRpc();
 
-        Hide();
+        Close();
     }
 
     private void MultiplayerPlayersCount_OnPlayerCountUpdate(object sender, EventArgs e) {
@@ -92,29 +90,13 @@ public class IngameMenuUI : MonoBehaviour {
         playersCountNumberText.text = MultiplayerPlayersCount.Instance.GetPlayersCount().ToString();
     }
 
-    private void Show() {
-        isIngameMenuOppened = true;
-        gameObject.SetActive(true);
-        OnMenuOpened?.Invoke(this, EventArgs.Empty);
+    protected override void Close() {
+        base.Close();
+        GamePause.Instance.SetLocalGamePaused(isOppened);
     }
 
-    private void Hide() {
-        isIngameMenuOppened = false;
-        gameObject.SetActive(false);
-        OnMenuClosed?.Invoke(this, EventArgs.Empty);
-    }
-
-    public void SwitchOpenClose() {
-        isIngameMenuOppened = !isIngameMenuOppened;
-
-        if (isIngameMenuOppened) {
-            Show();
-        } else {
-            Hide();
-        }
-    }
-
-    public bool IsIngameMenuOppened() {
-        return isIngameMenuOppened;
+    protected override void Open() {
+        base.Open();
+        GamePause.Instance.SetLocalGamePaused(isOppened);
     }
 }

@@ -8,7 +8,7 @@ public class LobbyButton : NetworkBehaviour, IInteractableObject {
 
 
     public void Interact(Player player) {
-        GameChooseMenuUI.Instance.Show();
+        GameChooseMenuUI.Instance.SwitchOpenClose();
 
         InteractLogicServerRpc();
     }

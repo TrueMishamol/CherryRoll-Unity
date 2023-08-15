@@ -39,10 +39,6 @@ public class GameStateAndTimerManager : NetworkBehaviour {
         playerReadyDictionary = new Dictionary<ulong, bool>();
     }
 
-    private void Start() {
-        GameInput.Instance.OnInteractAction += GameInput_OnInteractAction;
-    }
-
     public override void OnNetworkSpawn() {
         state.OnValueChanged += State_OnValueChanged;
     }
@@ -51,8 +47,7 @@ public class GameStateAndTimerManager : NetworkBehaviour {
         OnStateChanged?.Invoke(this, EventArgs.Empty);
     }
 
-    //! Refactor with OnMenuOpenClose
-    private void GameInput_OnInteractAction(object sender, EventArgs e) {
+    public void SetLocalPlayerReady() {
         if (state.Value == State.WaitingToStart) {
             isLocalPlayerReady = true;
             OnLocalPlayerReadyChanged?.Invoke(this, EventArgs.Empty);

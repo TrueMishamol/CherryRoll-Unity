@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameChooseMenuUI : MonoBehaviour {
+public class GameChooseMenuUI : BaseMenuUI {
 
 
     public static GameChooseMenuUI Instance { get; private set; }
@@ -19,7 +19,7 @@ public class GameChooseMenuUI : MonoBehaviour {
         gameTemplate.gameObject.SetActive(false);
 
         closeButton.onClick.AddListener(() => {
-            Hide();
+            Close();
         });
     }
 
@@ -30,14 +30,6 @@ public class GameChooseMenuUI : MonoBehaviour {
             gameTemplateTransform.GetComponent<GameChooseMenuSingleUI>().SetGameSceneSO(gameSceneSO);
         }
 
-        Hide();
-    }
-
-    public void Show() {
-        gameObject.SetActive(true);
-    }
-
-    public void Hide() {
-        gameObject.SetActive(false);
+        Close();
     }
 }

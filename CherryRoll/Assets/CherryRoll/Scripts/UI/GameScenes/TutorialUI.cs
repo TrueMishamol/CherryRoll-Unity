@@ -1,20 +1,11 @@
-using UnityEngine;
-
-public class TutorialUI : MonoBehaviour {
+public class TutorialUI : BaseMenuUI {
 
     private void Start() {
-        GameStateAndTimerManager.Instance.OnLocalPlayerReadyChanged += GameStateAndTimerManager_OnLocalPlayerReadyChanged;
-
+        Open();
         UpdateVisual();
 
         if (!GameStateAndTimerManager.Instance.IsWaitingToStart()) {
-            Hide();
-        }
-    }
-
-    private void GameStateAndTimerManager_OnLocalPlayerReadyChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsLocalPlayerReady()) {
-            Hide();
+            Close();
         }
     }
 
@@ -23,11 +14,8 @@ public class TutorialUI : MonoBehaviour {
         //! Also maybe button bindings
     }
 
-    private void Show() {
-        gameObject.SetActive(true);
-    }
-
-    private void Hide() {
-        gameObject.SetActive(false);
+    protected override void Close() {
+        base.Close();
+        GameStateAndTimerManager.Instance.SetLocalPlayerReady();
     }
 }
