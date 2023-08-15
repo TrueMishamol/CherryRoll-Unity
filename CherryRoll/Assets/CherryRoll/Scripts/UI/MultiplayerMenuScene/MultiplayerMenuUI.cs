@@ -27,7 +27,7 @@ public class MultiplayerMenuUI : MonoBehaviour {
         connectButton.onClick.AddListener(() => {
             string joinCode;
             joinCode = joinCodeInputField.text.ToUpper();
-            joinCode = joinCode.Remove(joinCode.Length - 1);  // Convert from TMPro. TMPro adds an invisible character at the end
+            joinCode = joinCode.Remove(joinCode.Length - 1);  //^ Convert from TMPro. TMPro adds an invisible character at the end
             if (joinCode == "") return;
             MultiplayerConnection.Instance.UpdateJoinCode(joinCode);
 

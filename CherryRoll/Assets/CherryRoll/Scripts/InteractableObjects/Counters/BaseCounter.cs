@@ -23,21 +23,21 @@ public class BaseCounter : NetworkBehaviour, IInteractableObject, IItemParent {
 
     public void Interact(Player player) {
         if (!HasItem()) {
-            // There is no Item on Counter
+            //^ There is no Item on Counter
             if (player.HasItem()) {
-                // Player is carrying something
+                //^ Player is carrying something
                 player.GetItem().SetItemParent(this);
             } else {
-                // Player is not carrying anything
+                //^ Player is not carrying anything
             }
         } else {
-            // There is Item on Counter
+            //^ There is Item on Counter
             if (!player.HasItem()) {
-                // Player is emptyhanded
-                // Give Item to the Player
+                //^ Player is emptyhanded
+                //^ Give Item to the Player
                 item.SetItemParent(player);
             } else {
-                // Player holds Item
+                //^ Player holds Item
             }
         }
     }
