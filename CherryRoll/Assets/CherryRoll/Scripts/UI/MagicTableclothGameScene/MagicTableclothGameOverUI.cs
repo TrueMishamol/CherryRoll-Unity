@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,9 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
 
 
     [SerializeField] private Button quitButton;
+    [SerializeField] private TextMeshProUGUI quitButtonText;
+    private string hostQuitText = "To Lobby";
+    private string clientQuitText = "Disconnect";
 
     [SerializeField] private Transform container;
     [SerializeField] private Transform playerTemplate;
@@ -18,13 +22,21 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
     private void Awake() {
         playerTemplate.gameObject.SetActive(false);
 
-        quitButton.onClick.AddListener(() => {
-            //! Also display this button only on Host & on Client display Main Menu button
-            if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
-                //^ Is Host
+        if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
+            //^ Is Host
+            quitButtonText.text = hostQuitText;
+
+            quitButton.onClick.AddListener(() => {
                 Loader.LoadNetwork(Loader.Scene.GameLobbyScene);
-            }
-        });
+            });
+        } else {
+            //^ Is Client
+            quitButtonText.text = clientQuitText;
+
+            quitButton.onClick.AddListener(() => {
+                Loader.LoadNetwork(Loader.Scene.GameLobbyScene);
+            });
+        }
     }
 
     private void Start() {

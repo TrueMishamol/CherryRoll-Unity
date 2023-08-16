@@ -24,13 +24,13 @@ public class OptionsSoundsUI : MonoBehaviour {
         });
 
         //soundEffectsButton.onClick.AddListener(() => {
-        //^    SoundManager.Instance.ChangeVolume();
-        //^    UpdateVisual();
+        //    SoundManager.Instance.ChangeVolume();
+        //    UpdateVisual();
         //});
 
         //musicButton.onClick.AddListener(() => {
-        //^    MusicManager.Instance.ChangeVolume();
-        //^    UpdateVisual();
+        //    MusicManager.Instance.ChangeVolume();
+        //    UpdateVisual();
         //});
     }
 
