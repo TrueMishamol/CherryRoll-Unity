@@ -4,24 +4,54 @@
 // (the zero key, is near the P key, so it's easy to remember)
 // simply insert the actual name of your opening scene
 // "__preEverythingScene" on the second last line of code below.
-
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
-using System.Collections;
 
 [InitializeOnLoad]
+[System.Serializable]
 public static class SimpleEditorUtils {
     // click command-0 to go to the prelaunch scene and then play
 
+    private static string mainScene = "Assets/CherryRoll/Scenes/MenuScenes/MenuMainMenuScene.unity";
+    [SerializeField] private static string activeScene;
+
+
     [MenuItem("Edit/Play-Unplay, But From Prelaunch Scene %0")]
     public static void PlayFromPrelaunchScene() {
+
+        activeScene = EditorSceneManager.GetActiveScene().path.ToString();
+
+
         if (EditorApplication.isPlaying == true) {
             EditorApplication.isPlaying = false;
+
+            EditorApplication.playModeStateChanged += EditorApplication_playModeStateChanged;
+
             return;
         }
-        EditorApplication.SaveCurrentSceneIfUserWantsTo();
-        EditorApplication.OpenScene(
-                    "Assets/CherryRoll/Scenes/MenuScenes/MainMenuScene.unity");
+
+
+        EditorSceneManager.SaveCurrentModifiedScenesIfUserWantsTo();
+        EditorSceneManager.OpenScene(mainScene);
         EditorApplication.isPlaying = true;
+
+        Debug.Log(activeScene);
+
+    }
+
+    private static void EditorApplication_playModeStateChanged(PlayModeStateChange obj) {
+        OpenActiveScene();
+    }
+
+    private static void OpenActiveScene() {
+        if (EditorApplication.isPlaying == false) {
+            Debug.Log(activeScene);
+            EditorSceneManager.OpenScene(activeScene);
+        } else {
+            Debug.Log(activeScene);
+        }
+
+        EditorApplication.playModeStateChanged -= EditorApplication_playModeStateChanged;
     }
 }
