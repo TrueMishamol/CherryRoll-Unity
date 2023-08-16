@@ -6,11 +6,18 @@ public class PlayersScoresSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI outputText;
+    [SerializeField] private Transform winnerOverlay;
 
 
-    public void SetPlayerScore (KeyValuePair<ulong, int> clientScore) {
+    private void Awake() {
+        winnerOverlay.gameObject.SetActive(false);
+    }
+
+    public void SetPlayerScore (KeyValuePair<ulong, int> clientScore, bool isBestScore) {
         string playerName = PlayersStaticData.Instance.GetPlayerNameById(clientScore.Key);
 
         outputText.text = playerName + "  " + clientScore.Value;
+
+        if (isBestScore) winnerOverlay.gameObject.SetActive(true);
     }
 }
