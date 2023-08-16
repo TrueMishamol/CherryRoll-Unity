@@ -39,7 +39,7 @@ public class MultiplayerMenuUI : MonoBehaviour {
         });
 
         closeButton.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.MainMenuScene);
+            Loader.Load(Loader.Scene.MenuMainMenuScene);
         });
     }
 

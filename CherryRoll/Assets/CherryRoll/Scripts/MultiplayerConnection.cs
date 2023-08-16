@@ -87,7 +87,7 @@ public class MultiplayerConnection : NetworkBehaviour {
 
         OnRelayStarted?.Invoke(this, EventArgs.Empty);
 
-        Loader.LoadNetwork(Loader.Scene.LobbyScene);
+        Loader.LoadNetwork(Loader.Scene.GameLobbyScene);
     }
 
     public async void JoinRelay() {
@@ -112,7 +112,7 @@ public class MultiplayerConnection : NetworkBehaviour {
         bool canJoinOnGameStarted = true; //! Move to options
 
         if (canJoinOnGameStarted == false & 
-            SceneManager.GetActiveScene().name != Loader.Scene.LobbyScene.ToString()) 
+            SceneManager.GetActiveScene().name != Loader.Scene.GameLobbyScene.ToString()) 
         {
             connectionApprovalResponse.Approved = false;
             connectionApprovalResponse.Reason = "Game has already started";

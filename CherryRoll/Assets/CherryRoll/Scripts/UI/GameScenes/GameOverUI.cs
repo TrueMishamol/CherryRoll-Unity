@@ -14,7 +14,7 @@ public class GameOverUI : MonoBehaviour {
             //! Also display this button only on Host & on Client display Main Menu button
             if (NetworkManager.Singleton.LocalClientId == NetworkManager.ServerClientId) {
                 //^ Is Host
-                Loader.LoadNetwork(Loader.Scene.LobbyScene);
+                Loader.LoadNetwork(Loader.Scene.GameLobbyScene);
             }
         });
     }

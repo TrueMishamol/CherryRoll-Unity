@@ -10,7 +10,7 @@ public class LoadingUI : MonoBehaviour {
 
     private void Awake() {
         mainMenuButton.onClick.AddListener(() => {
-            Loader.Load(Loader.Scene.MainMenuScene);
+            Loader.Load(Loader.Scene.MenuMainMenuScene);
         });
     }
 

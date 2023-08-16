@@ -5,14 +5,14 @@ using UnityEngine.SceneManagement;
 public static class Loader {
 
     public enum Scene {
-        MainMenuScene,
-        LoadingScene,
-        MultiplayerMenuScene,
-        CharacterSetupScene,
-        LobbyScene,
-        BigBunGameScene,
-        MagicTableclothGameScene,
-        CollectThePlateGameScene,
+        MenuMainMenuScene,
+        MenuLoadingScene,
+        MenuMultiplayerScene,
+        MenuCharacterSetupScene,
+        GameLobbyScene,
+        GameBigBunScene,
+        GameMagicTableclothScene,
+        GameCollectThePlateScene,
     }
 
     private static Scene targetScene;
