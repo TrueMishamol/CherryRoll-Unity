@@ -8,6 +8,10 @@ using UnityEngine.UI;
 public class MagicTableclothGameOverUI : MonoBehaviour {
 
 
+    [SerializeField] private TextMeshProUGUI wonLoseText;
+    private string wonText = "You won!";
+    private string loseText = "You lose...";
+
     [SerializeField] private Button quitButton;
     [SerializeField] private TextMeshProUGUI quitButtonText;
     private string hostQuitText = "To Lobby";
@@ -34,7 +38,8 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
             quitButtonText.text = clientQuitText;
 
             quitButton.onClick.AddListener(() => {
-                Loader.LoadNetwork(Loader.Scene.GameLobbyScene);
+                NetworkManager.Singleton.Shutdown();
+                Loader.Load(Loader.Scene.MenuMainMenuScene);
             });
         }
     }
@@ -79,6 +84,12 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
             Transform gameOverSingleUI = Instantiate(playerTemplate, container);
             gameOverSingleUI.gameObject.SetActive(true);
             gameOverSingleUI.GetComponent<MagicTableclothGameOverSingleUI>().SetPlayerScore(clientScore, isBestScore);
+        }
+
+        if (bestScore == MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary[NetworkManager.Singleton.LocalClientId]) {
+            wonLoseText.text = wonText;
+        } else {
+            wonLoseText.text = loseText;
         }
     }
 }

@@ -46,7 +46,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 2075989092804482226, guid: 608b2c7675958c64e85bf534dc354a2b, type: 3}
-  spawnRadius: 5
 --- !u!114 &1990475654498181827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -467,7 +466,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 87
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -601,6 +600,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f599319c1d0cad4399c0f78648ff225, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minutesGamePlayingTimer: 3
+  secondsGamePlayingTimer: 0
 --- !u!114 &3547465506455151635
 MonoBehaviour:
   m_ObjectHideFlags: 0
