@@ -3,20 +3,20 @@ using UnityEngine;
 public class WaitingForOtherPlayersUI : MonoBehaviour {
 
     private void Start() {
-        GameStateAndTimerManager.Instance.OnLocalPlayerReadyChanged += GameStateAndTimerManager_OnLocalPlayerReadyChanged;
-        GameStateAndTimerManager.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
+        GameStateAndTimer.Instance.OnLocalPlayerReadyChanged += GameStateAndTimerManager_OnLocalPlayerReadyChanged;
+        GameStateAndTimer.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
 
         Hide();
     }
 
     private void GameStateAndTimerManager_OnStateChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsCountdownToStartActive()) {
+        if (GameStateAndTimer.Instance.IsCountdownToStartActive()) {
             Hide();
         }
     }
 
     private void GameStateAndTimerManager_OnLocalPlayerReadyChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsLocalPlayerReady()) {
+        if (GameStateAndTimer.Instance.IsLocalPlayerReady()) {
             Show();
         }
     }

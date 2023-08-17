@@ -4,10 +4,10 @@ using System.Linq;
 using Unity.Netcode;
 using UnityEngine;
 
-public class CollectThePlateGameManager : NetworkBehaviour {
+public class GameCollectThePlateManager : NetworkBehaviour {
 
 
-    public static CollectThePlateGameManager Instance { get; private set; }
+    public static GameCollectThePlateManager Instance { get; private set; }
 
     public event EventHandler OnItemDelivered;
     public event EventHandler OnItemDeliveredSuccess;

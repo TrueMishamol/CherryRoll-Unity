@@ -13,6 +13,18 @@ public class GameInput : MonoBehaviour {
 
     private PlayerInputActions playerInputActions;
 
+
+    //^ Smooth Moove Vector
+    private Vector2 currentInputVector;
+    private Vector2 smoothInputVelocity;
+    [SerializeField] private float smoothInputSpeed = .4f;
+
+    public event EventHandler OnInteractAction;
+    public event EventHandler OnInteractAlternateAction;
+    public event EventHandler OnMenuOpenCloseAction;
+
+
+    //^ Bindings
     public enum Binding {
         Move_Up,
         Move_Down,
@@ -28,18 +40,172 @@ public class GameInput : MonoBehaviour {
         InteractAlternate,
         InteractAlternate_Gamepad,
 
-        MenuOpenClose,
-        MenuOpenClose_Gamepad,
+        Menu,
+        Menu_Gamepad,
+
+        Close,
+        Close_Gamepad,
+
+        Select,
+        Select_Gamepad,
     }
 
-    //^ Smooth Moove Vector
-    private Vector2 currentInputVector;
-    private Vector2 smoothInputVelocity;
-    [SerializeField] private float smoothInputSpeed = .4f;
+    public enum BindingTag {
+        Keyboard,
+        Gamepad
+    }
 
-    public event EventHandler OnInteractAction;
-    public event EventHandler OnInteractAlternateAction;
-    public event EventHandler OnMenuOpenCloseAction;
+    public class BindingClass {
+        public string name { get; set; }
+        public InputAction inputAction { get; set; }
+        public int bindingIndex { get; set; }
+        public BindingTag tag { get; set; }
+    }
+
+    private BindingClass selectedBinding;
+
+
+    private void SetBindingVariable(Binding binding) {
+        switch (binding) {
+            default:
+            case Binding.Move_Up:
+                selectedBinding = new BindingClass {
+                    name = "Move Up",
+                    inputAction = playerInputActions.Player.Movement,
+                    bindingIndex = 1,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Move_Down:
+                selectedBinding = new BindingClass {
+                    name = "Move Down",
+                    inputAction = playerInputActions.Player.Movement,
+                    bindingIndex = 2,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Move_Left:
+                selectedBinding = new BindingClass {
+                    name = "Move Left",
+                    inputAction = playerInputActions.Player.Movement,
+                    bindingIndex = 3,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Move_Right:
+                selectedBinding = new BindingClass {
+                    name = "Move Right",
+                    inputAction = playerInputActions.Player.Movement,
+                    bindingIndex = 4,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Move_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Move Gamepad",
+                    inputAction = playerInputActions.Player.Movement,
+                    bindingIndex = 5,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.Jump:
+                selectedBinding = new BindingClass {
+                    name = "Jump",
+                    inputAction = playerInputActions.Player.Jump,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Jump_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Jump Gamepad",
+                    inputAction = playerInputActions.Player.Jump,
+                    bindingIndex = 1,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.Interact:
+                selectedBinding = new BindingClass {
+                    name = "Interact",
+                    inputAction = playerInputActions.Player.Interact,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Interact_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Interact Gamepad",
+                    inputAction = playerInputActions.Player.Interact,
+                    bindingIndex = 2,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.InteractAlternate:
+                selectedBinding = new BindingClass {
+                    name = "Interact Alternate",
+                    inputAction = playerInputActions.Player.InteractAlternate,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.InteractAlternate_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Interact Alternate Gamepad",
+                    inputAction = playerInputActions.Player.InteractAlternate,
+                    bindingIndex = 2,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.Menu:
+                selectedBinding = new BindingClass {
+                    name = "Menu",
+                    inputAction = playerInputActions.Player.Menu,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Menu_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Menu Gamepad",
+                    inputAction = playerInputActions.Player.Menu,
+                    bindingIndex = 1,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.Close:
+                selectedBinding = new BindingClass {
+                    name = "Close",
+                    inputAction = playerInputActions.Player.Close,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Close_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Close Gamepad",
+                    inputAction = playerInputActions.Player.Close,
+                    bindingIndex = 1,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+            case Binding.Select:
+                selectedBinding = new BindingClass {
+                    name = "Select",
+                    inputAction = playerInputActions.Player.Select,
+                    bindingIndex = 0,
+                    tag = BindingTag.Keyboard,
+                };
+                break;
+            case Binding.Select_Gamepad:
+                selectedBinding = new BindingClass {
+                    name = "Select Gamepad",
+                    inputAction = playerInputActions.Player.Select,
+                    bindingIndex = 1,
+                    tag = BindingTag.Gamepad,
+                };
+                break;
+        };
+    }
 
 
     private void Awake() {
@@ -56,7 +222,7 @@ public class GameInput : MonoBehaviour {
 
         playerInputActions.Player.Interact.performed += Interact_performed;
         playerInputActions.Player.InteractAlternate.performed += InteractAlternate_performed;
-        playerInputActions.Player.MenuOpenClose.performed += MenuOpenClose_performed;
+        playerInputActions.Player.Menu.performed += MenuOpenClose_performed;
 
         DontDestroyOnLoad(gameObject);
     }
@@ -88,101 +254,24 @@ public class GameInput : MonoBehaviour {
     }
 
     public string GetBindingText(Binding binding) {
-        switch (binding) {
-            default:
-            case Binding.Move_Up:
-                return playerInputActions.Player.Movement.bindings[1].ToDisplayString();
-            case Binding.Move_Down:
-                return playerInputActions.Player.Movement.bindings[2].ToDisplayString();
-            case Binding.Move_Left:
-                return playerInputActions.Player.Movement.bindings[3].ToDisplayString();
-            case Binding.Move_Right:
-                return playerInputActions.Player.Movement.bindings[4].ToDisplayString();
-            case Binding.Move_Gamepad:
-                return playerInputActions.Player.Movement.bindings[5].ToDisplayString();
+        SetBindingVariable(binding);
 
-            case Binding.Jump:
-                return playerInputActions.Player.Jump.bindings[0].ToDisplayString();
-            case Binding.Jump_Gamepad:
-                return playerInputActions.Player.Jump.bindings[1].ToDisplayString();
+        return selectedBinding.inputAction.bindings[selectedBinding.bindingIndex].ToDisplayString();
+    }
 
-            case Binding.Interact:
-                return playerInputActions.Player.Interact.bindings[0].ToDisplayString();
-            case Binding.Interact_Gamepad:
-                return playerInputActions.Player.Interact.bindings[2].ToDisplayString();
-            case Binding.InteractAlternate:
-                return playerInputActions.Player.InteractAlternate.bindings[0].ToDisplayString();
-            case Binding.InteractAlternate_Gamepad:
-                return playerInputActions.Player.InteractAlternate.bindings[2].ToDisplayString();
+    public string GetBindingName(Binding binding) {
+        SetBindingVariable(binding);
 
-            case Binding.MenuOpenClose:
-                return playerInputActions.Player.MenuOpenClose.bindings[0].ToDisplayString();
-            case Binding.MenuOpenClose_Gamepad:
-                return playerInputActions.Player.MenuOpenClose.bindings[1].ToDisplayString();
-        }
+        return selectedBinding.name;
     }
 
     public void RebindBinding(Binding binding, Action onActionRebound) {
         playerInputActions.Player.Disable();
 
-        InputAction inputAction;
-        int bindingIndex;
+        SetBindingVariable(binding);
 
-        switch (binding) {
-            default:
-            case Binding.Move_Up:
-                inputAction = playerInputActions.Player.Movement;
-                bindingIndex = 1;
-                break;
-            case Binding.Move_Down:
-                inputAction = playerInputActions.Player.Movement;
-                bindingIndex = 2;
-                break;
-            case Binding.Move_Left:
-                inputAction = playerInputActions.Player.Movement;
-                bindingIndex = 3;
-                break;
-            case Binding.Move_Right:
-                inputAction = playerInputActions.Player.Movement;
-                bindingIndex = 4;
-                break;
-            case Binding.Move_Gamepad:
-                inputAction = playerInputActions.Player.Movement;
-                bindingIndex = 5;
-                break;
-            case Binding.Jump:
-                inputAction = playerInputActions.Player.Jump;
-                bindingIndex = 0;
-                break;
-            case Binding.Jump_Gamepad:
-                inputAction = playerInputActions.Player.Jump;
-                bindingIndex = 1;
-                break;
-            case Binding.Interact:
-                inputAction = playerInputActions.Player.Interact;
-                bindingIndex = 0;
-                break;
-            case Binding.Interact_Gamepad:
-                inputAction = playerInputActions.Player.Interact;
-                bindingIndex = 2;
-                break;
-            case Binding.InteractAlternate:
-                inputAction = playerInputActions.Player.InteractAlternate;
-                bindingIndex = 0;
-                break;
-            case Binding.InteractAlternate_Gamepad:
-                inputAction = playerInputActions.Player.InteractAlternate;
-                bindingIndex = 2;
-                break;
-            case Binding.MenuOpenClose:
-                inputAction = playerInputActions.Player.MenuOpenClose;
-                bindingIndex = 0;
-                break;
-            case Binding.MenuOpenClose_Gamepad:
-                inputAction = playerInputActions.Player.MenuOpenClose;
-                bindingIndex = 1;
-                break;
-        }
+        InputAction inputAction = selectedBinding.inputAction;
+        int bindingIndex = selectedBinding.bindingIndex;
 
         inputAction.PerformInteractiveRebinding(bindingIndex)
             .OnComplete(callback => {
@@ -208,7 +297,7 @@ public class GameInput : MonoBehaviour {
     private void OnDestroy() {
         playerInputActions.Player.Interact.performed -= Interact_performed;
         playerInputActions.Player.InteractAlternate.performed -= InteractAlternate_performed;
-        playerInputActions.Player.MenuOpenClose.performed -= MenuOpenClose_performed;
+        playerInputActions.Player.Menu.performed -= MenuOpenClose_performed;
 
         playerInputActions.Dispose();
     }

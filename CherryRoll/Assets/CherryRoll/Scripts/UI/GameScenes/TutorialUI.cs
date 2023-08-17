@@ -4,7 +4,7 @@ public class TutorialUI : BaseMenuUI {
         Open();
         UpdateVisual();
 
-        if (!GameStateAndTimerManager.Instance.IsWaitingToStart()) {
+        if (!GameStateAndTimer.Instance.IsWaitingToStart()) {
             Close();
         }
     }
@@ -16,6 +16,6 @@ public class TutorialUI : BaseMenuUI {
 
     protected override void Close() {
         base.Close();
-        GameStateAndTimerManager.Instance.SetLocalPlayerReady();
+        GameStateAndTimer.Instance.SetLocalPlayerReady();
     }
 }

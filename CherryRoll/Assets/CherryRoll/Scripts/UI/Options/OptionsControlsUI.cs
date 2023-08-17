@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,24 +14,6 @@ public class OptionsControlsUI : MonoBehaviour {
     [SerializeField] private Transform pressToRebindTransform;
     [SerializeField] private Transform resetAllBindingsButtonTransform;
     [SerializeField] private Button resetAllBindingsButton;
-
-    public Dictionary<GameInput.Binding, string> bindingsNamesDictionary = new Dictionary<GameInput.Binding, string>() {
-        { GameInput.Binding.Move_Up, "Move Up" },
-        { GameInput.Binding.Move_Down, "Move Down" },
-        { GameInput.Binding.Move_Left, "Move Left" },
-        { GameInput.Binding.Move_Right, "Move Right" },
-        { GameInput.Binding.Jump, "Jump" },
-        { GameInput.Binding.Interact, "Interact" },
-        { GameInput.Binding.InteractAlternate, "Interact Alternate" },
-        { GameInput.Binding.MenuOpenClose, "Menu Open Close" },
-
-        { GameInput.Binding.Move_Gamepad, "Move Gamepad" },
-        { GameInput.Binding.Jump_Gamepad, "Jump Gamepad" },
-        { GameInput.Binding.Interact_Gamepad, "Interact Gamepad" },
-        { GameInput.Binding.InteractAlternate_Gamepad, "Interact Alternate Gamepad" },
-        { GameInput.Binding.MenuOpenClose_Gamepad, "Menu Open Close Gamepad" },
-    };
-
 
     private void Awake() {
         Instance = this;

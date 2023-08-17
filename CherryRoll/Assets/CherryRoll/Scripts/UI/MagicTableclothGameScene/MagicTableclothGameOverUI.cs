@@ -45,13 +45,13 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
     }
 
     private void Start() {
-        GameStateAndTimerManager.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
+        GameStateAndTimer.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
 
         Hide();
     }
 
     private void GameStateAndTimerManager_OnStateChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsGameOver()) {
+        if (GameStateAndTimer.Instance.IsGameOver()) {
             Show();
         } else {
             Hide();
@@ -76,7 +76,7 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<ulong, int> clientScore in MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary.OrderByDescending(key => key.Value)) {
+        foreach (KeyValuePair<ulong, int> clientScore in GameMagicTableclothManager.Instance.connectedPlayersScoresDictionary.OrderByDescending(key => key.Value)) {
             bool isBestScore = false;
             if (bestScore == -1) bestScore = clientScore.Value;
             if (clientScore.Value == bestScore) isBestScore = true;
@@ -86,7 +86,7 @@ public class MagicTableclothGameOverUI : MonoBehaviour {
             gameOverSingleUI.GetComponent<MagicTableclothGameOverSingleUI>().SetPlayerScore(clientScore, isBestScore);
         }
 
-        if (bestScore == MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary[NetworkManager.Singleton.LocalClientId]) {
+        if (bestScore == GameMagicTableclothManager.Instance.connectedPlayersScoresDictionary[NetworkManager.Singleton.LocalClientId]) {
             wonLoseText.text = wonText;
         } else {
             wonLoseText.text = loseText;

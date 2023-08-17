@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using Unity.Netcode;
 
-public class MagicTableclothGameManager : NetworkBehaviour {
+public class GameMagicTableclothManager : NetworkBehaviour {
 
 
-    public static MagicTableclothGameManager Instance { get; private set; }
+    public static GameMagicTableclothManager Instance { get; private set; }
 
     public event EventHandler OnItemDelivered;
     public event EventHandler OnPlayersScoresDictionaryUpdated;

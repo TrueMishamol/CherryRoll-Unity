@@ -3,10 +3,10 @@ using UnityEngine;
 using System;
 using Unity.Netcode;
 
-public class GameStateAndTimerManager : NetworkBehaviour {
+public class GameStateAndTimer : NetworkBehaviour {
 
 
-    public static GameStateAndTimerManager Instance { get; private set; }
+    public static GameStateAndTimer Instance { get; private set; }
 
 
     public event EventHandler OnStateChanged;

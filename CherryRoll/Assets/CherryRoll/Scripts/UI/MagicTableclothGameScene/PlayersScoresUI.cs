@@ -16,7 +16,7 @@ public class PlayersScoresUI : MonoBehaviour {
     }
 
     private void Start() {
-        MagicTableclothGameManager.Instance.OnPlayersScoresDictionaryUpdated += MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated;
+        GameMagicTableclothManager.Instance.OnPlayersScoresDictionaryUpdated += MagicTableclothGameManager_OnPlayersScoresDictionaryUpdated;
         PlayersStaticData.Instance.OnPlayerNameChanged += PlayersStaticData_OnPlayerNameChanged;
 
         UpdateVisual();
@@ -42,7 +42,7 @@ public class PlayersScoresUI : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<ulong, int> clientScore in MagicTableclothGameManager.Instance.connectedPlayersScoresDictionary.OrderByDescending(key => key.Value)) {
+        foreach (KeyValuePair<ulong, int> clientScore in GameMagicTableclothManager.Instance.connectedPlayersScoresDictionary.OrderByDescending(key => key.Value)) {
             bool isBestScore = false;
             if (bestScore == -1) bestScore = clientScore.Value;
             if (clientScore.Value == bestScore & bestScore != 0) isBestScore = true;

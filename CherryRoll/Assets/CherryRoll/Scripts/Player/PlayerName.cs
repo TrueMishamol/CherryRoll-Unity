@@ -27,8 +27,6 @@ public class PlayerName : NetworkBehaviour {
     }
 
     private void UpdateLocalPlayerName() {
-        Debug.Log("N UpdatePlayerNameClientRpc " + OwnerClientId);
-
         string playerName;
 
         try {

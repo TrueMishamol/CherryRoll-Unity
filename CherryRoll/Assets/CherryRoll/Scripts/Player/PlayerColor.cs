@@ -12,8 +12,6 @@ public class PlayerColor : NetworkBehaviour {
 
 
     public override void OnNetworkSpawn() {
-        Debug.Log(OwnerClientId + " PlayerColor spawned");
-
         PlayersStaticData.Instance.OnPlayerColorChanged += PlayersStaticData_OnPlayerColorChanged;
 
         PlayersStaticData.Instance.UpdatePlayerColorDictionaryServerRpc(OwnerClientId);
@@ -29,8 +27,6 @@ public class PlayerColor : NetworkBehaviour {
     }
 
     private void UpdateLocalPlayersColor() {
-        Debug.Log("C UpdateLocalPlayerColor " + OwnerClientId);
-
         Color color;
 
         try {

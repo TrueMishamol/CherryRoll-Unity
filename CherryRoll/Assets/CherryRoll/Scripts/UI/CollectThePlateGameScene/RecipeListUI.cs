@@ -17,8 +17,8 @@ public class RecipeListUI : MonoBehaviour {
     }
 
     private void Start() {
-        CollectThePlateGameManager.Instance.OnItemDelivered += CollectThePlateGameManager_OnItemDelivered;
-        CollectThePlateGameManager.Instance.OnIngredientsRecipeDictionaryUpdated += CollectThePlateGameManager_OnIngredientsRecipeDictionaryUpdated;
+        GameCollectThePlateManager.Instance.OnItemDelivered += CollectThePlateGameManager_OnItemDelivered;
+        GameCollectThePlateManager.Instance.OnIngredientsRecipeDictionaryUpdated += CollectThePlateGameManager_OnIngredientsRecipeDictionaryUpdated;
 
         //UpdateVisual();
     }
@@ -37,8 +37,8 @@ public class RecipeListUI : MonoBehaviour {
             Destroy(child.gameObject);
         }
 
-        foreach (KeyValuePair<ItemSO, int> itemCount in CollectThePlateGameManager.Instance.requiredIngredientsDictionary) {
-            int collectedItemCount = CollectThePlateGameManager.Instance.localCollectedIngredientsDictionary[itemCount.Key];
+        foreach (KeyValuePair<ItemSO, int> itemCount in GameCollectThePlateManager.Instance.requiredIngredientsDictionary) {
+            int collectedItemCount = GameCollectThePlateManager.Instance.localCollectedIngredientsDictionary[itemCount.Key];
 
             Transform recipeListSingleUITransform = Instantiate(recipeItemTemplate, container);
             recipeListSingleUITransform.gameObject.SetActive(true);

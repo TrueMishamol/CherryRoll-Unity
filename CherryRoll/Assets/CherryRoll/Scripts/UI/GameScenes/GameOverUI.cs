@@ -20,13 +20,13 @@ public class GameOverUI : MonoBehaviour {
     }
 
     private void Start() {
-        GameStateAndTimerManager.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
+        GameStateAndTimer.Instance.OnStateChanged += GameStateAndTimerManager_OnStateChanged;
 
         Hide();
     }
 
     private void GameStateAndTimerManager_OnStateChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsGameOver()) {
+        if (GameStateAndTimer.Instance.IsGameOver()) {
             Show();
 
             //! Show players' scores

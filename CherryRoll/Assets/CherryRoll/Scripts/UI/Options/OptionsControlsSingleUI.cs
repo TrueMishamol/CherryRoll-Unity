@@ -16,7 +16,7 @@ public class OptionsControlsSingleUI : MonoBehaviour {
         buttonText.text = GameInput.Instance.GetBindingText(binding);
 
         try {
-            bindingNameText.text = OptionsControlsUI.Instance.bindingsNamesDictionary[binding];
+            bindingNameText.text = GameInput.Instance.GetBindingName(binding);
         } catch {
             bindingNameText.text = binding.ToString();
         }

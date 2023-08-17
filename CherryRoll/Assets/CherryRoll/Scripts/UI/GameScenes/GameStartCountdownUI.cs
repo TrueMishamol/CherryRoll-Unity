@@ -17,13 +17,13 @@ public class GameStartCountdownUI : MonoBehaviour {
     }
 
     private void Start() {
-        GameStateAndTimerManager.Instance.OnStateChanged += KitchenGameManager_OnStateChanged;
+        GameStateAndTimer.Instance.OnStateChanged += KitchenGameManager_OnStateChanged;
 
         Hide();
     }
 
     private void KitchenGameManager_OnStateChanged(object sender, System.EventArgs e) {
-        if (GameStateAndTimerManager.Instance.IsCountdownToStartActive()) {
+        if (GameStateAndTimer.Instance.IsCountdownToStartActive()) {
             Show();
         } else {
             Hide();
@@ -31,7 +31,7 @@ public class GameStartCountdownUI : MonoBehaviour {
     }
 
     private void Update() {
-        int countdownNumber = Mathf.CeilToInt(GameStateAndTimerManager.Instance.GetCountdownToStartTimer());
+        int countdownNumber = Mathf.CeilToInt(GameStateAndTimer.Instance.GetCountdownToStartTimer());
         countdownText.text = countdownNumber.ToString();
 
         if (previousCountdownNumber != countdownNumber) {
