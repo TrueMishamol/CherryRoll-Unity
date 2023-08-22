@@ -13,7 +13,7 @@ public class GameStateAndTimer : NetworkBehaviour {
     public event EventHandler OnLocalPlayerReadyChanged;
 
 
-    private enum State {
+    public enum State {
         WaitingToStart,
         CountdownToStart,
         GamePlaying,
@@ -124,5 +124,11 @@ public class GameStateAndTimer : NetworkBehaviour {
 
     public bool IsGameOver() {
         return state.Value == State.GameOver;
+    }
+
+    public void ChangeStateOnServer(State newState) {
+        if (!IsServer) return;
+
+        state.Value = newState;
     }
 }

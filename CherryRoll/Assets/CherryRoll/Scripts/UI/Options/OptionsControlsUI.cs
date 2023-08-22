@@ -21,7 +21,6 @@ public class OptionsControlsUI : MonoBehaviour {
         controlButtonTemplate.gameObject.SetActive(false);
 
         closeButton.onClick.AddListener(() => {
-            //! Refactor. Пусть при закрытии не переназначает клавиши
             if (pressToRebindTransform.gameObject.activeSelf == false) {
                 Hide();
             } else {

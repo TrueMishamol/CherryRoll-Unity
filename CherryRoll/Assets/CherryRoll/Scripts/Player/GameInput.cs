@@ -55,7 +55,7 @@ public class GameInput : MonoBehaviour {
         Gamepad
     }
 
-    public class BindingClass {
+    private class BindingClass {
         public string name { get; set; }
         public InputAction inputAction { get; set; }
         public int bindingIndex { get; set; }
@@ -263,6 +263,12 @@ public class GameInput : MonoBehaviour {
         SetBindingVariable(binding);
 
         return selectedBinding.name;
+    }
+
+    public BindingTag GetBindingTag(Binding binding) {
+        SetBindingVariable(binding);
+
+        return selectedBinding.tag;
     }
 
     public void RebindBinding(Binding binding, Action onActionRebound) {

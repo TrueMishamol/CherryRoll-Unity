@@ -32,7 +32,7 @@ MonoBehaviour:
   - Items
   - ItemSO
   - LobbyScene
-  - MainMenuScene
+  - MenuMainMenuScene
   - MenuScenes
   - Meshes
   - MultiplayerMenuScene

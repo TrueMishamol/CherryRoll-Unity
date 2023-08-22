@@ -26,6 +26,7 @@ public class MainMenuUI : MonoBehaviour {
 
         mishamolLogoButton.onClick.AddListener(() =>
         {
+            //! Add a question alert-window "Are you shure you want to open link in external application / browser?"
             Application.OpenURL("https://mishamol.ru/");
         });
 

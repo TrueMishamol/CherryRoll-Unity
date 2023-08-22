@@ -20,8 +20,11 @@ public class GameCollectThePlateManager : NetworkBehaviour {
     public Dictionary<ItemSO, int> requiredIngredientsDictionary;
     private Dictionary<ItemSO, int> collectedIngredientsDictionary;
     public Dictionary<ItemSO, int> localCollectedIngredientsDictionary;
-    private int failedItemDeliveredAmount = 0;
     private int maxWrongItemPunishment = 3;
+    private bool isWin = false;
+
+    public NetworkVariable<int> successItemDeliveredAmount = new NetworkVariable<int>(0);
+    private NetworkVariable<int> failedItemDeliveredAmount = new NetworkVariable<int>(0);
 
 
     private void Awake() {
@@ -59,6 +62,8 @@ public class GameCollectThePlateManager : NetworkBehaviour {
             if (requiredIngredientsDictionary[itemSO] > collectedIngredientsDictionary[itemSO]) {
                 //^ Correct item
                 collectedIngredientsDictionary[itemSO]++;
+                successItemDeliveredAmount.Value++;
+                OnItemDeliveredSuccessClientRpc();
             } else {
                 //^ Extra item
                 WrongItemDelivered();
@@ -71,9 +76,15 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         UpdateIngredientsRecipeDictionaryServerRpc();
 
         OnItemDeliveredClientRpc();
+
+        if (CheckForWin()) {
+            GameStateAndTimer.Instance.ChangeStateOnServer(GameStateAndTimer.State.GameOver);
+        }
     }
 
     private void WrongItemDelivered() {
+        if (!IsServer) return;
+
         int randomCount = UnityEngine.Random.Range(1, maxWrongItemPunishment);
 
         for (int i = 4; i > 0; i--) {
@@ -82,9 +93,10 @@ public class GameCollectThePlateManager : NetworkBehaviour {
             collectedIngredientsDictionary[randomItemSO]--;
         }
 
-        failedItemDeliveredAmount++;
+        failedItemDeliveredAmount.Value++;
         maxWrongItemPunishment++;
 
+        OnItemDeliveredFailedClientRpc();
         SpawnKnifeServerRpc();
     }
 
@@ -96,10 +108,24 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         knifeNetworkObject.Spawn(true);
     }
 
+
+
     [ClientRpc]
     private void OnItemDeliveredClientRpc() {
         OnItemDelivered?.Invoke(this, EventArgs.Empty);
     }
+
+    [ClientRpc]
+    private void OnItemDeliveredSuccessClientRpc() {
+        OnItemDeliveredSuccess?.Invoke(this, EventArgs.Empty);
+    }
+
+    [ClientRpc]
+    private void OnItemDeliveredFailedClientRpc() {
+        OnItemDeliveredFailed?.Invoke(this, EventArgs.Empty);
+    }
+
+
 
     [ServerRpc(RequireOwnership = false)]
     private void UpdateIngredientsRecipeDictionaryServerRpc() {
@@ -123,5 +149,30 @@ public class GameCollectThePlateManager : NetworkBehaviour {
     [ClientRpc]
     private void OnIngredientsRecipeDictionaryUpdatedClientRpc() {
         OnIngredientsRecipeDictionaryUpdated?.Invoke(this, EventArgs.Empty);
+    }
+
+    public bool CheckForWin() {
+        //^ Only can run on server
+        if (!IsServer) Debug.LogError("CheckForWin only can be run from the Server. Since it's values updates only on Server or updates later on Clients");
+
+        if (isWin) return isWin;
+
+        foreach (KeyValuePair<ItemSO, int> itemCount in requiredIngredientsDictionary) {
+            int requiredItemCount = itemCount.Value;
+            int collectedItemCount = localCollectedIngredientsDictionary[itemCount.Key];
+
+            if (requiredItemCount - collectedItemCount != 0) return false;
+        }
+        isWin = true;
+
+        return isWin;
+    }
+
+    public int GetSuccessItemDeliveredAmount() {
+        return successItemDeliveredAmount.Value;
+    }
+
+    public int GetFailedItemDeliveredAmount() {
+        return failedItemDeliveredAmount.Value;
     }
 }
