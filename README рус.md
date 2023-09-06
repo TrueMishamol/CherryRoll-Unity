@@ -10,8 +10,9 @@
 
 # Обзор
 
-Обзор 0.1.5 на русском: 
-https://vk.com/wall-176267168_1603
+Дипломная презентация: [Google presentation](https://docs.google.com/presentation/d/1XenOZ0NFKVptTopsRaoRXkRW1-ENt1uw9O0B4S7aS-A/edit?usp=sharing)
+
+Обзор 0.1.5 на русском:  [VK Video](https://vk.com/wall-176267168_1603)
 
 # Концепты
 
