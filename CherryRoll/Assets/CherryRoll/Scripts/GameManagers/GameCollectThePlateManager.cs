@@ -48,12 +48,12 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         RecipeListUI.Instance.UpdateVisual(); //! Refactor?
     }
 
-    public void DeliverItem(Item item) {
-        DeliverItemServerRpc(item.GetNetworkObject());
+    public void DeliverItem(Item item, Player player) {
+        DeliverItemServerRpc(item.GetNetworkObject(), player.GetNetworkObject());
     }
 
     [ServerRpc(RequireOwnership = false)]
-    public void DeliverItemServerRpc(NetworkObjectReference itemNetworkObjectReference) {
+    public void DeliverItemServerRpc(NetworkObjectReference itemNetworkObjectReference, NetworkObjectReference playerNetworkObjectReference) {
         itemNetworkObjectReference.TryGet(out NetworkObject itemNetworkObject);
         Item item = itemNetworkObject.GetComponent<Item>();
         ItemSO itemSO = item.GetItemSO();
@@ -66,11 +66,11 @@ public class GameCollectThePlateManager : NetworkBehaviour {
                 OnItemDeliveredSuccessClientRpc();
             } else {
                 //^ Extra item
-                WrongItemDelivered();
+                WrongItemDelivered(playerNetworkObjectReference);
             }
         } else {
             //^ Wrong item
-            WrongItemDelivered();
+            WrongItemDelivered(playerNetworkObjectReference);
         }
 
         UpdateIngredientsRecipeDictionaryServerRpc();
@@ -82,7 +82,7 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         }
     }
 
-    private void WrongItemDelivered() {
+    private void WrongItemDelivered(NetworkObjectReference playerNetworkObjectReference) {
         if (!IsServer) return;
 
         int randomCount = UnityEngine.Random.Range(1, maxWrongItemPunishment);
@@ -97,18 +97,33 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         maxWrongItemPunishment++;
 
         OnItemDeliveredFailedClientRpc();
-        SpawnKnifeServerRpc();
+        SpawnKnifeServerRpc(playerNetworkObjectReference);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnKnifeServerRpc() {
+    private void SpawnKnifeServerRpc(NetworkObjectReference targetNetworkObjectReference) {
         Transform knifeTransform = Instantiate(knifePrefab);
 
         NetworkObject knifeNetworkObject = knifeTransform.GetComponent<NetworkObject>();
         knifeNetworkObject.Spawn(true);
+
+        SetSpawnKnifePositionClientRpc(knifeNetworkObject, targetNetworkObjectReference);
+    }
+
+    //^ To avoid spawn position lag on clients, we should run spawn positioning not only on server
+    [ClientRpc]
+    private void SetSpawnKnifePositionClientRpc(NetworkObjectReference knifeNetworkObjectReference, NetworkObjectReference targetNetworkObjectReference) {
+        knifeNetworkObjectReference.TryGet(out NetworkObject knifeNetworkObject);
+
+        targetNetworkObjectReference.TryGet(out NetworkObject targetNetworkObject);
+        Transform targetTransform = targetNetworkObject.gameObject.transform;
+
+        knifeNetworkObject.transform.position = targetTransform.position + (Vector3.up * 10);
+        knifeNetworkObject.transform.rotation = targetTransform.rotation;
     }
 
 
+    //^ On Item Delivered
 
     [ClientRpc]
     private void OnItemDeliveredClientRpc() {
