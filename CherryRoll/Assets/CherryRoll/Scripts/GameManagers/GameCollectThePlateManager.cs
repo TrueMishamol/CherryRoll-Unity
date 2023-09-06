@@ -107,14 +107,6 @@ public class GameCollectThePlateManager : NetworkBehaviour {
         NetworkObject knifeNetworkObject = knifeTransform.GetComponent<NetworkObject>();
         knifeNetworkObject.Spawn(true);
 
-        SetSpawnKnifePositionClientRpc(knifeNetworkObject, targetNetworkObjectReference);
-    }
-
-    //^ To avoid spawn position lag on clients, we should run spawn positioning not only on server
-    [ClientRpc]
-    private void SetSpawnKnifePositionClientRpc(NetworkObjectReference knifeNetworkObjectReference, NetworkObjectReference targetNetworkObjectReference) {
-        knifeNetworkObjectReference.TryGet(out NetworkObject knifeNetworkObject);
-
         targetNetworkObjectReference.TryGet(out NetworkObject targetNetworkObject);
         Transform targetTransform = targetNetworkObject.gameObject.transform;
 
