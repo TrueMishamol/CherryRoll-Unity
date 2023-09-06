@@ -104,14 +104,14 @@ public class GameCollectThePlateManager : NetworkBehaviour {
     private void SpawnKnifeServerRpc(NetworkObjectReference targetNetworkObjectReference) {
         Transform knifeTransform = Instantiate(knifePrefab);
 
-        NetworkObject knifeNetworkObject = knifeTransform.GetComponent<NetworkObject>();
-        knifeNetworkObject.Spawn(true);
-
         targetNetworkObjectReference.TryGet(out NetworkObject targetNetworkObject);
         Transform targetTransform = targetNetworkObject.gameObject.transform;
 
-        knifeNetworkObject.transform.position = targetTransform.position + (Vector3.up * 10);
-        knifeNetworkObject.transform.rotation = targetTransform.rotation;
+        knifeTransform.transform.position = targetTransform.position + (Vector3.up * 10);
+        knifeTransform.transform.rotation = targetTransform.rotation;
+
+        NetworkObject knifeNetworkObject = knifeTransform.GetComponent<NetworkObject>();
+        knifeNetworkObject.Spawn(true);
     }
 
 
