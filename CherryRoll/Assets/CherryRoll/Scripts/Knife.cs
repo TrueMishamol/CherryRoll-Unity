@@ -2,7 +2,7 @@ using Unity.Netcode;
 
 public class Knife : NetworkBehaviour {
 
-    private float knifeLifeTime = 1.5f; //^ 2.5f
+    private float knifeLifeTime = 2.5f;
 
     private void Start() {
         if (!IsServer) return;

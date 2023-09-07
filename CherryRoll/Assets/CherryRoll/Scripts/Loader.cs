@@ -1,4 +1,3 @@
-using System;
 using Unity.Netcode;
 using UnityEngine.SceneManagement;
 
@@ -21,7 +20,6 @@ public static class Loader {
     public static void Load(Scene targetScene) {
         Loader.targetScene = targetScene;
 
-        //SceneManager.LoadScene(Scene.LoadingScene.ToString());
         SceneManager.LoadScene(targetScene.ToString());
     }
 

@@ -53,7 +53,6 @@ public class PlayersStaticData : NetworkBehaviour {
         foreach (KeyValuePair<ulong, string> playerName in playerNameDictionary) {
             UpdatePlayerNameDictionaryClientRpc(playerName.Value, playerName.Key, clientRpcParams);
         }
-        //! finish update - Update mesh
     }
 
     [ClientRpc]
@@ -92,7 +91,6 @@ public class PlayersStaticData : NetworkBehaviour {
         foreach (KeyValuePair<ulong, Color> playerColor in playerColorDictionary) {
             UpdatePlayerColorDictionaryClientRpc(playerColor.Value, playerColor.Key, clientRpcParams);
         }
-        //! finish update - Update mesh
     }
 
     [ClientRpc]

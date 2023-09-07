@@ -20,19 +20,11 @@ public class CollectThePlateGameOverUI : BaseGameOverUI {
             wonLoseText.text = loseText;
         }
 
-        //GameCollectThePlateManager.Instance.OnItemDeliveredSuccess += GameCollectThePlateManager_OnItemDeliveredSuccess;
         GameCollectThePlateManager.Instance.successItemDeliveredAmount.OnValueChanged += SuccessItemDeliveredAmount_OnValueChanged;
 
         successText.text = successItemDeliveredTitle + GameCollectThePlateManager.Instance.GetSuccessItemDeliveredAmount().ToString();
         failedText.text = failedItemDeliveredTitle + GameCollectThePlateManager.Instance.GetFailedItemDeliveredAmount().ToString();
     }
-
-    //private void GameCollectThePlateManager_OnItemDeliveredSuccess(object sender, System.EventArgs e) {
-    //    GameCollectThePlateManager.Instance.OnItemDeliveredSuccess -= GameCollectThePlateManager_OnItemDeliveredSuccess;
-
-    //    successText.text = successItemDeliveredTitle + GameCollectThePlateManager.Instance.GetSuccessItemDeliveredAmount().ToString();
-    //    failedText.text = failedItemDeliveredTitle + GameCollectThePlateManager.Instance.GetFailedItemDeliveredAmount().ToString();
-    //}
 
     private void SuccessItemDeliveredAmount_OnValueChanged(int previousValue, int newValue) {
         GameCollectThePlateManager.Instance.successItemDeliveredAmount.OnValueChanged -= SuccessItemDeliveredAmount_OnValueChanged;

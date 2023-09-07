@@ -11,7 +11,6 @@ public class RecipeListSingleUI : MonoBehaviour {
     public void SetItem(KeyValuePair<ItemSO, int> itemCount, int collectedItemCount) {
         ItemSO itemSO = itemCount.Key;
 
-        //outputText.text = itemSO.itemName + "  " + collectedItemCount + " / " + itemCount.Value;
         int remainItemCount = itemCount.Value - collectedItemCount;
         outputText.text = itemSO.itemName + "  " + remainItemCount;
 

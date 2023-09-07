@@ -41,7 +41,7 @@ public class MultiplayerPlayersCount : NetworkBehaviour {
     }
 
     private void PlayersCount_OnValueChanged(int previousValue, int newValue) {
-        UpdatePlayersCount(); //! Maybe I don't extra update 
+        UpdatePlayersCount();
 
         OnPlayerCountUpdate?.Invoke(this, EventArgs.Empty);
     }

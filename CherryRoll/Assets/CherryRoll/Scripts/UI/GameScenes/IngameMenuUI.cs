@@ -69,7 +69,7 @@ public class IngameMenuUI : BaseMenuUI {
     }
 
     private void MultiplayerPlayersCount_OnPlayerCountUpdate(object sender, EventArgs e) {
-        UpdatePlayersCountOutputTextServerRpc(); //! Maybe I don't need RPC
+        UpdatePlayersCountOutputTextServerRpc();
     }
 
     private void NetworkHandleConnection_OnJoinCodeUpdated(object sender, EventArgs e) {

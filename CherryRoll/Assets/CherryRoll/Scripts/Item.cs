@@ -32,8 +32,6 @@ public class Item : NetworkBehaviour {
         itemParentNetworkObjectReference.TryGet(out NetworkObject itemParentNetworkObject);
         IItemParent itemParent = itemParentNetworkObject.GetComponent<IItemParent>();
 
-        //Debug.Log("Cleat Item");
-
         if (this.itemParent != null) {
             //^ Clear Current Item Parent (to re-Parent)
             this.itemParent.ClearItem();

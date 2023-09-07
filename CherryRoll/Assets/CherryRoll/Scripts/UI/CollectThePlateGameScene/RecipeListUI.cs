@@ -19,8 +19,6 @@ public class RecipeListUI : MonoBehaviour {
     private void Start() {
         GameCollectThePlateManager.Instance.OnItemDelivered += CollectThePlateGameManager_OnItemDelivered;
         GameCollectThePlateManager.Instance.OnIngredientsRecipeDictionaryUpdated += CollectThePlateGameManager_OnIngredientsRecipeDictionaryUpdated;
-
-        //UpdateVisual();
     }
 
     private void CollectThePlateGameManager_OnIngredientsRecipeDictionaryUpdated(object sender, System.EventArgs e) {

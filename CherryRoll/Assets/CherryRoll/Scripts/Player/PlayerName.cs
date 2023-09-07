@@ -35,7 +35,7 @@ public class PlayerName : NetworkBehaviour {
             if (IsOwner) {
                 PlayersStaticData.Instance.SetPlayerNameById(GenerateDefaultPlayerName(), OwnerClientId);
             }
-            playerName = GenerateDefaultPlayerName(); //! In case no update
+            playerName = GenerateDefaultPlayerName(); //^ In case no update
         }
 
         playerDisplayName.text = playerName;

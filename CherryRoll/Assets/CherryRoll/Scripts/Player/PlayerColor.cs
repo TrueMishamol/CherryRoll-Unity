@@ -33,7 +33,7 @@ public class PlayerColor : NetworkBehaviour {
             color = PlayersStaticData.Instance.GetPlayerColorById(OwnerClientId);
         } catch (KeyNotFoundException) {
             if (IsOwner) {
-                PlayersStaticData.Instance.SetPlayerColorById(defaultPlayerColor, OwnerClientId); //! Триггерит OnPlayerColorChanged => повторное UpdateLocalPlayersColor
+                PlayersStaticData.Instance.SetPlayerColorById(defaultPlayerColor, OwnerClientId);
             }
             color = defaultPlayerColor;
         }
