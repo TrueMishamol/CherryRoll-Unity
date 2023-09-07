@@ -38,20 +38,25 @@ public class GameMagicTableclothManager : NetworkBehaviour {
             allPlayersScoresDictionary[clientId] = 0;
         }
 
-        UpdatePlayersScoresDictionaryServerRpc();
+        RecreatePlayersScoresDictionaryServerRpc();
     }
 
     private void NetworkManager_OnClientDisconnectCallback(ulong clientId) {
-        //! Срабатывает, но UI не обновляется
-        //! Сделать типа Player.onDestroy
-        UpdatePlayersScoresDictionaryServerRpc();
+        RemovePlayerFromDictionaryClientRpc(clientId);
+
+        OnPlayersScoresDictionaryUpdatedClientRpc();
+    }
+
+    [ClientRpc]
+    private void RemovePlayerFromDictionaryClientRpc(ulong clientId) {
+        connectedPlayersScoresDictionary.Remove(clientId);
     }
 
     private void NetworkManager_OnClientConnectedCallback(ulong clientId) {
         //^ Добавление новой строки в словарь с новым подключенным клиентом
         allPlayersScoresDictionary[clientId] = 0;
 
-        UpdatePlayersScoresDictionaryServerRpc();
+        RecreatePlayersScoresDictionaryServerRpc();
     }
 
     private void Player_OnAnyPlayerSpawned(object sender, EventArgs e) {
@@ -65,22 +70,22 @@ public class GameMagicTableclothManager : NetworkBehaviour {
     [ServerRpc(RequireOwnership = false)]
     public void DeliverItemScoreServerRpc(int itemCost = 1, ServerRpcParams serverRpcParams = default) {
         allPlayersScoresDictionary[serverRpcParams.Receive.SenderClientId] += itemCost;
-        UpdatePlayersScoresDictionaryServerRpc(); //! Лучше локально увеличить значение у каждого клиента, чем пересоздавать словарь.
+        RecreatePlayersScoresDictionaryServerRpc();
 
         OnItemDeliveredClientRpc();
     }
 
     [ClientRpc]
     private void OnItemDeliveredClientRpc() {
-        OnItemDelivered?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
+        OnItemDelivered?.Invoke(this, EventArgs.Empty);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void UpdatePlayersScoresDictionaryServerRpc() {
+    private void RecreatePlayersScoresDictionaryServerRpc() {
         CreatePlayersScoresDictionaryClientRpc();
 
         foreach (ulong clientId in NetworkManager.Singleton.ConnectedClientsIds) {
-            UpdatePlayersScoresDictionaryClientRpc(clientId, allPlayersScoresDictionary[clientId]);
+            UpdatePlayerScoreInDictionaryClientRpc(clientId, allPlayersScoresDictionary[clientId]);
         }
 
         OnPlayersScoresDictionaryUpdatedClientRpc();
@@ -92,13 +97,13 @@ public class GameMagicTableclothManager : NetworkBehaviour {
     }
 
     [ClientRpc]
-    private void UpdatePlayersScoresDictionaryClientRpc(ulong clientId, int score) {
+    private void UpdatePlayerScoreInDictionaryClientRpc(ulong clientId, int score) {
         connectedPlayersScoresDictionary[clientId] = score;
     }
 
     [ClientRpc]
     private void OnPlayersScoresDictionaryUpdatedClientRpc() {
-        OnPlayersScoresDictionaryUpdated?.Invoke(this, EventArgs.Empty); //! Зачем для этого создавать отдельную функцию
+        OnPlayersScoresDictionaryUpdated?.Invoke(this, EventArgs.Empty);
     }
 
     public override void OnDestroy() {
