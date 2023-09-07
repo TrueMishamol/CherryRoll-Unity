@@ -30,8 +30,6 @@ public class GameCollectThePlateManager : NetworkBehaviour {
     private void Awake() {
         Instance = this;
 
-        //! Optimize
-
         requiredIngredientsDictionary = new Dictionary<ItemSO, int>();
         collectedIngredientsDictionary = new Dictionary<ItemSO, int>();
         localCollectedIngredientsDictionary = new Dictionary<ItemSO, int>();
@@ -45,7 +43,7 @@ public class GameCollectThePlateManager : NetworkBehaviour {
 
     private void Start() {
         UpdateIngredientsRecipeDictionaryServerRpc();
-        RecipeListUI.Instance.UpdateVisual(); //! Refactor?
+        RecipeListUI.Instance.UpdateVisual();
     }
 
     public void DeliverItem(Item item, Player player) {
