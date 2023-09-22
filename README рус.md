@@ -1,6 +1,6 @@
 ### [README on English](https://github.com/TrueMishamol/CherryRoll/blob/master/README.md)
 
-# Вишнёвая булка
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Вишнёвая булка <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
 ### [Скачать](https://github.com/TrueMishamol/CherryRoll/releases)
 
@@ -8,15 +8,15 @@
 
 Сделано на Unity 3D
 
-# Обзор
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Обзор <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
 Дипломная презентация: [Google presentation](https://docs.google.com/presentation/d/1XenOZ0NFKVptTopsRaoRXkRW1-ENt1uw9O0B4S7aS-A/edit?usp=sharing)
 
-Обзор 0.1.5 на русском:  [VK Video](https://vk.com/wall-176267168_1603)
+Обзор 0.1.5:  [VK Video](https://vk.com/wall-176267168_1603)
 
-# Концепты
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Концепты <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
-![Концептарт](https://github.com/TrueMishamol/CherryRoll/blob/master/Concept%20Arts/9.png)
+![Концептарт](https://github.com/TrueMishamol/CherryRoll/assets/101403719/4d677de7-a475-408f-82aa-cc3b4c613187)
 
 Ура! Я готов продемонстрировать вам свои концепты для новой игры Cherry Roll. Это будет мультиплеерная игра для соревнования с друзьями. Ну как Амогусы или Mario Party или Plate Up, но только с совершенно другим сеттингом.
 
@@ -40,7 +40,7 @@
 
 Игра планируется классная, но я обязан предупредить вас. Концепты - это не то как игра будет выглядеть в итоге. Многие механики от первоначальных идей будут изменены или тотально убраны. Надеюсь я сумею добавить хотя бы 50% от придуманного, и это уже будет супер! И ещё, игра планируется обновляться. Поэтому в будущем появятся новые режимы, возможно и те, которые я не успел добавить
 
-## Контакты
-Мой сайт: [mishamol.ru](https://mishamol.ru)
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Контакты <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
+Мой сайт: [Mishamol.ru](https://mishamol.ru)
 
 Группв ВК с новостями: [vk.com/mishamol_news](https://vk.com/mishamol_news)
