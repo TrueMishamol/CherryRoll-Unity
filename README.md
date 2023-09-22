@@ -1,6 +1,6 @@
 ### [Читать на русском](https://github.com/TrueMishamol/CherryRoll/blob/master/README%20%D1%80%D1%83%D1%81.md)
 
-# Cherry Roll
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Cherry Roll <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
 ### [Download](https://github.com/TrueMishamol/CherryRoll/releases)
 
@@ -8,15 +8,15 @@ A multiplayer game made for collage. Contains several mini-games to play with fr
 
 Made with Unity 3D
 
-# Overview
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Overview <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
 Graduation presentation: [Google presentation](https://docs.google.com/presentation/d/1XenOZ0NFKVptTopsRaoRXkRW1-ENt1uw9O0B4S7aS-A/edit?usp=sharing)
 
-Обзор 0.1.5 на русском:  [VK Video](https://vk.com/wall-176267168_1603)
+Video review 0.1.5:  [VK Video](https://vk.com/wall-176267168_1603)
 
-# Concept
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Concept <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
 
-![Concep art](https://github.com/TrueMishamol/CherryRoll/blob/master/Concept%20Arts/9.png)
+![Concept Art](https://github.com/TrueMishamol/CherryRoll/assets/101403719/3f4b55db-d197-4ab5-92e9-e263b403d4c4)
 
 Hooray! I'm ready to show you my concepts for the new Cherry Roll game. This will be a multiplayer game to compete with friends. Well, like Amogus or Mario Party or Plate Up, but with a completely different setting
 
@@ -40,7 +40,7 @@ It is planned to create several mini-games, but there is one main - cook a cherr
 
 The game is going to be great, but I have to warn you. Concepts are not how the game will look like in the end. Many mechanics from the original ideas will be changed or completely removed. I hope I can add at least 50% of what I came up with, and even if so, it already will be amazing! Also, the game will be updating in the future. Therefore, in the future there will be new mini-games, maybe even those that I did not have time to add
 
-## Contacts
-My site: [mishamol.ru](https://mishamol.ru)
+# <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px"> Contacts <img src="https://github.com/TrueMishamol/CherryRoll/assets/101403719/dbd3efb4-a332-4e34-8bd2-584d48e38c4f" width="32px" height="32px">
+My site: [Mishamol.ru](https://mishamol.ru)
 
 Updates on game & other stuff: [vk.com/mishamol_news](https://vk.com/mishamol_news)
