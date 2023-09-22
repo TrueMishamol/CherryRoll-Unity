@@ -1,0 +1,95 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2504698577340540819
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -543026048736305712, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4657409673129676241, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4900390797501530018, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      propertyPath: m_Name
+      value: RandomSpawnCounter
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 2878289954227786194, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4900390797501530018, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -2340140238945398620}
+  m_SourcePrefab: {fileID: 100100000, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+--- !u!4 &2241257582073850723 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4456577846632418544, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+  m_PrefabInstance: {fileID: 2504698577340540819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7404996830861514801 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4900390797501530018, guid: af1afed1b433a9b44934d0c9fb47e545, type: 3}
+  m_PrefabInstance: {fileID: 2504698577340540819}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-2340140238945398620
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7404996830861514801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fce70239005f647837eb3c4b9e35b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemHolder: {fileID: 2241257582073850723}
+  itemList: {fileID: 11400000, guid: 902cae2c31417c1468473f3599b7a059, type: 2}

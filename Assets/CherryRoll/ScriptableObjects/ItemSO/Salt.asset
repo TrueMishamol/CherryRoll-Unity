@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b429d1dcecb37d4e8509ff86becb5d6, type: 3}
+  m_Name: Salt
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6238363730382652176, guid: 39f1b830e357918478c5f92cd3acd386, type: 3}
+  sprite: {fileID: 0}
+  itemName: Salt
+  itemCost: 1
