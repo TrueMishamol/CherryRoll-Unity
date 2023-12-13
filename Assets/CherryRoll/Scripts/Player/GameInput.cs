@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 public class GameInput : MonoBehaviour {
 
 
-
     private const string PLAYER_PREFS_BINDINGS = "InputBindings";
 
 
@@ -15,7 +14,7 @@ public class GameInput : MonoBehaviour {
     private PlayerInputActions playerInputActions;
 
 
-    //^ Smooth Moove Vector
+    //^ Smooth Move Vector
     private Vector2 currentInputVector;
     private Vector2 smoothInputVelocity;
     [SerializeField] private float smoothInputSpeed = .4f;
